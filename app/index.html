@@ -187,11 +187,23 @@
 
   /* ---------- Dialogs ---------- */
   dialog {
-    width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 24px);
+    width: min(560px, calc(100vw - 24px));
+    max-height: calc(100vh - 24px); /* للمتصفحات التي لا تدعم dvh */
+    max-height: calc(100dvh - 24px);
     border: 1px solid var(--border); border-radius: 18px; padding: 0;
     background: var(--surface); color: var(--text);
   }
   dialog::backdrop { background: rgba(10, 8, 20, .5); }
+  /* بديل للمتصفحات والمعاينات التي لا تدعم <dialog> */
+  dialog:not([open]) { display: none; }
+  /* التوسيط بـ left/right + margin:auto لا يتأثر باتجاه RTL */
+  dialog.fallback[open] {
+    display: block; position: fixed; z-index: 40; overflow: auto;
+    left: 0; right: 0; top: 50%; bottom: auto; margin: 0 auto;
+    transform: translateY(-50%);
+    max-height: calc(100vh - 24px);
+  }
+  .dlg-backdrop { position: fixed; inset: 0; z-index: 39; background: rgba(10, 8, 20, .5); }
   .dlg-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); }
   .dlg-head h2 { margin: 0; font-size: 17px; }
   .dlg-body { padding: 16px; display: grid; gap: 14px; }
@@ -251,6 +263,12 @@
 </header>
 
 <main class="wrap">
+  <!-- تختفي فور اكتمال التشغيل؛ بقاؤها يعني أن JavaScript لا يعمل -->
+  <div id="bootNotice" class="warn">
+    <strong>المكتبة لم تبدأ بعد.</strong>
+    إذا بقيت هذه الرسالة ظاهرة، فهذه المعاينة لا تشغّل JavaScript، ولن تعمل الأزرار. افتح الملف في Safari أو Chrome.
+  </div>
+  <div id="errorBox" class="warn" hidden></div>
   <div id="storageWarn" class="warn" hidden></div>
   <div id="backupHint" class="hint" hidden>
     <span>لديك تعديلات لم تُحفظ في نسخة احتياطية.</span>
@@ -302,7 +320,8 @@
       </label>
     </div>
     <div class="dlg-foot">
-      <button class="btn primary" type="submit" value="save">حفظ</button>
+      <!-- type="button": المعاينات المعزولة بلا allow-forms تحجب إرسال النماذج بصمت -->
+      <button id="editSave" class="btn primary" type="button">حفظ</button>
       <button class="btn" type="button" data-close>إلغاء</button>
     </div>
   </form>
@@ -342,9 +361,32 @@
   </div>
 </dialog>
 
+<!-- نافذة تأكيد داخل الصفحة، لأن المعاينات المعزولة تحجب confirm() -->
+<dialog id="confirmDlg" aria-labelledby="confirmMsg">
+  <div class="dlg-body">
+    <p id="confirmMsg" style="margin:0;white-space:pre-line"></p>
+  </div>
+  <div class="dlg-foot">
+    <button id="confirmYes" class="btn primary" type="button">تأكيد</button>
+    <button id="confirmNo" class="btn" type="button">إلغاء</button>
+  </div>
+</dialog>
+
 <input type="file" id="fileInput" accept="application/json,.json" hidden>
 <div id="toast" role="status" aria-live="polite"></div>
 
+<script>
+  // يعرض أخطاء JavaScript على الصفحة نفسها، حتى يمكن تشخيصها من الهاتف
+  (() => {
+    const report = msg => {
+      const box = document.getElementById('errorBox');
+      box.textContent = 'خطأ في الصفحة: ' + msg;
+      box.hidden = false;
+    };
+    window.addEventListener('error', e => report(e.message || 'غير معروف'));
+    window.addEventListener('unhandledrejection', e => report(String(e.reason && e.reason.message || e.reason)));
+  })();
+</script>
 <script>
 (() => {
   'use strict';
@@ -722,6 +764,53 @@ No text, no letters, no watermarks in the image.`,
     toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
   }
 
+  // فتح النوافذ مع بديل حين لا يتوفر showModal (iOS أقدم من 15.4 وبعض المعاينات)
+  let backdrop = null;
+  function openDialog(d) {
+    if (d.hasAttribute('open')) return;
+    if (typeof d.showModal === 'function') {
+      try { d.showModal(); return; } catch (_) {}
+    }
+    d.classList.add('fallback');
+    d.setAttribute('open', '');
+    if (!backdrop) {
+      backdrop = el('div', { class: 'dlg-backdrop' });
+      backdrop.addEventListener('click', () => {
+        const all = document.querySelectorAll('dialog.fallback[open]');
+        if (all.length) closeDialog(all[all.length - 1]);
+      });
+    }
+    document.body.append(backdrop);
+  }
+
+  function closeDialog(d) {
+    if (!d.hasAttribute('open')) return;
+    if (!d.classList.contains('fallback') && typeof d.close === 'function') {
+      d.close(); // يطلق حدث close تلقائيًا
+      return;
+    }
+    d.removeAttribute('open');
+    d.classList.remove('fallback');
+    if (backdrop && !document.querySelector('dialog.fallback[open]')) backdrop.remove();
+    d.dispatchEvent(new Event('close'));
+  }
+
+  let confirmResolve = null;
+  function askConfirm(msg, yesLabel = 'تأكيد') {
+    if (confirmResolve) confirmResolve(false);
+    $('#confirmMsg').textContent = msg;
+    $('#confirmYes').textContent = yesLabel;
+    openDialog($('#confirmDlg'));
+    return new Promise(res => { confirmResolve = res; });
+  }
+
+  function settleConfirm(ok) {
+    const r = confirmResolve;
+    confirmResolve = null;
+    closeDialog($('#confirmDlg'));
+    if (r) r(ok);
+  }
+
   async function copyText(text) {
     try {
       await navigator.clipboard.writeText(text);
@@ -766,13 +855,12 @@ No text, no letters, no watermarks in the image.`,
     f.text.value = p ? p.text : '';
     f.tags.value = p ? p.tags.join('، ') : '';
     f.fav.checked = p ? p.fav : false;
-    $('#editDlg').showModal();
+    openDialog($('#editDlg'));
     if (!p) f.title.focus();
   }
 
-  function submitEditor(e) {
-    e.preventDefault();
-    const f = e.target;
+  function saveEditor() {
+    const f = $('#editForm');
     const data = {
       title: f.title.value, project: f.project.value, stage: f.stage.value,
       text: f.text.value, tags: f.tags.value, fav: f.fav.checked,
@@ -791,7 +879,7 @@ No text, no letters, no watermarks in the image.`,
       toast('تمت الإضافة');
     }
     save();
-    $('#editDlg').close();
+    closeDialog($('#editDlg'));
     render();
   }
 
@@ -845,7 +933,8 @@ No text, no letters, no watermarks in the image.`,
     if (!valid.length) { toast('لا يوجد برومبت صالح في الملف'); return; }
 
     if (importMode === 'replace') {
-      if (!confirm(`سيُحذف كل ما في المكتبة الآن (${state.prompts.length} برومبت) ويُستبدل بـ ${valid.length} من الملف. متابعة؟`)) return;
+      const ok = await askConfirm(`سيُحذف كل ما في المكتبة الآن (${state.prompts.length} برومبت) ويُستبدل بـ ${valid.length} من الملف. متابعة؟`, 'استبدال');
+      if (!ok) return;
       state.prompts = valid;
       save();
       toast(`تم الاستبدال: ${valid.length}` + (skipped ? ` · تجاهل ${skipped} غير صالح` : ''));
@@ -866,7 +955,7 @@ No text, no letters, no watermarks in the image.`,
       if (skipped) parts.push(`غير صالح ${skipped}`);
       toast(parts.join(' · '));
     }
-    $('#dataDlg').close();
+    closeDialog($('#dataDlg'));
     render();
   }
 
@@ -938,7 +1027,7 @@ No text, no letters, no watermarks in the image.`,
         openEditor(id);
         break;
       case 'delete':
-        if (confirm(`حذف «${p.title}»؟\nلا يمكن استرجاعه إلا من نسخة احتياطية.`)) {
+        if (await askConfirm(`حذف «${p.title}»؟\nلا يمكن استرجاعه إلا من نسخة احتياطية.`, 'حذف')) {
           state.prompts = state.prompts.filter(x => x.id !== id);
           save();
           render();
@@ -954,9 +1043,14 @@ No text, no letters, no watermarks in the image.`,
 
   $('#fab').addEventListener('click', () => openEditor());
   $('#emptyAdd').addEventListener('click', () => openEditor());
-  $('#editForm').addEventListener('submit', submitEditor);
+  $('#editSave').addEventListener('click', saveEditor);
+  // Enter في حقل نصي قصير يحفظ، دون الاعتماد على إرسال النموذج
+  $('#editForm').addEventListener('submit', e => { e.preventDefault(); saveEditor(); });
+  $('#editForm').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type !== 'checkbox') { e.preventDefault(); saveEditor(); }
+  });
 
-  $('#btnData').addEventListener('click', () => { renderStorageStat(); $('#dataDlg').showModal(); });
+  $('#btnData').addEventListener('click', () => { renderStorageStat(); openDialog($('#dataDlg')); });
   $('#hintExport').addEventListener('click', () => exportData('all'));
   $('#expAll').addEventListener('click', () => exportData('all'));
   $('#expProject').addEventListener('click', () => { if (ui.project !== 'all') exportData(ui.project); });
@@ -966,17 +1060,28 @@ No text, no letters, no watermarks in the image.`,
 
   document.querySelectorAll('dialog').forEach(d => {
     d.addEventListener('click', e => {
-      if (e.target.closest('[data-close]') || e.target === d) d.close();
+      if (e.target.closest('[data-close]') || e.target === d) closeDialog(d);
     });
   });
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const open = document.querySelectorAll('dialog.fallback[open]');
+    if (open.length) closeDialog(open[open.length - 1]);
+  });
+
+  $('#confirmYes').addEventListener('click', () => settleConfirm(true));
+  $('#confirmNo').addEventListener('click', () => settleConfirm(false));
+  // الإغلاق بزر Esc أو بالضغط خارج النافذة يعني الرفض
+  $('#confirmDlg').addEventListener('close', () => { if (confirmResolve) settleConfirm(false); });
 
   // ---------- التشغيل ----------
   fillSelects();
   load();
-  if (!storageOK) showWarn('التخزين المحلي غير متاح في هذا المتصفح (ربما وضع التصفح الخاص). التعديلات لن تُحفظ بعد إغلاق الصفحة.');
+  if (!storageOK) showWarn('الحفظ غير متاح هنا، وهذا معتاد في المعاينات والتصفح الخاص. الإضافة والبحث والنسخ تعمل، لكن التعديلات تضيع عند إغلاق الصفحة. صدّر نسخة قبل الإغلاق.');
   // طلب حماية البيانات من الحذف التلقائي (يتجاهله بعض المتصفحات)
   try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (_) {}
   render();
+  $('#bootNotice').hidden = true;
 })();
 </script>
 </body>
