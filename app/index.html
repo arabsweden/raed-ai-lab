@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5b21b6">
+<title>RAED AI LAB · مكتبة البرومبتات</title>
+<style>
+  :root {
+    --bg: #f6f5f9;
+    --surface: #ffffff;
+    --surface-2: #f0eef5;
+    --text: #1c1a24;
+    --muted: #6b6878;
+    --border: #e3e0ea;
+    --accent: #5b21b6;
+    --accent-ink: #ffffff;
+    --danger: #b42318;
+    --star: #d97706;
+    --p-arab-sweden: #0f766e;
+    --p-stockholm-guide: #1d4ed8;
+    --p-familjebron: #c2410c;
+    --p-raed-ai-lab: #6d28d9;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(20, 16, 40, .06), 0 4px 16px rgba(20, 16, 40, .05);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121117;
+      --surface: #1c1b23;
+      --surface-2: #26242f;
+      --text: #ecebf2;
+      --muted: #a09cb0;
+      --border: #33303e;
+      --accent: #a78bfa;
+      --accent-ink: #160f2b;
+      --danger: #f97066;
+      --star: #fbbf24;
+      --p-arab-sweden: #2dd4bf;
+      --p-stockholm-guide: #60a5fa;
+      --p-familjebron: #fb923c;
+      --p-raed-ai-lab: #c4b5fd;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", "Noto Sans Arabic", "Geeza Pro", Tahoma, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  [hidden] { display: none !important; }
+  .wrap { max-width: 760px; margin-inline: auto; padding-inline: 16px; }
+
+  /* ---------- Header ---------- */
+  header.top {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding-top: env(safe-area-inset-top);
+  }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 12px 8px; }
+  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .logo {
+    width: 38px; height: 38px; border-radius: 11px; flex: none;
+    display: grid; place-items: center;
+    background: var(--accent); color: var(--accent-ink);
+    font-weight: 800; font-size: 18px; letter-spacing: .5px;
+  }
+  .brand h1 { margin: 0; font-size: 17px; line-height: 1.2; letter-spacing: .4px; direction: ltr; text-align: right; }
+  .brand p { margin: 0; font-size: 13px; color: var(--muted); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    min-height: 40px; padding: 0 14px;
+    border-radius: 999px; border: 1px solid var(--border);
+    background: var(--surface); font-size: 14px; font-weight: 600;
+  }
+  .btn svg { width: 18px; height: 18px; }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+  .btn.danger { color: var(--danger); }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+
+  .tabs, .chips {
+    display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+    padding-block: 4px; margin-inline: -16px; padding-inline: 16px;
+  }
+  .tabs::-webkit-scrollbar, .chips::-webkit-scrollbar { display: none; }
+  .tab, .chip {
+    flex: none; white-space: nowrap;
+    border: 1px solid var(--border); background: var(--surface);
+    border-radius: 999px; padding: 6px 12px; font-size: 14px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .tab .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--muted)); }
+  .tab .count, .chip .count { font-size: 12px; color: var(--muted); }
+  .tab[aria-selected="true"] { background: var(--c, var(--accent)); border-color: transparent; color: #fff; }
+  .tab[aria-selected="true"] .dot { background: #fff; }
+  .tab[aria-selected="true"] .count { color: rgba(255, 255, 255, .8); }
+  @media (prefers-color-scheme: dark) {
+    .tab[aria-selected="true"] { color: #111; }
+    .tab[aria-selected="true"] .dot { background: #111; }
+    .tab[aria-selected="true"] .count { color: rgba(0, 0, 0, .65); }
+  }
+  .chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: transparent; }
+  .chip[aria-pressed="true"] .count { color: inherit; opacity: .7; }
+  .chip .num { font-size: 12px; opacity: .7; }
+
+  .search { position: relative; padding-block: 6px; }
+  .search input {
+    width: 100%; height: 44px; padding-inline: 40px 12px;
+    border-radius: 12px; border: 1px solid var(--border); background: var(--surface);
+    font-size: 16px; /* يمنع التكبير التلقائي في iOS */
+  }
+  .search svg { position: absolute; inset-inline-start: 12px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--muted); pointer-events: none; }
+
+  /* ---------- List ---------- */
+  .meta-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-block: 14px 8px; font-size: 14px; color: var(--muted); }
+  .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 14px; border-inline-start: 4px solid var(--c, var(--border));
+  }
+  .card h3 { margin: 0 0 6px; font-size: 16px; line-height: 1.4; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .badge {
+    font-size: 12px; padding: 2px 8px; border-radius: 999px;
+    background: var(--surface-2); color: var(--muted);
+  }
+  .badge.project { color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); font-weight: 600; }
+  .prompt-text {
+    margin: 0; white-space: pre-wrap; word-break: break-word; font-family: inherit;
+    font-size: 14.5px; background: var(--surface-2); border-radius: 10px; padding: 10px 12px;
+    unicode-bidi: plaintext; text-align: start;
+    max-height: 7.5em; overflow: hidden; position: relative;
+  }
+  .card.open .prompt-text { max-height: none; }
+  .more { background: none; border: 0; color: var(--accent); padding: 6px 0; font-size: 13px; font-weight: 600; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .tags span { font-size: 12px; color: var(--muted); }
+  .actions { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+  .actions .btn.primary { flex: 1; }
+  .icon-btn {
+    width: 40px; height: 40px; flex: none; border-radius: 50%;
+    border: 1px solid var(--border); background: var(--surface);
+    display: grid; place-items: center; color: var(--muted);
+  }
+  .icon-btn svg { width: 18px; height: 18px; }
+  .icon-btn.fav-on { color: var(--star); border-color: color-mix(in srgb, var(--star) 40%, transparent); }
+  .icon-btn.fav-on svg { fill: currentColor; }
+
+  .empty { text-align: center; color: var(--muted); padding: 40px 16px; }
+  .warn {
+    margin-top: 12px; padding: 10px 12px; border-radius: 12px; font-size: 14px;
+    background: color-mix(in srgb, var(--danger) 10%, var(--surface)); color: var(--danger);
+    border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent);
+  }
+  .hint {
+    margin-top: 12px; padding: 10px 12px; border-radius: 12px; font-size: 14px;
+    background: color-mix(in srgb, var(--star) 12%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--star) 35%, transparent);
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+
+  .fab {
+    position: fixed; z-index: 20;
+    inset-inline-end: 16px; bottom: calc(16px + env(safe-area-inset-bottom));
+    min-height: 52px; padding: 0 20px; border-radius: 999px; border: 0;
+    background: var(--accent); color: var(--accent-ink);
+    font-weight: 700; font-size: 15px;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  .fab svg { width: 20px; height: 20px; }
+
+  /* ---------- Dialogs ---------- */
+  dialog {
+    width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 24px);
+    border: 1px solid var(--border); border-radius: 18px; padding: 0;
+    background: var(--surface); color: var(--text);
+  }
+  dialog::backdrop { background: rgba(10, 8, 20, .5); }
+  .dlg-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+  .dlg-head h2 { margin: 0; font-size: 17px; }
+  .dlg-body { padding: 16px; display: grid; gap: 14px; }
+  .dlg-foot { display: flex; gap: 8px; padding: 12px 16px 16px; }
+  .dlg-foot .btn { flex: 1; }
+  label.field { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+  label.field small { font-weight: 400; color: var(--muted); }
+  .field input, .field select, .field textarea {
+    width: 100%; border: 1px solid var(--border); background: var(--bg);
+    border-radius: 10px; padding: 10px 12px; font-size: 16px; font-weight: 400;
+  }
+  .field textarea { min-height: 200px; resize: vertical; unicode-bidi: plaintext; line-height: 1.6; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 380px) { .row2 { grid-template-columns: 1fr; } }
+  .group { display: grid; gap: 8px; }
+  .group h3 { margin: 0; font-size: 14px; color: var(--muted); font-weight: 600; }
+  .info { font-size: 14px; color: var(--muted); margin: 0; padding-inline-start: 18px; }
+  .info li { margin-bottom: 4px; }
+  .stat { font-size: 13px; background: var(--surface-2); border-radius: 10px; padding: 10px 12px; display: grid; gap: 2px; }
+
+  #toast {
+    position: fixed; z-index: 50; left: 50%; transform: translate(-50%, 20px);
+    bottom: calc(84px + env(safe-area-inset-bottom));
+    background: var(--text); color: var(--bg);
+    padding: 10px 16px; border-radius: 999px; font-size: 14px;
+    opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+    max-width: calc(100vw - 32px); text-align: center;
+  }
+  #toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .ltr { direction: ltr; unicode-bidi: isolate; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="bar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">R</div>
+        <div>
+          <h1>RAED AI LAB</h1>
+          <p>مكتبة البرومبتات</p>
+        </div>
+      </div>
+      <button id="btnData" class="btn" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+        البيانات
+      </button>
+    </div>
+    <nav id="projectTabs" class="tabs" role="tablist" aria-label="المشاريع"></nav>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="ابحث في العناوين والنصوص والوسوم…" autocomplete="off" aria-label="بحث">
+    </div>
+    <div id="stageChips" class="chips" aria-label="مراحل RAED7"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="storageWarn" class="warn" hidden></div>
+  <div id="backupHint" class="hint" hidden>
+    <span>لديك تعديلات لم تُحفظ في نسخة احتياطية.</span>
+    <button id="hintExport" class="btn" type="button">تصدير الآن</button>
+  </div>
+  <div class="meta-row">
+    <span id="resultCount" aria-live="polite"></span>
+    <button id="favToggle" class="chip" type="button" aria-pressed="false">★ المفضلة فقط</button>
+  </div>
+  <ul id="list" class="list"></ul>
+  <div id="empty" class="empty" hidden>
+    <p>لا توجد برومبتات مطابقة.</p>
+    <button id="emptyAdd" class="btn primary" type="button">أضف برومبتًا جديدًا</button>
+  </div>
+</main>
+
+<button id="fab" class="fab" type="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+  برومبت جديد
+</button>
+
+<!-- نافذة الإضافة والتعديل -->
+<dialog id="editDlg" aria-labelledby="editTitle">
+  <form id="editForm" method="dialog" novalidate>
+    <div class="dlg-head">
+      <h2 id="editTitle">برومبت جديد</h2>
+      <button class="icon-btn" type="button" data-close aria-label="إغلاق">✕</button>
+    </div>
+    <div class="dlg-body">
+      <label class="field">العنوان
+        <input name="title" required maxlength="200" placeholder="مثال: سكربت فيديو عن السكن في ستوكهولم">
+      </label>
+      <div class="row2">
+        <label class="field">المشروع
+          <select name="project" required></select>
+        </label>
+        <label class="field">مرحلة RAED7
+          <select name="stage"></select>
+        </label>
+      </div>
+      <label class="field">نص البرومبت
+        <textarea name="text" required dir="auto" placeholder="اكتب البرومبت كاملًا هنا…"></textarea>
+      </label>
+      <label class="field">الوسوم <small>افصل بينها بفاصلة</small>
+        <input name="tags" placeholder="فصحى، صورة مرجعية، يوتيوب">
+      </label>
+      <label class="field" style="grid-template-columns:auto 1fr;align-items:center;font-weight:400">
+        <input type="checkbox" name="fav" style="width:20px;height:20px"> إضافة إلى المفضلة
+      </label>
+    </div>
+    <div class="dlg-foot">
+      <button class="btn primary" type="submit" value="save">حفظ</button>
+      <button class="btn" type="button" data-close>إلغاء</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- نافذة البيانات: تصدير واستيراد وحدود الحفظ -->
+<dialog id="dataDlg" aria-labelledby="dataTitle">
+  <div class="dlg-head">
+    <h2 id="dataTitle">البيانات والنسخ الاحتياطي</h2>
+    <button class="icon-btn" type="button" data-close aria-label="إغلاق">✕</button>
+  </div>
+  <div class="dlg-body">
+    <div class="stat" id="storageStat"></div>
+    <div class="group">
+      <h3>تصدير (ملف JSON)</h3>
+      <button id="expAll" class="btn primary" type="button">تصدير كل المشاريع</button>
+      <button id="expProject" class="btn" type="button">تصدير المشروع الحالي فقط</button>
+    </div>
+    <div class="group">
+      <h3>استيراد</h3>
+      <button id="impMerge" class="btn" type="button">استيراد ودمج مع الموجود</button>
+      <button id="impReplace" class="btn danger" type="button">استيراد واستبدال كل البيانات</button>
+    </div>
+    <div class="group">
+      <h3>أين تُحفظ بياناتي؟</h3>
+      <ul class="info">
+        <li>تُحفظ في ذاكرة هذا المتصفح على هذا الجهاز فقط <span class="ltr">(localStorage)</span>، ولا تُرسل إلى أي خادم.</li>
+        <li>لا مزامنة بين الهاتف والكمبيوتر. انقلها بالتصدير ثم الاستيراد.</li>
+        <li>مسح بيانات المتصفح أو «سجل التصفح وبيانات المواقع» يحذفها نهائيًا.</li>
+        <li>في التصفح الخاص تُحذف عند إغلاق النافذة.</li>
+        <li>على iPhone (Safari) قد تُحذف بيانات المواقع غير المستخدمة لمدة 7 أيام. إضافة الصفحة إلى الشاشة الرئيسية تقلّل هذا الخطر.</li>
+        <li>السعة نحو 5 ميغابايت، أي آلاف البرومبتات النصية.</li>
+        <li>البيانات مرتبطة بعنوان الصفحة. لو تغيّر الرابط أو النطاق ستبدأ مكتبة فارغة.</li>
+      </ul>
+      <p class="info" style="padding:0"><strong>القاعدة:</strong> صدّر نسخة احتياطية بعد كل جلسة تعديل، واحفظ الملف في Google Drive أو iCloud.</p>
+    </div>
+  </div>
+</dialog>
+
+<input type="file" id="fileInput" accept="application/json,.json" hidden>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+
+  // ---------- الثوابت ----------
+  const KEY = 'raedAiLab.v1';
+  const UI_KEY = 'raedAiLab.ui.v1';
+  const MAX_IMPORT_BYTES = 5 * 1024 * 1024;
+
+  const PROJECTS = [
+    { id: 'arab-sweden',     name: 'عرب السويد' },
+    { id: 'stockholm-guide', name: 'Stockholm Guide' },
+    { id: 'familjebron',     name: 'Familjebron Sverige' },
+    { id: 'raed-ai-lab',     name: 'RAED AI LAB' },
+  ];
+  const STAGES = [
+    { id: 'idea',    n: 1, name: 'الفكرة' },
+    { id: 'script',  n: 2, name: 'السكربت' },
+    { id: 'scenes',  n: 3, name: 'تقسيم المشاهد' },
+    { id: 'images',  n: 4, name: 'الصور' },
+    { id: 'voice',   n: 5, name: 'الصوت' },
+    { id: 'edit',    n: 6, name: 'المونتاج' },
+    { id: 'publish', n: 7, name: 'النشر' },
+    { id: 'general', n: 0, name: 'عام' },
+  ];
+  const projectById = Object.fromEntries(PROJECTS.map(p => [p.id, p]));
+  const stageById = Object.fromEntries(STAGES.map(s => [s.id, s]));
+  const projectColor = id => `var(--p-${id})`;
+
+  const ICONS = {
+    copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
+    star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/></svg>',
+    edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m14 6 4 4"/></svg>',
+    trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
+  };
+
+  // ---------- أمثلة أولية (تظهر في أول تشغيل فقط) ----------
+  const SEED = [
+    {
+      title: 'أفكار فيديو من خبر أو قانون سويدي', project: 'arab-sweden', stage: 'idea',
+      tags: ['أخبار', 'قوانين', 'مصادر رسمية'],
+      text: `أنت باحث محتوى لقناة عربية عن الحياة في السويد.
+الموضوع: [اكتب الموضوع أو الخبر]
+
+المطلوب:
+1. تحقّق من المعلومة من مصادر سويدية رسمية فقط، مثل: Migrationsverket، Skatteverket، Försäkringskassan، regeringen.se، riksdagen.se.
+2. أرفق رابط كل مصدر وتاريخ نشره أو آخر تحديث له.
+3. افصل بين «معلومات مؤكدة» و«تحليل».
+4. لا تخمّن أي تفصيل غير متاح، واكتب «غير متوفر» عند الحاجة.
+5. اقترح 5 أفكار فيديو قصيرة. لكل فكرة: هوك في جملة واحدة، والزاوية، والجمهور المستهدف.`,
+    },
+    {
+      title: 'سكربت تعليق صوتي بالفصحى المشكّلة', project: 'arab-sweden', stage: 'script',
+      tags: ['فصحى', 'تعليق صوتي'],
+      text: `اكتب سكربت فيديو قصير عن: [الموضوع]
+المدة: [60] ثانية، مقسّمة إلى مشاهد مدة كل منها 10 ثوانٍ.
+
+الشروط:
+- فصحى واضحة مضبوطة بالتشكيل الكامل، مناسبة للتعليق الصوتي.
+- جمل قصيرة سهلة النطق، نحو 20 كلمة لكل مشهد، دون استعجال.
+- ابدأ بهوك قوي في أول 3 ثوانٍ.
+- اختم بدعوة مناسبة للتفاعل.
+- اكتب نص كل مشهد في سطر مستقل مع رقمه.`,
+    },
+    {
+      title: 'تقسيم السكربت إلى مشاهد', project: 'stockholm-guide', stage: 'scenes',
+      tags: ['مشاهد', 'كاميرا'],
+      text: `قسّم السكربت التالي إلى مشاهد لفيديو قصير:
+[الصق السكربت هنا]
+
+لكل مشهد (10 ثوانٍ افتراضيًا) اكتب:
+- رقم المشهد والنص المنطوق.
+- نوع اللقطة: واسعة أو متوسطة أو قريبة.
+- حركة الكاميرا.
+- الإضاءة ووقت التصوير.
+- المؤثرات الصوتية.
+- الانتقال إلى المشهد التالي.
+- اسم المكان بالسويدية فقط، أعلى الشاشة بعيدًا عن الوجه.
+- هل يظهر مقدّم الفيديو (من صورته المرجعية) في هذا المشهد؟ (نعم / لا)
+
+ممنوع أي نص عربي داخل الفيديو. اعرض الناتج في جدول.`,
+    },
+    {
+      title: 'صورة شخص في مكان سويدي (صورة مرجعية)', project: 'stockholm-guide', stage: 'images',
+      tags: ['صورة مرجعية', 'هوية الوجه', '9:16'],
+      text: `Use the attached reference photo as the single source of identity.
+Keep the exact same person: facial features, age, eye shape, nose, mouth and jawline must stay identical. Do not beautify, slim or age the face.
+
+Change ONLY:
+- Outfit: [e.g. dark wool coat and grey scarf]
+- Pose: [e.g. walking toward the camera, natural smile]
+- Lighting: [e.g. golden hour, soft side light]
+- Background: [e.g. Gamla stan, Stockholm, cobblestone street]
+
+Style: photorealistic, 35mm lens, shallow depth of field, vertical 9:16.
+No text, no letters, no watermarks in the image.`,
+    },
+    {
+      title: 'تجهيز النص لمولّد الصوت', project: 'stockholm-guide', stage: 'voice',
+      tags: ['تعليق صوتي', 'نطق'],
+      text: `حوّل السكربت التالي إلى نص جاهز لمولّد الصوت:
+[الصق السكربت]
+
+- أبقِ التشكيل كاملًا.
+- أضف وقفات قصيرة بالفاصلة ووقفات أطول بالنقطة، دون تغيير المعنى.
+- إيقاع هادئ وواضح يناسب 10 ثوانٍ لكل مشهد.
+- النبرة: دافئة وواثقة، كمرشد سياحي ودود.
+- نبّهني إلى كل كلمة سويدية، واكتب نطقها بالحروف العربية.`,
+    },
+    {
+      title: 'سكربت باللهجة الأردنية للأهالي', project: 'familjebron', stage: 'script',
+      tags: ['لهجة أردنية', 'عائلة'],
+      text: `اكتب سكربت فيديو قصير باللهجة الأردنية موجّه للأهالي.
+الموضوع: [مثلًا: كيف نحكي مع ولادنا عن المدرسة بالسويد]
+
+- المدة: [45] ثانية، مشاهد كل منها 10 ثوانٍ تقريبًا.
+- لغة دافئة وقريبة من الأهل، بدون وعظ.
+- هوك قوي بأول جملة، وختام بسؤال يفتح النقاش بالتعليقات.
+- أي معلومة عن قوانين أو خدمات: اذكر المصدر الرسمي وتاريخه، ولا تخمّن.`,
+    },
+    {
+      title: 'حزمة نشر: عنوان ومنشور و4 هاشتاغات', project: 'familjebron', stage: 'publish',
+      tags: ['نشر', 'هاشتاغات'],
+      text: `جهّز حزمة نشر للفيديو التالي:
+[الصق السكربت أو ملخص الفيديو]
+
+المطلوب فقط:
+1. عنوان جذاب، أقل من 60 حرفًا.
+2. منشور قصير من سطرين أو ثلاثة، ينتهي بدعوة للتفاعل.
+3. أربعة هاشتاغات مرتبطة مباشرة بالموضوع.
+
+بدون مقدمات أو تكرار.`,
+    },
+    {
+      title: 'خطة مونتاج لفيديو عمودي', project: 'raed-ai-lab', stage: 'edit',
+      tags: ['مونتاج', '9:16'],
+      text: `ضع خطة مونتاج لفيديو عمودي 9:16 من المشاهد التالية:
+[الصق جدول المشاهد]
+
+- ترتيب اللقطات ومدة كل مشهد (10 ثوانٍ افتراضيًا).
+- نوع الانتقال بين المشاهد.
+- الموسيقى المقترحة: المزاج والإيقاع فقط، بدون أسماء أغانٍ محمية.
+- أماكن المؤثرات الصوتية.
+- أسماء الأماكن بالسويدية أعلى الشاشة بعيدًا عن الوجه، ولا نصوص عربية.`,
+    },
+    {
+      title: 'بناء صفحة ويب عربية بملف واحد', project: 'raed-ai-lab', stage: 'general',
+      tags: ['تطوير مواقع', 'RTL'],
+      text: `ابنِ صفحة ويب عربية في ملف HTML واحد:
+- اتجاه من اليمين إلى اليسار (dir="rtl")، ومصممة للهاتف أولًا.
+- بدون مكتبات أو خدمات مدفوعة.
+- وضع داكن تلقائي.
+- الهدف: [اكتب الهدف]
+
+بعد الكود، اشرح باختصار أين تُحفظ البيانات وما حدود ذلك.`,
+    },
+  ];
+
+  // ---------- الحالة ----------
+  let state = { prompts: [], lastBackup: 0, lastChange: 0 };
+  const ui = { project: 'all', stage: 'all', q: '', fav: false };
+  const expanded = new Set();
+  let storageOK = true;
+  let editingId = null;
+  let importMode = 'merge';
+
+  const $ = sel => document.querySelector(sel);
+  const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 10));
+  const now = () => Date.now();
+
+  // تنظيف أي برومبت قادم من التخزين أو من ملف مستورد
+  function sanitize(p) {
+    if (!p || typeof p !== 'object') return null;
+    const text = typeof p.text === 'string' ? p.text.trim() : '';
+    const title = typeof p.title === 'string' ? p.title.trim().slice(0, 200) : '';
+    if (!text || !title || !projectById[p.project]) return null;
+    let tags = Array.isArray(p.tags) ? p.tags : (typeof p.tags === 'string' ? p.tags.split(/[,،]/) : []);
+    tags = [...new Set(tags.filter(t => typeof t === 'string').map(t => t.trim()).filter(Boolean))].slice(0, 20);
+    const created = Number(p.createdAt) || now();
+    return {
+      id: typeof p.id === 'string' && p.id ? p.id.slice(0, 64) : uid(),
+      title, text,
+      project: p.project,
+      stage: stageById[p.stage] ? p.stage : 'general',
+      tags,
+      fav: !!p.fav,
+      createdAt: created,
+      updatedAt: Number(p.updatedAt) || created,
+    };
+  }
+
+  // ---------- التخزين ----------
+  function load() {
+    let raw = null;
+    try {
+      raw = localStorage.getItem(KEY);
+      const u = JSON.parse(localStorage.getItem(UI_KEY) || '{}');
+      if (u.project === 'all' || projectById[u.project]) ui.project = u.project;
+    } catch (e) {
+      storageOK = false;
+    }
+    if (raw == null) {
+      const t = now();
+      state.prompts = SEED.map((s, i) => sanitize({ ...s, id: uid(), createdAt: t - i * 1000 }));
+      if (storageOK) save(false);
+      return;
+    }
+    try {
+      const d = JSON.parse(raw);
+      state.prompts = (d.prompts || []).map(sanitize).filter(Boolean);
+      state.lastBackup = Number(d.lastBackup) || 0;
+      state.lastChange = Number(d.lastChange) || 0;
+    } catch (e) {
+      // لا نكتب فوق بيانات تالفة: نحتفظ بنسخة منها ونبدأ مكتبة فارغة
+      try { localStorage.setItem(KEY + '.corrupt.' + now(), raw); } catch (_) {}
+      state.prompts = [];
+      showWarn('تعذّرت قراءة البيانات المحفوظة. حُفظت نسخة منها جانبًا. استورد آخر نسخة احتياطية لديك.');
+    }
+  }
+
+  function save(changed = true) {
+    if (changed) state.lastChange = now();
+    if (!storageOK) return;
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ version: 1, ...state }));
+    } catch (e) {
+      storageOK = false;
+      showWarn('تعذّر الحفظ في هذا المتصفح (المساحة ممتلئة أو التخزين معطّل). صدّر بياناتك الآن حتى لا تضيع.');
+    }
+  }
+
+  function saveUi() {
+    try { localStorage.setItem(UI_KEY, JSON.stringify({ project: ui.project })); } catch (_) {}
+  }
+
+  function showWarn(msg) {
+    const el = $('#storageWarn');
+    el.textContent = msg;
+    el.hidden = false;
+  }
+
+  // ---------- البحث ----------
+  // يتجاهل التشكيل والهمزات والتطويل وحالة الأحرف
+  function norm(s) {
+    return String(s)
+      .replace(/[ً-ٰٟـ]/g, '')
+      .replace(/[أإآٱ]/g, 'ا')
+      .replace(/ى/g, 'ي')
+      .replace(/ة/g, 'ه')
+      .replace(/ؤ/g, 'و')
+      .replace(/ئ/g, 'ي')
+      .toLowerCase();
+  }
+
+  function filtered() {
+    const terms = norm(ui.q).split(/\s+/).filter(Boolean);
+    return state.prompts
+      .filter(p => ui.project === 'all' || p.project === ui.project)
+      .filter(p => ui.stage === 'all' || p.stage === ui.stage)
+      .filter(p => !ui.fav || p.fav)
+      .filter(p => {
+        if (!terms.length) return true;
+        const hay = norm([p.title, p.text, p.tags.join(' '), projectById[p.project].name, stageById[p.stage].name].join(' '));
+        return terms.every(t => hay.includes(t));
+      })
+      .sort((a, b) => (b.fav - a.fav) || (b.updatedAt - a.updatedAt));
+  }
+
+  // ---------- العرض ----------
+  function el(tag, attrs = {}, children = []) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (k === 'text') n.textContent = v;
+      else if (k === 'html') n.innerHTML = v; // تُستخدم للأيقونات الثابتة فقط
+      else if (k === 'style') n.style.cssText = v;
+      else n.setAttribute(k, v);
+    }
+    for (const c of [].concat(children)) if (c) n.append(c);
+    return n;
+  }
+
+  function renderTabs() {
+    const nav = $('#projectTabs');
+    nav.replaceChildren();
+    const items = [{ id: 'all', name: 'كل المشاريع' }, ...PROJECTS];
+    for (const p of items) {
+      const count = p.id === 'all' ? state.prompts.length : state.prompts.filter(x => x.project === p.id).length;
+      const b = el('button', {
+        class: 'tab', type: 'button', role: 'tab',
+        'aria-selected': String(ui.project === p.id), 'data-project': p.id,
+        style: p.id === 'all' ? '' : `--c:${projectColor(p.id)}`,
+      }, [
+        p.id === 'all' ? null : el('span', { class: 'dot' }),
+        el('span', { text: p.name }),
+        el('span', { class: 'count', text: String(count) }),
+      ]);
+      nav.append(b);
+    }
+  }
+
+  function renderStages() {
+    const wrap = $('#stageChips');
+    wrap.replaceChildren();
+    const scope = state.prompts.filter(p => ui.project === 'all' || p.project === ui.project);
+    const items = [{ id: 'all', name: 'كل المراحل' }, ...STAGES];
+    for (const s of items) {
+      const count = s.id === 'all' ? scope.length : scope.filter(p => p.stage === s.id).length;
+      wrap.append(el('button', {
+        class: 'chip', type: 'button', 'aria-pressed': String(ui.stage === s.id), 'data-stage': s.id,
+      }, [
+        s.n ? el('span', { class: 'num', text: s.n + '.' }) : null,
+        el('span', { text: s.name }),
+        el('span', { class: 'count', text: String(count) }),
+      ]));
+    }
+  }
+
+  function renderCard(p) {
+    const proj = projectById[p.project];
+    const stage = stageById[p.stage];
+    const open = expanded.has(p.id);
+    const long = p.text.split('\n').length > 5 || p.text.length > 260;
+
+    const li = el('li', { class: 'card' + (open ? ' open' : ''), style: `--c:${projectColor(p.project)}`, 'data-id': p.id });
+    li.append(
+      el('h3', { text: p.title }),
+      el('div', { class: 'badges' }, [
+        el('span', { class: 'badge project', text: proj.name }),
+        el('span', { class: 'badge', text: (stage.n ? stage.n + '. ' : '') + stage.name }),
+      ]),
+      el('pre', { class: 'prompt-text', dir: 'auto', text: p.text }),
+    );
+    if (long) li.append(el('button', { class: 'more', type: 'button', 'data-act': 'expand', text: open ? 'عرض أقل' : 'عرض النص كاملًا' }));
+    if (p.tags.length) li.append(el('div', { class: 'tags' }, p.tags.map(t => el('span', { text: '#' + t.replace(/\s+/g, '_') }))));
+    li.append(el('div', { class: 'actions' }, [
+      el('button', { class: 'btn primary', type: 'button', 'data-act': 'copy', html: ICONS.copy + '<span>نسخ</span>' }),
+      el('button', {
+        class: 'icon-btn' + (p.fav ? ' fav-on' : ''), type: 'button', 'data-act': 'fav',
+        'aria-pressed': String(p.fav), 'aria-label': p.fav ? 'إزالة من المفضلة' : 'إضافة إلى المفضلة', html: ICONS.star,
+      }),
+      el('button', { class: 'icon-btn', type: 'button', 'data-act': 'edit', 'aria-label': 'تعديل', html: ICONS.edit }),
+      el('button', { class: 'icon-btn', type: 'button', 'data-act': 'delete', 'aria-label': 'حذف', html: ICONS.trash }),
+    ]));
+    return li;
+  }
+
+  function render() {
+    renderTabs();
+    renderStages();
+    const items = filtered();
+    $('#list').replaceChildren(...items.map(renderCard));
+    $('#empty').hidden = items.length > 0;
+    $('#resultCount').textContent = items.length === 1 ? 'برومبت واحد' : `${items.length} برومبت`;
+    $('#favToggle').setAttribute('aria-pressed', String(ui.fav));
+    $('#backupHint').hidden = !(state.prompts.length && state.lastChange > state.lastBackup);
+  }
+
+  // ---------- أدوات ----------
+  let toastTimer;
+  function toast(msg) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (_) {
+      // بديل للمتصفحات أو الصفحات غير الآمنة (file://)
+      const ta = el('textarea', { style: 'position:fixed;top:-1000px;opacity:0', readonly: '' });
+      ta.value = text;
+      document.body.append(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (_) {}
+      ta.remove();
+      return ok;
+    }
+  }
+
+  function fmtDate(ms) {
+    if (!ms) return 'لم يحدث بعد';
+    return new Date(ms).toLocaleString('ar', { dateStyle: 'medium', timeStyle: 'short', numberingSystem: 'latn' });
+  }
+
+  // ---------- الإضافة والتعديل ----------
+  function fillSelects() {
+    const f = $('#editForm');
+    f.project.replaceChildren(
+      el('option', { value: '', text: 'اختر المشروع' }),
+      ...PROJECTS.map(p => el('option', { value: p.id, text: p.name })),
+    );
+    f.stage.replaceChildren(...STAGES.map(s => el('option', { value: s.id, text: (s.n ? s.n + '. ' : '') + s.name })));
+  }
+
+  function openEditor(id = null) {
+    editingId = id;
+    const f = $('#editForm');
+    const p = id ? state.prompts.find(x => x.id === id) : null;
+    $('#editTitle').textContent = p ? 'تعديل البرومبت' : 'برومبت جديد';
+    f.title.value = p ? p.title : '';
+    f.project.value = p ? p.project : (ui.project !== 'all' ? ui.project : '');
+    f.stage.value = p ? p.stage : (ui.stage !== 'all' ? ui.stage : 'general');
+    f.text.value = p ? p.text : '';
+    f.tags.value = p ? p.tags.join('، ') : '';
+    f.fav.checked = p ? p.fav : false;
+    $('#editDlg').showModal();
+    if (!p) f.title.focus();
+  }
+
+  function submitEditor(e) {
+    e.preventDefault();
+    const f = e.target;
+    const data = {
+      title: f.title.value, project: f.project.value, stage: f.stage.value,
+      text: f.text.value, tags: f.tags.value, fav: f.fav.checked,
+    };
+    if (!data.title.trim()) { toast('اكتب عنوانًا'); f.title.focus(); return; }
+    if (!projectById[data.project]) { toast('اختر المشروع'); f.project.focus(); return; }
+    if (!data.text.trim()) { toast('اكتب نص البرومبت'); f.text.focus(); return; }
+
+    if (editingId) {
+      const i = state.prompts.findIndex(x => x.id === editingId);
+      const old = state.prompts[i];
+      state.prompts[i] = sanitize({ ...old, ...data, id: old.id, createdAt: old.createdAt, updatedAt: now() });
+      toast('تم حفظ التعديل');
+    } else {
+      state.prompts.unshift(sanitize({ ...data, id: uid(), createdAt: now() }));
+      toast('تمت الإضافة');
+    }
+    save();
+    $('#editDlg').close();
+    render();
+  }
+
+  // ---------- التصدير والاستيراد ----------
+  function exportData(scope) {
+    const prompts = scope === 'all' ? state.prompts : state.prompts.filter(p => p.project === scope);
+    const payload = {
+      app: 'RAED AI LAB', version: 1, exportedAt: new Date().toISOString(),
+      scope, prompts,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const day = new Date().toISOString().slice(0, 10);
+    const a = el('a', { href: url, download: `raed-ai-lab_${scope}_${day}.json` });
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    if (scope === 'all') {
+      state.lastBackup = now();
+      save(false);
+      toast(`تم تصدير ${prompts.length} برومبت`);
+    } else {
+      toast(`تم تصدير ${prompts.length} برومبت من ${projectById[scope].name}`);
+    }
+    render();
+    renderStorageStat();
+  }
+
+  function startImport(mode) {
+    importMode = mode;
+    $('#fileInput').value = '';
+    $('#fileInput').click();
+  }
+
+  async function handleImportFile(file) {
+    if (!file) return;
+    if (file.size > MAX_IMPORT_BYTES) { toast('الملف أكبر من 5 ميغابايت'); return; }
+    let data;
+    try {
+      data = JSON.parse(await file.text());
+    } catch (_) {
+      toast('الملف ليس JSON صالحًا');
+      return;
+    }
+    const list = Array.isArray(data) ? data : (data && Array.isArray(data.prompts) ? data.prompts : null);
+    if (!list) { toast('لم أجد قائمة برومبتات في الملف'); return; }
+    const items = list.map(sanitize);
+    const valid = items.filter(Boolean);
+    const skipped = items.length - valid.length;
+    if (!valid.length) { toast('لا يوجد برومبت صالح في الملف'); return; }
+
+    if (importMode === 'replace') {
+      if (!confirm(`سيُحذف كل ما في المكتبة الآن (${state.prompts.length} برومبت) ويُستبدل بـ ${valid.length} من الملف. متابعة؟`)) return;
+      state.prompts = valid;
+      save();
+      toast(`تم الاستبدال: ${valid.length}` + (skipped ? ` · تجاهل ${skipped} غير صالح` : ''));
+    } else {
+      let added = 0, updated = 0, same = 0;
+      const byId = new Map(state.prompts.map((p, i) => [p.id, i]));
+      for (const p of valid) {
+        if (!byId.has(p.id)) { state.prompts.push(p); byId.set(p.id, state.prompts.length - 1); added++; }
+        else {
+          const i = byId.get(p.id);
+          if (p.updatedAt > state.prompts[i].updatedAt) { state.prompts[i] = p; updated++; }
+          else same++;
+        }
+      }
+      save();
+      const parts = [`أُضيف ${added}`, `حُدّث ${updated}`];
+      if (same) parts.push(`موجود مسبقًا ${same}`);
+      if (skipped) parts.push(`غير صالح ${skipped}`);
+      toast(parts.join(' · '));
+    }
+    $('#dataDlg').close();
+    render();
+  }
+
+  async function renderStorageStat() {
+    let bytes = 0;
+    try { bytes = new Blob([localStorage.getItem(KEY) || '']).size; } catch (_) {}
+    let persisted = null;
+    try { if (navigator.storage && navigator.storage.persisted) persisted = await navigator.storage.persisted(); } catch (_) {}
+    const lines = [
+      `عدد البرومبتات: ${state.prompts.length}`,
+      `الحجم المستخدم: ${(bytes / 1024).toFixed(1)} كيلوبايت من نحو 5000`,
+      `آخر نسخة احتياطية كاملة: ${fmtDate(state.lastBackup)}`,
+      `حالة التخزين: ${!storageOK ? 'معطّل — لا يتم الحفظ' : persisted ? 'دائم (محمي من الحذف التلقائي)' : 'عادي (قد يحذفه المتصفح عند امتلاء الجهاز)'}`,
+    ];
+    $('#storageStat').replaceChildren(...lines.map(t => el('span', { text: t })));
+    $('#expProject').disabled = ui.project === 'all';
+    $('#expProject').textContent = ui.project === 'all'
+      ? 'تصدير المشروع الحالي (اختر مشروعًا أولًا)'
+      : `تصدير «${projectById[ui.project].name}» فقط`;
+  }
+
+  // ---------- الأحداث ----------
+  $('#projectTabs').addEventListener('click', e => {
+    const b = e.target.closest('[data-project]');
+    if (!b) return;
+    ui.project = b.dataset.project;
+    ui.stage = 'all';
+    saveUi();
+    render();
+  });
+
+  $('#stageChips').addEventListener('click', e => {
+    const b = e.target.closest('[data-stage]');
+    if (!b) return;
+    ui.stage = b.dataset.stage;
+    render();
+  });
+
+  let qTimer;
+  $('#q').addEventListener('input', e => {
+    clearTimeout(qTimer);
+    qTimer = setTimeout(() => { ui.q = e.target.value; render(); }, 120);
+  });
+
+  $('#favToggle').addEventListener('click', () => { ui.fav = !ui.fav; render(); });
+
+  $('#list').addEventListener('click', async e => {
+    const b = e.target.closest('[data-act]');
+    if (!b) return;
+    const id = b.closest('[data-id]').dataset.id;
+    const p = state.prompts.find(x => x.id === id);
+    if (!p) return;
+    switch (b.dataset.act) {
+      case 'copy':
+        toast((await copyText(p.text)) ? 'تم النسخ ✓' : 'تعذّر النسخ، انسخ النص يدويًا');
+        break;
+      case 'fav':
+        p.fav = !p.fav;
+        save();
+        render();
+        break;
+      case 'edit':
+        openEditor(id);
+        break;
+      case 'delete':
+        if (confirm(`حذف «${p.title}»؟\nلا يمكن استرجاعه إلا من نسخة احتياطية.`)) {
+          state.prompts = state.prompts.filter(x => x.id !== id);
+          save();
+          render();
+          toast('تم الحذف');
+        }
+        break;
+      case 'expand':
+        expanded.has(id) ? expanded.delete(id) : expanded.add(id);
+        render();
+        break;
+    }
+  });
+
+  $('#fab').addEventListener('click', () => openEditor());
+  $('#emptyAdd').addEventListener('click', () => openEditor());
+  $('#editForm').addEventListener('submit', submitEditor);
+
+  $('#btnData').addEventListener('click', () => { renderStorageStat(); $('#dataDlg').showModal(); });
+  $('#hintExport').addEventListener('click', () => exportData('all'));
+  $('#expAll').addEventListener('click', () => exportData('all'));
+  $('#expProject').addEventListener('click', () => { if (ui.project !== 'all') exportData(ui.project); });
+  $('#impMerge').addEventListener('click', () => startImport('merge'));
+  $('#impReplace').addEventListener('click', () => startImport('replace'));
+  $('#fileInput').addEventListener('change', e => handleImportFile(e.target.files[0]));
+
+  document.querySelectorAll('dialog').forEach(d => {
+    d.addEventListener('click', e => {
+      if (e.target.closest('[data-close]') || e.target === d) d.close();
+    });
+  });
+
+  // ---------- التشغيل ----------
+  fillSelects();
+  load();
+  if (!storageOK) showWarn('التخزين المحلي غير متاح في هذا المتصفح (ربما وضع التصفح الخاص). التعديلات لن تُحفظ بعد إغلاق الصفحة.');
+  // طلب حماية البيانات من الحذف التلقائي (يتجاهله بعض المتصفحات)
+  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (_) {}
+  render();
+})();
+</script>
+</body>
+</html>
