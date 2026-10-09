@@ -666,7 +666,6 @@ No text, no letters, no watermarks in the image.`,
     const proj = projectById[p.project];
     const stage = stageById[p.stage];
     const open = expanded.has(p.id);
-    const long = p.text.split('\n').length > 5 || p.text.length > 260;
 
     const li = el('li', { class: 'card' + (open ? ' open' : ''), style: `--c:${projectColor(p.project)}`, 'data-id': p.id });
     li.append(
@@ -677,7 +676,8 @@ No text, no letters, no watermarks in the image.`,
       ]),
       el('pre', { class: 'prompt-text', dir: 'auto', text: p.text }),
     );
-    if (long) li.append(el('button', { class: 'more', type: 'button', 'data-act': 'expand', text: open ? 'عرض أقل' : 'عرض النص كاملًا' }));
+    // يُخفى لاحقًا في updateMoreButtons إن لم يتجاوز النص الارتفاع المحدد فعليًا
+    li.append(el('button', { class: 'more', type: 'button', 'data-act': 'expand', text: open ? 'عرض أقل' : 'عرض النص كاملًا' }));
     if (p.tags.length) li.append(el('div', { class: 'tags' }, p.tags.map(t => el('span', { text: '#' + t.replace(/\s+/g, '_') }))));
     li.append(el('div', { class: 'actions' }, [
       el('button', { class: 'btn primary', type: 'button', 'data-act': 'copy', html: ICONS.copy + '<span>نسخ</span>' }),
@@ -700,6 +700,16 @@ No text, no letters, no watermarks in the image.`,
     $('#resultCount').textContent = items.length === 1 ? 'برومبت واحد' : `${items.length} برومبت`;
     $('#favToggle').setAttribute('aria-pressed', String(ui.fav));
     $('#backupHint').hidden = !(state.prompts.length && state.lastChange > state.lastBackup);
+    updateMoreButtons();
+  }
+
+  // زر «عرض النص كاملًا» يظهر فقط حين يُقصّ النص فعلًا على عرض الشاشة الحالي
+  function updateMoreButtons() {
+    for (const li of $('#list').children) {
+      if (li.classList.contains('open')) continue;
+      const pre = li.querySelector('.prompt-text');
+      li.querySelector('.more').hidden = pre.scrollHeight <= pre.clientHeight + 1;
+    }
   }
 
   // ---------- أدوات ----------
@@ -902,6 +912,12 @@ No text, no letters, no watermarks in the image.`,
   });
 
   $('#favToggle').addEventListener('click', () => { ui.fav = !ui.fav; render(); });
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateMoreButtons, 150);
+  });
 
   $('#list').addEventListener('click', async e => {
     const b = e.target.closest('[data-act]');
