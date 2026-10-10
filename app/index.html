@@ -23,10 +23,13 @@
     --p-raed-ai-lab: #6d28d9;
     --radius: 14px;
     --shadow: 0 1px 2px rgba(20, 16, 40, .06), 0 4px 16px rgba(20, 16, 40, .05);
+    --tab-on-ink: #ffffff;
+    --tab-on-count: rgba(255, 255, 255, .8);
     color-scheme: light;
   }
+  /* الوضع الداكن يتبع النظام، أو اختيار المشاهد الصريح عبر data-theme */
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
       --bg: #121117;
       --surface: #1c1b23;
       --surface-2: #26242f;
@@ -42,8 +45,30 @@
       --p-familjebron: #fb923c;
       --p-raed-ai-lab: #c4b5fd;
       --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+      --tab-on-ink: #111111;
+      --tab-on-count: rgba(0, 0, 0, .65);
       color-scheme: dark;
     }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121117;
+    --surface: #1c1b23;
+    --surface-2: #26242f;
+    --text: #ecebf2;
+    --muted: #a09cb0;
+    --border: #33303e;
+    --accent: #a78bfa;
+    --accent-ink: #160f2b;
+    --danger: #f97066;
+    --star: #fbbf24;
+    --p-arab-sweden: #2dd4bf;
+    --p-stockholm-guide: #60a5fa;
+    --p-familjebron: #fb923c;
+    --p-raed-ai-lab: #c4b5fd;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    --tab-on-ink: #111111;
+    --tab-on-count: rgba(0, 0, 0, .65);
+    color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
@@ -64,12 +89,11 @@
 
   /* ---------- Header ---------- */
   header.top {
-    position: sticky; top: 0; z-index: 10;
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
     background: color-mix(in srgb, var(--bg) 92%, transparent);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
-    padding-top: env(safe-area-inset-top);
   }
   .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 12px 8px; }
   .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
@@ -105,14 +129,9 @@
   }
   .tab .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--muted)); }
   .tab .count, .chip .count { font-size: 12px; color: var(--muted); }
-  .tab[aria-selected="true"] { background: var(--c, var(--accent)); border-color: transparent; color: #fff; }
-  .tab[aria-selected="true"] .dot { background: #fff; }
-  .tab[aria-selected="true"] .count { color: rgba(255, 255, 255, .8); }
-  @media (prefers-color-scheme: dark) {
-    .tab[aria-selected="true"] { color: #111; }
-    .tab[aria-selected="true"] .dot { background: #111; }
-    .tab[aria-selected="true"] .count { color: rgba(0, 0, 0, .65); }
-  }
+  .tab[aria-selected="true"] { background: var(--c, var(--accent)); border-color: transparent; color: var(--tab-on-ink); }
+  .tab[aria-selected="true"] .dot { background: var(--tab-on-ink); }
+  .tab[aria-selected="true"] .count { color: var(--tab-on-count); }
   .chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: transparent; }
   .chip[aria-pressed="true"] .count { color: inherit; opacity: .7; }
   .chip .num { font-size: 12px; opacity: .7; }
@@ -339,11 +358,21 @@
       <h3>تصدير (ملف JSON)</h3>
       <button id="expAll" class="btn primary" type="button">تصدير كل المشاريع</button>
       <button id="expProject" class="btn" type="button">تصدير المشروع الحالي فقط</button>
+      <button id="expCopy" class="btn" type="button">نسخ كل البيانات كنص</button>
+      <p class="info" style="padding:0">إن لم يُحفظ الملف على هاتفك، انسخ البيانات كنص والصقها في ملاحظة أو ملف.</p>
     </div>
     <div class="group">
-      <h3>استيراد</h3>
+      <h3>استيراد من ملف</h3>
       <button id="impMerge" class="btn" type="button">استيراد ودمج مع الموجود</button>
       <button id="impReplace" class="btn danger" type="button">استيراد واستبدال كل البيانات</button>
+    </div>
+    <div class="group">
+      <h3>استيراد من نص ملصوق</h3>
+      <label class="field"><span>الصق هنا نص النسخة الاحتياطية</span>
+        <textarea id="importText" dir="ltr" rows="4" placeholder='{"app":"RAED AI LAB", "prompts": [...]}' style="min-height:96px"></textarea>
+      </label>
+      <button id="impTextMerge" class="btn" type="button">دمج النص مع الموجود</button>
+      <button id="impTextReplace" class="btn danger" type="button">استبدال كل البيانات بالنص</button>
     </div>
     <div class="group">
       <h3>أين تُحفظ بياناتي؟</h3>
@@ -884,29 +913,63 @@ No text, no letters, no watermarks in the image.`,
   }
 
   // ---------- التصدير والاستيراد ----------
-  function exportData(scope) {
+  function exportPayload(scope) {
     const prompts = scope === 'all' ? state.prompts : state.prompts.filter(p => p.project === scope);
-    const payload = {
+    const json = JSON.stringify({
       app: 'RAED AI LAB', version: 1, exportedAt: new Date().toISOString(),
       scope, prompts,
-    };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const day = new Date().toISOString().slice(0, 10);
-    const a = el('a', { href: url, download: `raed-ai-lab_${scope}_${day}.json` });
+    }, null, 2);
+    return { prompts, json };
+  }
+
+  function markExported(scope, count, how) {
+    if (scope === 'all') {
+      state.lastBackup = now();
+      save(false);
+    }
+    toast(scope === 'all' ? `${how} ${count} برومبت` : `${how} ${count} برومبت من ${projectById[scope].name}`);
+    render();
+    renderStorageStat();
+  }
+
+  // صفحة claude.ai الخاصة: الحفظ عبر قدرة downloads. خارجها: رابط تنزيل عادي.
+  function downloadsCapability() {
+    try {
+      return window.claude && typeof window.claude.use === 'function' ? window.claude.use('downloads') : Promise.resolve(null);
+    } catch (_) {
+      return Promise.resolve(null);
+    }
+  }
+
+  async function exportData(scope) {
+    const { prompts, json } = exportPayload(scope);
+    const filename = `raed-ai-lab_${scope}_${new Date().toISOString().slice(0, 10)}.json`;
+    const downloads = await downloadsCapability();
+    if (downloads) {
+      try {
+        await downloads.save({ filename, data: json });
+        markExported(scope, prompts.length, 'تم تصدير');
+      } catch (err) {
+        const code = err && err.code;
+        if (code === 'declined') toast('أُلغي الحفظ');
+        else if (code === 'rate_limited') toast('نافذة حفظ مفتوحة بالفعل، أكملها أولًا');
+        else toast('تعذّر حفظ الملف هنا. استخدم «نسخ كل البيانات كنص»');
+      }
+      return;
+    }
+    const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+    const a = el('a', { href: url, download: filename });
     document.body.append(a);
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 4000);
-    if (scope === 'all') {
-      state.lastBackup = now();
-      save(false);
-      toast(`تم تصدير ${prompts.length} برومبت`);
-    } else {
-      toast(`تم تصدير ${prompts.length} برومبت من ${projectById[scope].name}`);
-    }
-    render();
-    renderStorageStat();
+    markExported(scope, prompts.length, 'تم تصدير');
+  }
+
+  async function copyExport() {
+    const { prompts, json } = exportPayload('all');
+    if (await copyText(json)) markExported('all', prompts.length, 'نُسخت بيانات');
+    else toast('تعذّر النسخ');
   }
 
   function startImport(mode) {
@@ -918,11 +981,17 @@ No text, no letters, no watermarks in the image.`,
   async function handleImportFile(file) {
     if (!file) return;
     if (file.size > MAX_IMPORT_BYTES) { toast('الملف أكبر من 5 ميغابايت'); return; }
+    await importText(await file.text());
+  }
+
+  async function importText(text) {
+    if (!text || !text.trim()) { toast('لا يوجد نص للاستيراد'); return; }
+    if (text.length > MAX_IMPORT_BYTES) { toast('النص أكبر من 5 ميغابايت'); return; }
     let data;
     try {
-      data = JSON.parse(await file.text());
+      data = JSON.parse(text);
     } catch (_) {
-      toast('الملف ليس JSON صالحًا');
+      toast('النص ليس نسخة احتياطية صالحة (JSON)');
       return;
     }
     const list = Array.isArray(data) ? data : (data && Array.isArray(data.prompts) ? data.prompts : null);
@@ -933,7 +1002,7 @@ No text, no letters, no watermarks in the image.`,
     if (!valid.length) { toast('لا يوجد برومبت صالح في الملف'); return; }
 
     if (importMode === 'replace') {
-      const ok = await askConfirm(`سيُحذف كل ما في المكتبة الآن (${state.prompts.length} برومبت) ويُستبدل بـ ${valid.length} من الملف. متابعة؟`, 'استبدال');
+      const ok = await askConfirm(`سيُحذف كل ما في المكتبة الآن (${state.prompts.length} برومبت) ويُستبدل بـ ${valid.length} من النسخة الاحتياطية. متابعة؟`, 'استبدال');
       if (!ok) return;
       state.prompts = valid;
       save();
@@ -955,6 +1024,7 @@ No text, no letters, no watermarks in the image.`,
       if (skipped) parts.push(`غير صالح ${skipped}`);
       toast(parts.join(' · '));
     }
+    $('#importText').value = '';
     closeDialog($('#dataDlg'));
     render();
   }
@@ -1056,6 +1126,10 @@ No text, no letters, no watermarks in the image.`,
   $('#expProject').addEventListener('click', () => { if (ui.project !== 'all') exportData(ui.project); });
   $('#impMerge').addEventListener('click', () => startImport('merge'));
   $('#impReplace').addEventListener('click', () => startImport('replace'));
+  $('#expCopy').addEventListener('click', copyExport);
+  const importFromBox = mode => { importMode = mode; importText($('#importText').value); };
+  $('#impTextMerge').addEventListener('click', () => importFromBox('merge'));
+  $('#impTextReplace').addEventListener('click', () => importFromBox('replace'));
   $('#fileInput').addEventListener('change', e => handleImportFile(e.target.files[0]));
 
   document.querySelectorAll('dialog').forEach(d => {
