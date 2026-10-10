@@ -23,10 +23,13 @@
     --p-raed-ai-lab: #6d28d9;
     --radius: 14px;
     --shadow: 0 1px 2px rgba(20, 16, 40, .06), 0 4px 16px rgba(20, 16, 40, .05);
+    --tab-on-ink: #ffffff;
+    --tab-on-count: rgba(255, 255, 255, .8);
     color-scheme: light;
   }
+  /* الوضع الداكن يتبع النظام، أو اختيار المشاهد الصريح عبر data-theme */
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
       --bg: #121117;
       --surface: #1c1b23;
       --surface-2: #26242f;
@@ -42,8 +45,30 @@
       --p-familjebron: #fb923c;
       --p-raed-ai-lab: #c4b5fd;
       --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+      --tab-on-ink: #111111;
+      --tab-on-count: rgba(0, 0, 0, .65);
       color-scheme: dark;
     }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121117;
+    --surface: #1c1b23;
+    --surface-2: #26242f;
+    --text: #ecebf2;
+    --muted: #a09cb0;
+    --border: #33303e;
+    --accent: #a78bfa;
+    --accent-ink: #160f2b;
+    --danger: #f97066;
+    --star: #fbbf24;
+    --p-arab-sweden: #2dd4bf;
+    --p-stockholm-guide: #60a5fa;
+    --p-familjebron: #fb923c;
+    --p-raed-ai-lab: #c4b5fd;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    --tab-on-ink: #111111;
+    --tab-on-count: rgba(0, 0, 0, .65);
+    color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
@@ -64,12 +89,11 @@
 
   /* ---------- Header ---------- */
   header.top {
-    position: sticky; top: 0; z-index: 10;
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
     background: color-mix(in srgb, var(--bg) 92%, transparent);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
-    padding-top: env(safe-area-inset-top);
   }
   .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 12px 8px; }
   .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
@@ -105,14 +129,9 @@
   }
   .tab .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--muted)); }
   .tab .count, .chip .count { font-size: 12px; color: var(--muted); }
-  .tab[aria-selected="true"] { background: var(--c, var(--accent)); border-color: transparent; color: #fff; }
-  .tab[aria-selected="true"] .dot { background: #fff; }
-  .tab[aria-selected="true"] .count { color: rgba(255, 255, 255, .8); }
-  @media (prefers-color-scheme: dark) {
-    .tab[aria-selected="true"] { color: #111; }
-    .tab[aria-selected="true"] .dot { background: #111; }
-    .tab[aria-selected="true"] .count { color: rgba(0, 0, 0, .65); }
-  }
+  .tab[aria-selected="true"] { background: var(--c, var(--accent)); border-color: transparent; color: var(--tab-on-ink); }
+  .tab[aria-selected="true"] .dot { background: var(--tab-on-ink); }
+  .tab[aria-selected="true"] .count { color: var(--tab-on-count); }
   .chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: transparent; }
   .chip[aria-pressed="true"] .count { color: inherit; opacity: .7; }
   .chip .num { font-size: 12px; opacity: .7; }
@@ -143,10 +162,16 @@
   .prompt-text {
     margin: 0; white-space: pre-wrap; word-break: break-word; font-family: inherit;
     font-size: 14.5px; background: var(--surface-2); border-radius: 10px; padding: 10px 12px;
-    unicode-bidi: plaintext; text-align: start;
-    max-height: 7.5em; overflow: hidden; position: relative;
+    unicode-bidi: plaintext; text-align: start; line-height: 1.6;
+    /* أربعة أسطر كاملة + الحشوة، حتى يقع القصّ بين سطرين لا في منتصف الحروف */
+    max-height: calc(4 * 1.6em + 20px); overflow: hidden; position: relative;
   }
   .card.open .prompt-text { max-height: none; }
+  .prompt-text.clipped::after {
+    content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 2.2em;
+    background: linear-gradient(to bottom, transparent, var(--surface-2));
+    pointer-events: none;
+  }
   .more { background: none; border: 0; color: var(--accent); padding: 6px 0; font-size: 13px; font-weight: 600; }
   .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
   .tags span { font-size: 12px; color: var(--muted); }
@@ -182,16 +207,38 @@
     font-weight: 700; font-size: 15px;
     display: inline-flex; align-items: center; gap: 8px;
     box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 45%, transparent);
+    transition: transform .2s ease, opacity .2s ease;
   }
   .fab svg { width: 20px; height: 20px; }
+  /* على الهاتف: زر دائري صغير يغطي أقل من البطاقات */
+  @media (max-width: 599px) {
+    .fab { width: 56px; height: 56px; min-height: 0; padding: 0; justify-content: center; }
+    .fab svg { width: 24px; height: 24px; }
+    .fab .fab-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  }
+  /* يختفي أثناء التمرير للأسفل ويعود عند التمرير للأعلى أو التوقف */
+  .fab.away { transform: translateY(calc(100% + 32px)); opacity: 0; pointer-events: none; }
+  @media (prefers-reduced-motion: reduce) { .fab { transition: none; } }
 
   /* ---------- Dialogs ---------- */
   dialog {
-    width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 24px);
+    width: min(560px, calc(100vw - 24px));
+    max-height: calc(100vh - 24px); /* للمتصفحات التي لا تدعم dvh */
+    max-height: calc(100dvh - 24px);
     border: 1px solid var(--border); border-radius: 18px; padding: 0;
     background: var(--surface); color: var(--text);
   }
   dialog::backdrop { background: rgba(10, 8, 20, .5); }
+  /* بديل للمتصفحات والمعاينات التي لا تدعم <dialog> */
+  dialog:not([open]) { display: none; }
+  /* التوسيط بـ left/right + margin:auto لا يتأثر باتجاه RTL */
+  dialog.fallback[open] {
+    display: block; position: fixed; z-index: 40; overflow: auto;
+    left: 0; right: 0; top: 50%; bottom: auto; margin: 0 auto;
+    transform: translateY(-50%);
+    max-height: calc(100vh - 24px);
+  }
+  .dlg-backdrop { position: fixed; inset: 0; z-index: 39; background: rgba(10, 8, 20, .5); }
   .dlg-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); }
   .dlg-head h2 { margin: 0; font-size: 17px; }
   .dlg-body { padding: 16px; display: grid; gap: 14px; }
@@ -251,6 +298,12 @@
 </header>
 
 <main class="wrap">
+  <!-- تختفي فور اكتمال التشغيل؛ بقاؤها يعني أن JavaScript لا يعمل -->
+  <div id="bootNotice" class="warn">
+    <strong>المكتبة لم تبدأ بعد.</strong>
+    إذا بقيت هذه الرسالة ظاهرة، فهذه المعاينة لا تشغّل JavaScript، ولن تعمل الأزرار. افتح الملف في Safari أو Chrome.
+  </div>
+  <div id="errorBox" class="warn" hidden></div>
   <div id="storageWarn" class="warn" hidden></div>
   <div id="backupHint" class="hint" hidden>
     <span>لديك تعديلات لم تُحفظ في نسخة احتياطية.</span>
@@ -267,9 +320,9 @@
   </div>
 </main>
 
-<button id="fab" class="fab" type="button">
+<button id="fab" class="fab" type="button" aria-label="برومبت جديد" title="برومبت جديد">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-  برومبت جديد
+  <span class="fab-label">برومبت جديد</span>
 </button>
 
 <!-- نافذة الإضافة والتعديل -->
@@ -302,7 +355,8 @@
       </label>
     </div>
     <div class="dlg-foot">
-      <button class="btn primary" type="submit" value="save">حفظ</button>
+      <!-- type="button": المعاينات المعزولة بلا allow-forms تحجب إرسال النماذج بصمت -->
+      <button id="editSave" class="btn primary" type="button">حفظ</button>
       <button class="btn" type="button" data-close>إلغاء</button>
     </div>
   </form>
@@ -320,11 +374,21 @@
       <h3>تصدير (ملف JSON)</h3>
       <button id="expAll" class="btn primary" type="button">تصدير كل المشاريع</button>
       <button id="expProject" class="btn" type="button">تصدير المشروع الحالي فقط</button>
+      <button id="expCopy" class="btn" type="button">نسخ كل البيانات كنص</button>
+      <p class="info" style="padding:0">إن لم يُحفظ الملف على هاتفك، انسخ البيانات كنص والصقها في ملاحظة أو ملف.</p>
     </div>
     <div class="group">
-      <h3>استيراد</h3>
+      <h3>استيراد من ملف</h3>
       <button id="impMerge" class="btn" type="button">استيراد ودمج مع الموجود</button>
       <button id="impReplace" class="btn danger" type="button">استيراد واستبدال كل البيانات</button>
+    </div>
+    <div class="group">
+      <h3>استيراد من نص ملصوق</h3>
+      <label class="field"><span>الصق هنا نص النسخة الاحتياطية</span>
+        <textarea id="importText" dir="ltr" rows="4" placeholder='{"app":"RAED AI LAB", "prompts": [...]}' style="min-height:96px"></textarea>
+      </label>
+      <button id="impTextMerge" class="btn" type="button">دمج النص مع الموجود</button>
+      <button id="impTextReplace" class="btn danger" type="button">استبدال كل البيانات بالنص</button>
     </div>
     <div class="group">
       <h3>أين تُحفظ بياناتي؟</h3>
@@ -342,9 +406,32 @@
   </div>
 </dialog>
 
+<!-- نافذة تأكيد داخل الصفحة، لأن المعاينات المعزولة تحجب confirm() -->
+<dialog id="confirmDlg" aria-labelledby="confirmMsg">
+  <div class="dlg-body">
+    <p id="confirmMsg" style="margin:0;white-space:pre-line"></p>
+  </div>
+  <div class="dlg-foot">
+    <button id="confirmYes" class="btn primary" type="button">تأكيد</button>
+    <button id="confirmNo" class="btn" type="button">إلغاء</button>
+  </div>
+</dialog>
+
 <input type="file" id="fileInput" accept="application/json,.json" hidden>
 <div id="toast" role="status" aria-live="polite"></div>
 
+<script>
+  // يعرض أخطاء JavaScript على الصفحة نفسها، حتى يمكن تشخيصها من الهاتف
+  (() => {
+    const report = msg => {
+      const box = document.getElementById('errorBox');
+      box.textContent = 'خطأ في الصفحة: ' + msg;
+      box.hidden = false;
+    };
+    window.addEventListener('error', e => report(e.message || 'غير معروف'));
+    window.addEventListener('unhandledrejection', e => report(String(e.reason && e.reason.message || e.reason)));
+  })();
+</script>
 <script>
 (() => {
   'use strict';
@@ -708,7 +795,9 @@ No text, no letters, no watermarks in the image.`,
     for (const li of $('#list').children) {
       if (li.classList.contains('open')) continue;
       const pre = li.querySelector('.prompt-text');
-      li.querySelector('.more').hidden = pre.scrollHeight <= pre.clientHeight + 1;
+      const clipped = pre.scrollHeight > pre.clientHeight + 1;
+      li.querySelector('.more').hidden = !clipped;
+      pre.classList.toggle('clipped', clipped);
     }
   }
 
@@ -720,6 +809,53 @@ No text, no letters, no watermarks in the image.`,
     t.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  // فتح النوافذ مع بديل حين لا يتوفر showModal (iOS أقدم من 15.4 وبعض المعاينات)
+  let backdrop = null;
+  function openDialog(d) {
+    if (d.hasAttribute('open')) return;
+    if (typeof d.showModal === 'function') {
+      try { d.showModal(); return; } catch (_) {}
+    }
+    d.classList.add('fallback');
+    d.setAttribute('open', '');
+    if (!backdrop) {
+      backdrop = el('div', { class: 'dlg-backdrop' });
+      backdrop.addEventListener('click', () => {
+        const all = document.querySelectorAll('dialog.fallback[open]');
+        if (all.length) closeDialog(all[all.length - 1]);
+      });
+    }
+    document.body.append(backdrop);
+  }
+
+  function closeDialog(d) {
+    if (!d.hasAttribute('open')) return;
+    if (!d.classList.contains('fallback') && typeof d.close === 'function') {
+      d.close(); // يطلق حدث close تلقائيًا
+      return;
+    }
+    d.removeAttribute('open');
+    d.classList.remove('fallback');
+    if (backdrop && !document.querySelector('dialog.fallback[open]')) backdrop.remove();
+    d.dispatchEvent(new Event('close'));
+  }
+
+  let confirmResolve = null;
+  function askConfirm(msg, yesLabel = 'تأكيد') {
+    if (confirmResolve) confirmResolve(false);
+    $('#confirmMsg').textContent = msg;
+    $('#confirmYes').textContent = yesLabel;
+    openDialog($('#confirmDlg'));
+    return new Promise(res => { confirmResolve = res; });
+  }
+
+  function settleConfirm(ok) {
+    const r = confirmResolve;
+    confirmResolve = null;
+    closeDialog($('#confirmDlg'));
+    if (r) r(ok);
   }
 
   async function copyText(text) {
@@ -766,13 +902,12 @@ No text, no letters, no watermarks in the image.`,
     f.text.value = p ? p.text : '';
     f.tags.value = p ? p.tags.join('، ') : '';
     f.fav.checked = p ? p.fav : false;
-    $('#editDlg').showModal();
+    openDialog($('#editDlg'));
     if (!p) f.title.focus();
   }
 
-  function submitEditor(e) {
-    e.preventDefault();
-    const f = e.target;
+  function saveEditor() {
+    const f = $('#editForm');
     const data = {
       title: f.title.value, project: f.project.value, stage: f.stage.value,
       text: f.text.value, tags: f.tags.value, fav: f.fav.checked,
@@ -791,34 +926,68 @@ No text, no letters, no watermarks in the image.`,
       toast('تمت الإضافة');
     }
     save();
-    $('#editDlg').close();
+    closeDialog($('#editDlg'));
     render();
   }
 
   // ---------- التصدير والاستيراد ----------
-  function exportData(scope) {
+  function exportPayload(scope) {
     const prompts = scope === 'all' ? state.prompts : state.prompts.filter(p => p.project === scope);
-    const payload = {
+    const json = JSON.stringify({
       app: 'RAED AI LAB', version: 1, exportedAt: new Date().toISOString(),
       scope, prompts,
-    };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const day = new Date().toISOString().slice(0, 10);
-    const a = el('a', { href: url, download: `raed-ai-lab_${scope}_${day}.json` });
+    }, null, 2);
+    return { prompts, json };
+  }
+
+  function markExported(scope, count, how) {
+    if (scope === 'all') {
+      state.lastBackup = now();
+      save(false);
+    }
+    toast(scope === 'all' ? `${how} ${count} برومبت` : `${how} ${count} برومبت من ${projectById[scope].name}`);
+    render();
+    renderStorageStat();
+  }
+
+  // صفحة claude.ai الخاصة: الحفظ عبر قدرة downloads. خارجها: رابط تنزيل عادي.
+  function downloadsCapability() {
+    try {
+      return window.claude && typeof window.claude.use === 'function' ? window.claude.use('downloads') : Promise.resolve(null);
+    } catch (_) {
+      return Promise.resolve(null);
+    }
+  }
+
+  async function exportData(scope) {
+    const { prompts, json } = exportPayload(scope);
+    const filename = `raed-ai-lab_${scope}_${new Date().toISOString().slice(0, 10)}.json`;
+    const downloads = await downloadsCapability();
+    if (downloads) {
+      try {
+        await downloads.save({ filename, data: json });
+        markExported(scope, prompts.length, 'تم تصدير');
+      } catch (err) {
+        const code = err && err.code;
+        if (code === 'declined') toast('أُلغي الحفظ');
+        else if (code === 'rate_limited') toast('نافذة حفظ مفتوحة بالفعل، أكملها أولًا');
+        else toast('تعذّر حفظ الملف هنا. استخدم «نسخ كل البيانات كنص»');
+      }
+      return;
+    }
+    const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+    const a = el('a', { href: url, download: filename });
     document.body.append(a);
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 4000);
-    if (scope === 'all') {
-      state.lastBackup = now();
-      save(false);
-      toast(`تم تصدير ${prompts.length} برومبت`);
-    } else {
-      toast(`تم تصدير ${prompts.length} برومبت من ${projectById[scope].name}`);
-    }
-    render();
-    renderStorageStat();
+    markExported(scope, prompts.length, 'تم تصدير');
+  }
+
+  async function copyExport() {
+    const { prompts, json } = exportPayload('all');
+    if (await copyText(json)) markExported('all', prompts.length, 'نُسخت بيانات');
+    else toast('تعذّر النسخ');
   }
 
   function startImport(mode) {
@@ -830,11 +999,17 @@ No text, no letters, no watermarks in the image.`,
   async function handleImportFile(file) {
     if (!file) return;
     if (file.size > MAX_IMPORT_BYTES) { toast('الملف أكبر من 5 ميغابايت'); return; }
+    await importText(await file.text());
+  }
+
+  async function importText(text) {
+    if (!text || !text.trim()) { toast('لا يوجد نص للاستيراد'); return; }
+    if (text.length > MAX_IMPORT_BYTES) { toast('النص أكبر من 5 ميغابايت'); return; }
     let data;
     try {
-      data = JSON.parse(await file.text());
+      data = JSON.parse(text);
     } catch (_) {
-      toast('الملف ليس JSON صالحًا');
+      toast('النص ليس نسخة احتياطية صالحة (JSON)');
       return;
     }
     const list = Array.isArray(data) ? data : (data && Array.isArray(data.prompts) ? data.prompts : null);
@@ -845,7 +1020,8 @@ No text, no letters, no watermarks in the image.`,
     if (!valid.length) { toast('لا يوجد برومبت صالح في الملف'); return; }
 
     if (importMode === 'replace') {
-      if (!confirm(`سيُحذف كل ما في المكتبة الآن (${state.prompts.length} برومبت) ويُستبدل بـ ${valid.length} من الملف. متابعة؟`)) return;
+      const ok = await askConfirm(`سيُحذف كل ما في المكتبة الآن (${state.prompts.length} برومبت) ويُستبدل بـ ${valid.length} من النسخة الاحتياطية. متابعة؟`, 'استبدال');
+      if (!ok) return;
       state.prompts = valid;
       save();
       toast(`تم الاستبدال: ${valid.length}` + (skipped ? ` · تجاهل ${skipped} غير صالح` : ''));
@@ -866,7 +1042,8 @@ No text, no letters, no watermarks in the image.`,
       if (skipped) parts.push(`غير صالح ${skipped}`);
       toast(parts.join(' · '));
     }
-    $('#dataDlg').close();
+    $('#importText').value = '';
+    closeDialog($('#dataDlg'));
     render();
   }
 
@@ -919,6 +1096,18 @@ No text, no letters, no watermarks in the image.`,
     resizeTimer = setTimeout(updateMoreButtons, 150);
   });
 
+  // يبقى مخفيًا بعد التمرير للأسفل حتى لا يغطي أزرار البطاقة تحته،
+  // ويعود عند التمرير للأعلى أو في أعلى الصفحة أو عند نهاية القائمة
+  let lastY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const fab = $('#fab');
+    const atEnd = window.innerHeight + y >= document.documentElement.scrollHeight - 40;
+    if (y <= 120 || atEnd || y < lastY - 4) fab.classList.remove('away');
+    else if (y > lastY + 4) fab.classList.add('away');
+    lastY = y;
+  }, { passive: true });
+
   $('#list').addEventListener('click', async e => {
     const b = e.target.closest('[data-act]');
     if (!b) return;
@@ -938,7 +1127,7 @@ No text, no letters, no watermarks in the image.`,
         openEditor(id);
         break;
       case 'delete':
-        if (confirm(`حذف «${p.title}»؟\nلا يمكن استرجاعه إلا من نسخة احتياطية.`)) {
+        if (await askConfirm(`حذف «${p.title}»؟\nلا يمكن استرجاعه إلا من نسخة احتياطية.`, 'حذف')) {
           state.prompts = state.prompts.filter(x => x.id !== id);
           save();
           render();
@@ -954,29 +1143,49 @@ No text, no letters, no watermarks in the image.`,
 
   $('#fab').addEventListener('click', () => openEditor());
   $('#emptyAdd').addEventListener('click', () => openEditor());
-  $('#editForm').addEventListener('submit', submitEditor);
+  $('#editSave').addEventListener('click', saveEditor);
+  // Enter في حقل نصي قصير يحفظ، دون الاعتماد على إرسال النموذج
+  $('#editForm').addEventListener('submit', e => { e.preventDefault(); saveEditor(); });
+  $('#editForm').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type !== 'checkbox') { e.preventDefault(); saveEditor(); }
+  });
 
-  $('#btnData').addEventListener('click', () => { renderStorageStat(); $('#dataDlg').showModal(); });
+  $('#btnData').addEventListener('click', () => { renderStorageStat(); openDialog($('#dataDlg')); });
   $('#hintExport').addEventListener('click', () => exportData('all'));
   $('#expAll').addEventListener('click', () => exportData('all'));
   $('#expProject').addEventListener('click', () => { if (ui.project !== 'all') exportData(ui.project); });
   $('#impMerge').addEventListener('click', () => startImport('merge'));
   $('#impReplace').addEventListener('click', () => startImport('replace'));
+  $('#expCopy').addEventListener('click', copyExport);
+  const importFromBox = mode => { importMode = mode; importText($('#importText').value); };
+  $('#impTextMerge').addEventListener('click', () => importFromBox('merge'));
+  $('#impTextReplace').addEventListener('click', () => importFromBox('replace'));
   $('#fileInput').addEventListener('change', e => handleImportFile(e.target.files[0]));
 
   document.querySelectorAll('dialog').forEach(d => {
     d.addEventListener('click', e => {
-      if (e.target.closest('[data-close]') || e.target === d) d.close();
+      if (e.target.closest('[data-close]') || e.target === d) closeDialog(d);
     });
   });
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const open = document.querySelectorAll('dialog.fallback[open]');
+    if (open.length) closeDialog(open[open.length - 1]);
+  });
+
+  $('#confirmYes').addEventListener('click', () => settleConfirm(true));
+  $('#confirmNo').addEventListener('click', () => settleConfirm(false));
+  // الإغلاق بزر Esc أو بالضغط خارج النافذة يعني الرفض
+  $('#confirmDlg').addEventListener('close', () => { if (confirmResolve) settleConfirm(false); });
 
   // ---------- التشغيل ----------
   fillSelects();
   load();
-  if (!storageOK) showWarn('التخزين المحلي غير متاح في هذا المتصفح (ربما وضع التصفح الخاص). التعديلات لن تُحفظ بعد إغلاق الصفحة.');
+  if (!storageOK) showWarn('الحفظ غير متاح هنا، وهذا معتاد في المعاينات والتصفح الخاص. الإضافة والبحث والنسخ تعمل، لكن التعديلات تضيع عند إغلاق الصفحة. صدّر نسخة قبل الإغلاق.');
   // طلب حماية البيانات من الحذف التلقائي (يتجاهله بعض المتصفحات)
   try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (_) {}
   render();
+  $('#bootNotice').hidden = true;
 })();
 </script>
 </body>
