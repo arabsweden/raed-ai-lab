@@ -15,6 +15,8 @@
 - [قواعد الإنتاج والهوية والصوت](production/production-rules.md)
 - [متابعة حالة الفيديوهات](tracking/production-status.md)
 - [الأدوات والتكلفة](tools/workflow-and-costs.md)
+- [تشغيل المختبر مع Claude Code والإضافات](docs/claude-code-setup.md)
+- [أفكار إبداعية للمختبر والمواقع](docs/creative-ideas.md)
 
 ## القوالب
 - [قالب الطلب الأساسي](prompts/raed7-video-template.md)
