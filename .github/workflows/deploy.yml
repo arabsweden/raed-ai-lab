@@ -22,10 +22,11 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Prepare static app
         run: |
-          mkdir -p dist
-          cp app/index.html dist/index.html
-      - name: Check entry page
-        run: test -s dist/index.html
+          mkdir -p dist/prompts
+          cp site/index.html dist/index.html
+          cp app/index.html dist/prompts/index.html
+      - name: Check entry pages
+        run: test -s dist/index.html && test -s dist/prompts/index.html
       - name: Upload website
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
