@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تطبيقات عرب السويد | مختبر رائد</title>
+<meta name="description" content="تطبيقات عربية مجانية تشرح الحياة في السويد: العائلة والمدرسة، الهجرة والإقامة، العمل، السفر في ستوكهولم، والذكاء الاصطناعي. من صنع رائد شهاب.">
+<meta name="theme-color" content="#123A63">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_AR">
+<meta property="og:title" content="تطبيقات عرب السويد — مجانية وبالعربية">
+<meta property="og:description" content="اختر خطّك وانزل في المحطة التي تحتاجها: العائلة، الهجرة، العمل، ستوكهولم، والذكاء الاصطناعي.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23123A63'/%3E%3Ccircle cx='32' cy='32' r='12' fill='%23F4C430'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --snow:#F3F6F9;
+  --paper:#FFFFFF;
+  --ink:#152B44;
+  --ink-soft:#4C5F75;
+  --navy:#123A63;
+  --yellow:#F4C430;
+  --rule:#D9E1EA;
+  --l-family:#2E9A57;
+  --l-migration:#2D6DC2;
+  --l-work:#D0463B;
+  --l-city:#E58A12;
+  --l-ai:#7B52B8;
+  --radius-s:6px;
+  --radius-m:14px;
+  --focus:0 0 0 3px var(--yellow), 0 0 0 5px var(--navy);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --snow:#0F1B2A; --paper:#162538; --ink:#E8EEF5; --ink-soft:#A9B7C7;
+    --navy:#0B2742; --rule:#2A3C52;
+    --l-family:#4CC27C; --l-migration:#5B95E6; --l-work:#F0695D; --l-city:#F5A63D; --l-ai:#A07EE0;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--snow); color:var(--ink);
+  font-family:"Readex Pro", "Segoe UI", Tahoma, "Noto Sans Arabic", sans-serif;
+  font-size:17px; line-height:1.7; font-weight:300;
+}
+a{color:inherit}
+:focus-visible{outline:none; box-shadow:var(--focus); border-radius:var(--radius-s)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 18px}
+
+/* station-sign header */
+.sign{background:var(--navy); color:#fff}
+.sign .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:60px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:600}
+.brand-dot{width:30px; height:30px; border-radius:50%; background:var(--yellow); display:grid; place-items:center; color:var(--navy); font-weight:700; font-size:15px; flex:none}
+.brand small{display:block; font-weight:300; font-size:12px; opacity:.75; line-height:1.2}
+.sign nav{display:flex; gap:6px}
+.sign nav a{font-size:14px; text-decoration:none; padding:8px 12px; border-radius:var(--radius-s); border:1px solid rgba(255,255,255,.25)}
+.sign nav a:hover{background:rgba(255,255,255,.1)}
+
+/* hero = the metro map */
+.hero{padding:44px 0 28px}
+.hero h1{font-size:clamp(30px,6vw,52px); line-height:1.25; font-weight:700; margin:0 0 12px; max-width:16ch; letter-spacing:-.5px}
+.hero p.lead{font-size:clamp(17px,2.4vw,20px); color:var(--ink-soft); margin:0 0 30px; max-width:52ch}
+
+.map{background:var(--paper); border:1px solid var(--rule); border-radius:var(--radius-m); padding:18px 18px 8px}
+.map-head{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:6px; flex-wrap:wrap}
+.map-head h2{font-size:17px; font-weight:600; margin:0}
+.map-head span{font-size:14px; color:var(--ink-soft)}
+.line-btn{
+  --c:var(--ink);
+  display:grid; grid-template-columns:minmax(150px,230px) 1fr; align-items:center; gap:14px;
+  width:100%; background:none; border:0; padding:12px 6px; cursor:pointer; color:var(--ink);
+  font:inherit; text-align:right; border-radius:var(--radius-s);
+}
+.line-btn + .line-btn{border-top:1px dashed var(--rule)}
+.line-btn:hover .track{height:8px}
+.line-name{display:flex; align-items:center; gap:10px; font-weight:600; font-size:16px; line-height:1.35}
+.badge{width:30px; height:30px; flex:none; border-radius:50%; background:var(--c); color:#fff; display:grid; place-items:center; font-size:14px; font-weight:700}
+.track{position:relative; height:6px; background:var(--c); border-radius:6px; display:flex; justify-content:space-between; align-items:center; padding:0 2px; transition:height .15s}
+.track i{width:16px; height:16px; border-radius:50%; background:var(--paper); border:4px solid var(--c); flex:none}
+.line-btn[aria-pressed="true"]{background:color-mix(in srgb, var(--c) 10%, transparent)}
+.line-btn[aria-pressed="false"].dim{opacity:.38}
+.l-family{--c:var(--l-family)} .l-migration{--c:var(--l-migration)} .l-work{--c:var(--l-work)} .l-city{--c:var(--l-city)} .l-ai{--c:var(--l-ai)}
+
+/* tools row */
+.tools{display:flex; gap:10px; align-items:center; margin:26px 0 8px; flex-wrap:wrap}
+.search{flex:1 1 260px; position:relative}
+.search input{
+  width:100%; font:inherit; font-size:16px; color:var(--ink); background:var(--paper);
+  border:1.5px solid var(--rule); border-radius:var(--radius-s); padding:12px 44px 12px 14px; min-height:48px;
+}
+.search input:focus{border-color:var(--navy); outline:none; box-shadow:var(--focus)}
+.search svg{position:absolute; right:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; color:var(--ink-soft)}
+.show-all{font:inherit; font-size:15px; min-height:48px; padding:0 16px; background:var(--paper); border:1.5px solid var(--rule); color:var(--ink); border-radius:var(--radius-s); cursor:pointer}
+.status{font-size:14px; color:var(--ink-soft); margin:4px 0 0; min-height:1.7em}
+
+/* route lists */
+.route{margin:34px 0 0}
+.route[hidden]{display:none}
+.route h2{display:flex; align-items:center; gap:10px; font-size:22px; font-weight:600; margin:0 0 4px}
+.route > p{color:var(--ink-soft); margin:0 0 14px; font-size:15px}
+.stops{list-style:none; margin:0; padding:0 26px 0 0; position:relative}
+.stops::before{content:""; position:absolute; right:9px; top:14px; bottom:14px; width:6px; border-radius:6px; background:var(--c)}
+.stop{position:relative; padding:4px 0 18px}
+.stop[hidden]{display:none}
+.stop::before{content:""; position:absolute; right:-24px; top:18px; width:16px; height:16px; border-radius:50%; background:var(--paper); border:4px solid var(--c)}
+.stop-body{background:var(--paper); border:1px solid var(--rule); border-radius:var(--radius-s); padding:14px 16px; display:grid; grid-template-columns:1fr auto; gap:6px 16px; align-items:center}
+.stop h3{margin:0; font-size:18px; font-weight:600; line-height:1.4}
+.stop h3 .sv{display:block; font-size:13px; font-weight:400; color:var(--ink-soft); direction:ltr; text-align:right}
+.stop p{margin:0; grid-column:1; font-size:15px; color:var(--ink-soft); max-width:60ch}
+.stop .acts{grid-column:2; grid-row:1 / span 2; display:flex; flex-direction:column; gap:6px; align-items:stretch}
+.open{display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 18px; background:var(--c); color:#fff; text-decoration:none; font-weight:600; border-radius:var(--radius-s); font-size:15px; white-space:nowrap}
+.open:hover{filter:brightness(1.08)}
+.code{font-size:13px; text-align:center; color:var(--ink-soft); text-decoration:none; padding:4px}
+.code:hover{text-decoration:underline}
+.new{display:inline-block; font-size:12px; font-weight:600; background:var(--yellow); color:#3A2B00; padding:1px 8px; border-radius:20px; margin-inline-start:6px; vertical-align:middle}
+.empty{background:var(--paper); border:1.5px dashed var(--rule); border-radius:var(--radius-m); padding:22px; margin-top:24px; text-align:center}
+.empty[hidden]{display:none}
+.empty button{font:inherit; margin-top:8px; min-height:44px; padding:0 16px; border-radius:var(--radius-s); border:0; background:var(--navy); color:#fff; cursor:pointer}
+
+/* next stop: invite */
+.invite{margin:56px 0 0; background:var(--navy); color:#fff; border-radius:var(--radius-m); padding:30px 24px; display:grid; grid-template-columns:1.4fr 1fr; gap:24px; align-items:center}
+.invite h2{margin:0 0 8px; font-size:clamp(22px,3.5vw,30px); font-weight:700; line-height:1.35}
+.invite p{margin:0; opacity:.85; max-width:48ch}
+.invite .acts{display:flex; flex-direction:column; gap:10px}
+.btn{display:flex; align-items:center; justify-content:center; gap:8px; min-height:50px; padding:0 18px; border-radius:var(--radius-s); font:inherit; font-weight:600; font-size:16px; text-decoration:none; cursor:pointer; border:0}
+.btn-y{background:var(--yellow); color:#2A2000}
+.btn-o{background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.45)}
+.btn-o:hover{background:rgba(255,255,255,.08)}
+.toast{font-size:14px; min-height:1.6em; margin:0; opacity:.9}
+
+footer{margin:46px 0 0; padding:24px 0 40px; border-top:1px solid var(--rule); font-size:14px; color:var(--ink-soft)}
+footer p{margin:0 0 6px; max-width:70ch}
+
+@media (max-width:640px){
+  .hero{padding-top:30px}
+  .line-btn{grid-template-columns:1fr; gap:8px}
+  .stop-body{grid-template-columns:1fr}
+  .stop .acts{grid-column:1; grid-row:auto; flex-direction:row; align-items:center; margin-top:6px}
+  .open{flex:1}
+  .invite{grid-template-columns:1fr; padding:26px 18px}
+  .sign nav a.hide-s{display:none}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+
+<header class="sign">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="مختبر رائد — الصفحة الرئيسية">
+      <span class="brand-dot" aria-hidden="true">R</span>
+      <span>مختبر رائد<small>RAED AI LAB · Stockholm</small></span>
+    </a>
+    <nav aria-label="روابط سريعة">
+      <a class="hide-s" href="https://www.youtube.com/@Arabsweden" target="_blank" rel="noopener">يوتيوب</a>
+      <a href="#invite">اقترح تطبيقًا</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>تطبيقات مجانية تسهّل حياتك في السويد</h1>
+    <p class="lead">بالعربية، وتعمل من جوالك مباشرة. اختر خطّك من الخريطة وانزل في المحطة التي تحتاجها.</p>
+
+    <div class="map" role="group" aria-labelledby="map-title">
+      <div class="map-head">
+        <h2 id="map-title">خريطة الخطوط</h2>
+        <span id="map-count"></span>
+      </div>
+      <button class="line-btn l-family" data-line="family" aria-pressed="false">
+        <span class="line-name"><span class="badge" aria-hidden="true">1</span>العائلة والمجتمع</span>
+        <span class="track" aria-hidden="true"></span>
+      </button>
+      <button class="line-btn l-migration" data-line="migration" aria-pressed="false">
+        <span class="line-name"><span class="badge" aria-hidden="true">2</span>الهجرة والإقامة</span>
+        <span class="track" aria-hidden="true"></span>
+      </button>
+      <button class="line-btn l-work" data-line="work" aria-pressed="false">
+        <span class="line-name"><span class="badge" aria-hidden="true">3</span>العمل والدراسة</span>
+        <span class="track" aria-hidden="true"></span>
+      </button>
+      <button class="line-btn l-city" data-line="city" aria-pressed="false">
+        <span class="line-name"><span class="badge" aria-hidden="true">4</span>ستوكهولم والسفر</span>
+        <span class="track" aria-hidden="true"></span>
+      </button>
+      <button class="line-btn l-ai" data-line="ai" aria-pressed="false">
+        <span class="line-name"><span class="badge" aria-hidden="true">5</span>الذكاء الاصطناعي وصناعة المحتوى</span>
+        <span class="track" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="tools">
+      <label class="search">
+        <span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">ابحث في التطبيقات</span>
+        <input id="q" type="search" placeholder="ابحث: مدرسة، إقامة، سيرة ذاتية…" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      </label>
+      <button class="show-all" id="all" type="button">كل الخطوط</button>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </section>
+
+  <!-- Line 1 -->
+  <section class="route l-family" data-line="family" aria-labelledby="h-family">
+    <h2 id="h-family"><span class="badge" aria-hidden="true">1</span>العائلة والمجتمع</h2>
+    <p>المدرسة، السوسيال، حقوق الطفل، وكيف تعمل المؤسسات السويدية.</p>
+    <ol class="stops">
+      <li class="stop" data-k="مدرسة سوسيال طفل اسرة عائلة حقوق familjebron">
+        <div class="stop-body">
+          <h3>جسر الأسرة في السويد<span class="sv">Familjebron Sverige</span></h3>
+          <p>افهم المدرسة والسوسيال وحقوق طفلك بهدوء، مع قراءة صوتية للنصوص.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/familjebronsverige/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/familjebronsverige">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="سوسيال خدمات اجتماعية socialtjansten socialtjänsten حقوق">
+        <div class="stop-body">
+          <h3>دليل السوسيال<span class="sv">Socialtjänsten</span></h3>
+          <p>كيف تعمل الخدمات الاجتماعية، وما حقوقك وخطواتك عند التواصل معها.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/dalil-socialtjansten/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/dalil-socialtjansten">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="توجيه مجتمعي samhallsorientering samhällsorientering قادمين جدد قوانين">
+        <div class="stop-body">
+          <h3>دليل التوجيه المجتمعي<span class="sv">Samhällsorientering</span></h3>
+          <p>دروس تفاعلية عن المجتمع والقانون للقادمين الجدد، مع مساعد يجيب عن أسئلتك.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/dalil-samhallsorientering/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/dalil-samhallsorientering">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="sverigeguide اسئلة بنك اسئلة بلدية مؤسسات ثلاث لغات">
+        <div class="stop-body">
+          <h3>SverigeGuide<span class="sv">Civic orientation · العربية · Svenska · English</span></h3>
+          <p>منصة بثلاث لغات: وحدات تعليمية، بنك أسئلة، ودليل للمؤسسات والبلديات.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/sverigeguide-civic-orientation/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/sverigeguide-civic-orientation">الكود</a></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Line 2 -->
+  <section class="route l-migration" data-line="migration" aria-labelledby="h-migration">
+    <h2 id="h-migration"><span class="badge" aria-hidden="true">2</span>الهجرة والإقامة</h2>
+    <p>شرح مبسّط للقوانين والتحديثات. تحقق دائمًا من موقع Migrationsverket.</p>
+    <ol class="stops">
+      <li class="stop" data-k="سويدنا الان اخبار قوانين تحديثات sverige nu هجرة ضرائب">
+        <div class="stop-body">
+          <h3>سويدنا الآن<span class="sv">Sverige Nu</span></h3>
+          <p>أحدث القرارات الرسمية في الهجرة والضرائب والتأمينات والعمل، مشروحة بالعربية.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/sverige-nu/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/sverige-nu">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="هجرة اقامة فرص مستشار قوانين 2026 immigration">
+        <div class="stop-body">
+          <h3>دليل الهجرة إلى السويد<span class="sv">Sweden Immigration Advisor</span></h3>
+          <p>يساعدك على فهم طرق الإقامة المتاحة وما تغيّر في القوانين. للتوعية، لا بديل عن محامٍ.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/sweden-immigration-advisor/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/sweden-immigration-advisor">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="بودكاست هجرة اقامة تصاريح استماع podcast">
+        <div class="stop-body">
+          <h3>هجرة السويد — بودكاست<span class="sv">Sweden Migration Guide</span></h3>
+          <p>استمع لشرح تصاريح الإقامة وقوانين الهجرة بالعربية وأنت في الطريق.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/sweden-migration-guide/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/sweden-migration-guide">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="قصة هجرة تحليل دروس بودكاست ذكاء اصطناعي رحلة">
+        <div class="stop-body">
+          <h3>حلّل رحلة الهجرة<span class="sv">Migration Journey Podcast</span><span class="new">ذكاء اصطناعي</span></h3>
+          <p>احكِ قصة هجرتك، فيستخرج منها الدروس ويحوّلها إلى حلقة بودكاست صوتية.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/migration-journey-podcast/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/migration-journey-podcast">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="دليلك حياة سكن دوائر حكومية عمل سياحة dalilak">
+        <div class="stop-body">
+          <h3>دليلك في السويد<span class="sv">Dalilak fi Sweden</span></h3>
+          <p>دليل عملي شامل: السكن، الدوائر الحكومية، العمل، والسياحة في ستوكهولم.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/dalilak-fi-sweden/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/dalilak-fi-sweden">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="حياة اقامة عمل اسئلة life guide">
+        <div class="stop-body">
+          <h3>دليل الحياة في السويد<span class="sv">Sweden Life Guide</span></h3>
+          <p>اسأل عن الحياة والإقامة والعمل، واحصل على إجابات مرتبطة بمصادر رسمية.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/sweden-life-guide/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/sweden-life-guide">الكود</a></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Line 3 -->
+  <section class="route l-work" data-line="work" aria-labelledby="h-work">
+    <h2 id="h-work"><span class="badge" aria-hidden="true">3</span>العمل والدراسة</h2>
+    <p>من البحث عن وظيفة إلى المقابلة، ومستشار للطلاب.</p>
+    <ol class="stops">
+      <li class="stop" data-k="عمل وظيفة سيرة ذاتية cv مقابلة خطاب تقديم jobb">
+        <div class="stop-body">
+          <h3>دليل العمل في السويد<span class="sv">Jobb i Sverige Guide</span></h3>
+          <p>سيرة ذاتية بالأسلوب السويدي، خطاب تقديم، تحليل الإعلان، ومدرّب مقابلات.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/jobb-i-sverige-guide/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/jobb-i-sverige-guide">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="career assistant سيرة ذاتية انجليزي وظائف">
+        <div class="stop-body">
+          <h3>مساعد المسار المهني<span class="sv">Swedish Career Assistant · العربية · English</span></h3>
+          <p>نسخة مختصرة بالعربية والإنجليزية لبناء السيرة الذاتية والبحث عن الوظائف.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/swedish-career-assistant/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/swedish-career-assistant">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="طالب دراسة جامعة مستشار صوت محادثة student counselor">
+        <div class="stop-body">
+          <h3>مستشار الطلاب الصوتي<span class="sv">AI Student Counselor</span><span class="new">بالصوت</span></h3>
+          <p>تحدّث بصوتك مع مستشار ذكي عن دراستك وخياراتك. يحتاج إذن الميكروفون.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/gemini-ai-student-counselor/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/gemini-ai-student-counselor">الكود</a></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Line 4 -->
+  <section class="route l-city" data-line="city" aria-labelledby="h-city">
+    <h2 id="h-city"><span class="badge" aria-hidden="true">4</span>ستوكهولم والسفر</h2>
+    <p>خطط رحلتك، واعرف أين تذهب في Stockholm وبقية السويد.</p>
+    <ol class="stops">
+      <li class="stop" data-k="ستوكهولم سياحة اماكن خريطة حفظ مشاركة stockholm gamla stan">
+        <div class="stop-body">
+          <h3>دليل ستوكهولم السياحي<span class="sv">Stockholm Guide</span></h3>
+          <p>أفضل الأماكن على خريطة تفاعلية، مع حفظها ومشاركتها مع أصدقائك.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/stockholm-guide/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/stockholm-guide">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="سفر رحلة السويد ستوكهولم اسعار travel">
+        <div class="stop-body">
+          <h3>دليل السفر إلى السويد<span class="sv">Sweden Travel Guide</span><span class="new">جديد</span></h3>
+          <p>دليل عربي للسفر يمكنك تثبيته على شاشة جوالك. الأسعار فيه تقديرية ومؤرخة.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/sweden-travel-stockholm-guide/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/sweden-travel-stockholm-guide">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="مساعد سفر فنادق مطاعم معالم خطة رحلة travel ai">
+        <div class="stop-body">
+          <h3>مساعد السفر الذكي<span class="sv">Sweden Travel AI</span></h3>
+          <p>اطلب خطة رحلة، واكتشف المعالم والفنادق والمطاعم في السويد.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/sweden-travel-ai/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/sweden-travel-ai">الكود</a></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Line 5 -->
+  <section class="route l-ai" data-line="ai" aria-labelledby="h-ai">
+    <h2 id="h-ai"><span class="badge" aria-hidden="true">5</span>الذكاء الاصطناعي وصناعة المحتوى</h2>
+    <p>الأدوات نفسها التي أصنع بها فيديوهاتي، مفتوحة لك.</p>
+    <ol class="stops">
+      <li class="stop" data-k="برومبت برومبتات مكتبة raed7 فيديو flow نسخ">
+        <div class="stop-body">
+          <h3>مكتبة برومبتات RAED7<span class="sv">Prompt Library</span><span class="new">جديد</span></h3>
+          <p>احفظ برومبتاتك ونظّمها حسب مراحل الفيديو، وانسخها بضغطة. تُحفظ في جوالك فقط.</p>
+          <div class="acts"><a class="open" href="./prompts/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/raed-ai-lab">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="صانع محتوى اكاديمية مونتاج جمهور دخل يوتيوب تيك توك">
+        <div class="stop-body">
+          <h3>أكاديمية صانع المحتوى<span class="sv">Content Creator Academy</span></h3>
+          <p>من أول فكرة إلى أول دخل: اختيار المنصة، المونتاج، بناء الجمهور، والجانب القانوني.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/content-creator-academy/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/content-creator-academy">الكود</a></div>
+        </div>
+      </li>
+      <li class="stop" data-k="جولات سفر محتوى اكاديمية ستوكهولم صناعة فيديو">
+        <div class="stop-body">
+          <h3>أكاديمية Stockholm Guide<span class="sv">Stockholm Guide Academy</span></h3>
+          <p>تعلّم صناعة فيديوهات الجولات والسفر خطوة بخطوة.</p>
+          <div class="acts"><a class="open" href="https://arabsweden.github.io/stockholm-guide-academy/">افتح التطبيق</a><a class="code" href="https://github.com/arabsweden/stockholm-guide-academy">الكود</a></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <div class="empty" id="empty" hidden>
+    <p>لا يوجد تطبيق بهذا الاسم بعد. جرّب كلمة أخرى، أو اقترحه علينا لنبنيه.</p>
+    <button type="button" id="reset">اعرض كل التطبيقات</button>
+  </div>
+
+  <section class="invite" id="invite" aria-labelledby="h-invite">
+    <div>
+      <h2 id="h-invite">المحطة القادمة تختارها أنت</h2>
+      <p>اكتب في التعليقات على آخر فيديو في القناة: ما التطبيق الذي يسهّل حياتك في السويد؟ أبني أكثر فكرة تتكرر، وأعرض صناعتها في فيديو.</p>
+    </div>
+    <div class="acts">
+      <a class="btn btn-y" href="https://www.youtube.com/@Arabsweden?sub_confirmation=1" target="_blank" rel="noopener">اشترك في قناة ARAB SWEDEN</a>
+      <button class="btn btn-o" type="button" id="share">شارك الصفحة مع صديق</button>
+      <p class="toast" id="toast" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>التطبيقات مجانية وللتوعية فقط، وليست استشارة قانونية أو رسمية. القوانين والأسعار تتغير؛ تحقق دائمًا من الموقع الرسمي للجهة المعنية.</p>
+    <p>بعض التطبيقات تستخدم الذكاء الاصطناعي، وقد يخطئ. لا تكتب فيها رقمك الشخصي أو بيانات حساسة.</p>
+    <p>صنعها رائد شهاب في Stockholm · <a href="https://github.com/arabsweden">GitHub</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var routes=[].slice.call(document.querySelectorAll('.route'));
+  var lineBtns=[].slice.call(document.querySelectorAll('.line-btn'));
+  var stops=[].slice.call(document.querySelectorAll('.stop'));
+  var q=document.getElementById('q');
+  var status=document.getElementById('status');
+  var empty=document.getElementById('empty');
+  var active=null;
+
+  // Draw station dots on each line in the map, one per app
+  lineBtns.forEach(function(b){
+    var n=document.querySelectorAll('.route[data-line="'+b.dataset.line+'"] .stop').length;
+    var t=b.querySelector('.track');
+    for(var i=0;i<n;i++){t.appendChild(document.createElement('i'));}
+    b.setAttribute('aria-label', b.querySelector('.line-name').textContent.trim()+' — '+n+' تطبيقات');
+  });
+  document.getElementById('map-count').textContent=stops.length+' تطبيقًا على 5 خطوط';
+
+  function norm(s){
+    return (s||'').toLowerCase()
+      .replace(/[ً-ْـ]/g,'')
+      .replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي')
+      .replace(/ä|å/g,'a').replace(/ö/g,'o');
+  }
+  stops.forEach(function(s){ s._t=norm(s.textContent+' '+(s.dataset.k||'')); });
+
+  function apply(){
+    var term=norm(q.value.trim());
+    var shown=0;
+    routes.forEach(function(r){
+      var inLine=!active||r.dataset.line===active;
+      var c=0;
+      [].forEach.call(r.querySelectorAll('.stop'),function(s){
+        var ok=inLine&&(!term||s._t.indexOf(term)>-1);
+        s.hidden=!ok; if(ok)c++;
+      });
+      r.hidden=c===0; shown+=c;
+    });
+    lineBtns.forEach(function(b){
+      var on=b.dataset.line===active;
+      b.setAttribute('aria-pressed',on?'true':'false');
+      b.classList.toggle('dim',!!active&&!on);
+    });
+    empty.hidden=shown>0;
+    status.textContent=(active||term)?('يظهر '+shown+' من '+stops.length+' تطبيقًا'):'';
+  }
+
+  lineBtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      active=(active===b.dataset.line)?null:b.dataset.line;
+      apply();
+      if(active){
+        var r=document.querySelector('.route[data-line="'+active+'"]');
+        var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(r&&!r.hidden) r.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+      }
+    });
+  });
+  q.addEventListener('input',apply);
+  function resetAll(){active=null;q.value='';apply();}
+  document.getElementById('all').addEventListener('click',resetAll);
+  document.getElementById('reset').addEventListener('click',function(){resetAll();q.focus();});
+
+  var toast=document.getElementById('toast');
+  document.getElementById('share').addEventListener('click',function(){
+    var data={title:document.title,text:'تطبيقات مجانية بالعربية عن الحياة في السويد',url:location.href};
+    if(navigator.share){ navigator.share(data).catch(function(){}); return; }
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(location.href).then(function(){toast.textContent='نُسخ الرابط. الصقه في محادثتك.';},function(){toast.textContent='انسخ الرابط من شريط العنوان: '+location.href;});
+    } else { toast.textContent='انسخ الرابط من شريط العنوان: '+location.href; }
+  });
+
+  apply();
+})();
+</script>
+</body>
+</html>

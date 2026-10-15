@@ -12,6 +12,7 @@
 7. النشر
 
 ## ابدأ هنا
+- [بوابة التطبيقات (الصفحة الرئيسية للموقع)](site/index.html) — تُنشر على https://arabsweden.github.io/raed-ai-lab/ ومكتبة البرومبتات على /prompts/
 - [قواعد الإنتاج والهوية والصوت](production/production-rules.md)
 - [متابعة حالة الفيديوهات](tracking/production-status.md)
 - [الأدوات والتكلفة](tools/workflow-and-costs.md)
