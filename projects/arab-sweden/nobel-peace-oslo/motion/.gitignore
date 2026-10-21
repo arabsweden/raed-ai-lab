@@ -1,0 +1,5 @@
+node_modules/
+sheet/
+*.mp4
+*.jpg
+render.log
