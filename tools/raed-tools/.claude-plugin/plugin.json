@@ -1,0 +1,1 @@
+{ "name": "raed-tools", "version": "0.1.0", "license": "MIT", "author": { "name": "RAED SHIHAB" }, "description": "RAED7 templates as local slash commands (no tokens) plus a usage watcher" }
