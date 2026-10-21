@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "sheet": "mkdir -p sheet && node render.mjs sheet",
+    "setup": "npm i && npx playwright install chromium",
+    "sheet": "node render.mjs sheet",
     "render": "node render.mjs video nobel-oslo-reel-silent.mp4"
   },
   "dependencies": {

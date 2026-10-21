@@ -2,13 +2,16 @@
 import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
+import fs from 'node:fs';
 const mode = process.argv[2], out = process.argv[3] || 'out.mp4';
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+// CHROME_PATH is only needed where Playwright's own Chromium isn't installed (e.g. the Claude cloud box)
+const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
 const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
 const errs = []; page.on('pageerror', e => errs.push(e.message)); page.on('console', m => m.type() === 'error' && errs.push(m.text()));
 await page.goto('file://' + path.resolve('video.html'));
 await page.evaluate(() => document.fonts.ready);
 if (mode === 'sheet') {
+  fs.mkdirSync('sheet', { recursive: true });
   const times = [0.3, 2.5, 5, 8, 12, 15, 18, 22, 25, 28, 32, 35, 38, 42, 45, 48, 52, 55, 59];
   for (const [i, t] of times.entries()) { await page.evaluate(t => seek(t), t); await page.screenshot({ path: `sheet/f${String(i).padStart(2, '0')}.jpg`, type: 'jpeg', quality: 80 }); }
 } else {

@@ -23,5 +23,5 @@ Head-and-shoulders, centered, sharp focus, 1:1 square, photorealistic.
 - التوقيتات داخل `UPD[i](lt)` في `motion/video.html`، والزمن `lt` محلي من 0 إلى 10 لكل مشهد.
 - العنوان في `data-lines`: الرمز `/` يفصل الأسطر، و`|` يفصل الكلمات، و`*` يلوّن الكلمة بالبرتقالي، و`#` يجعلها عدّادًا.
 - المعاينة: افتح `video.html?t=25` لترى الثانية 25.
-- التصيير: `npm i` ثم `npm run sheet` (لوحة لقطات) و`npm run render` (MP4 صامت 1080×1920).
-- مسار Chromium مكتوب في `render.mjs` لبيئة Claude السحابية، فغيّره إذا شغّلته على جهازك.
+- التصيير: `npm run setup` مرة واحدة، ثم `npm run sheet` (لوحة لقطات) و`npm run render` (MP4 صامت 1080×1920). يحتاج Node وffmpeg.
+- في بيئة Claude السحابية: `CHROME_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run render`.
