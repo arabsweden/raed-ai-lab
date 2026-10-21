@@ -1,0 +1,7 @@
+{
+  "name": "raed-ai-lab",
+  "owner": { "name": "RAED SHIHAB" },
+  "plugins": [
+    { "name": "raed-tools", "source": "./tools/raed-tools", "description": "RAED7 templates as local slash commands (no tokens) plus a usage watcher" }
+  ]
+}
