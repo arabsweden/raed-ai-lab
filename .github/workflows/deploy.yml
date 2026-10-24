@@ -25,8 +25,10 @@ jobs:
           mkdir -p dist/prompts
           cp site/index.html dist/index.html
           cp app/index.html dist/prompts/index.html
+          mkdir -p dist/beta
+          cp beta/index.html dist/beta/index.html
       - name: Check entry pages
-        run: test -s dist/index.html && test -s dist/prompts/index.html
+        run: test -s dist/index.html && test -s dist/prompts/index.html && test -s dist/beta/index.html
       - name: Upload website
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
