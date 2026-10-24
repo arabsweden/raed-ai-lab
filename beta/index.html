@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="استوديو رائد لصناعة الأفكار والسيناريوهات وأوامر الذكاء الاصطناعي" name="description"/><title>RAED AI LAB | مختبر المحتوى المجاني</title><style>
+:root{--bg:#08111e;--card:#101f31;--line:#26354a;--ink:#f1f5fb;--muted:#a8b9cc;--gold:#eac483;--blue:#2d80a8}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 5% 5%,#12334b 0,transparent 35%),var(--bg);color:var(--ink);font:16px/1.8 system-ui,'Segoe UI',Tahoma,sans-serif}.wrap{max-width:1080px;margin:auto;padding:26px 18px 70px}header{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}.logo{font-weight:900;font-size:23px;letter-spacing:1px;color:var(--gold)}.tag{color:var(--muted);font-size:13px}.hero{padding:40px 0 25px}h1{font-size:clamp(27px,5vw,45px);line-height:1.4;margin:0 0 12px}h2{font-size:22px;color:var(--gold);margin:0 0 8px}p{color:var(--muted);margin:4px 0 20px}.pill{display:inline-block;border:1px solid #6b5b39;border-radius:99px;padding:3px 13px;color:var(--gold);font-size:13px;margin-bottom:12px}.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 20px}button{font:inherit;cursor:pointer;border:1px solid var(--line);border-radius:10px;background:#172b40;color:#fff;padding:10px 17px}button.active,button.primary{color:#0a1625;background:var(--gold);border-color:var(--gold);font-weight:700}button:hover{filter:brightness(1.1)}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:16px 0;box-shadow:0 12px 25px #0002}.hide{display:none}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.field{margin:12px 0}label{display:block;font-weight:600;margin-bottom:5px}input,select,textarea{width:100%;background:#071725;color:white;border:1px solid #3a4d64;border-radius:9px;font:inherit;padding:11px}textarea{min-height:108px;resize:vertical}.output{background:#071725;border:1px dashed #597088;padding:16px;border-radius:12px;white-space:pre-wrap;min-height:100px;line-height:2;margin:20px 0}.note{font-size:13px;color:#d3bb94}.library{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.item{background:#132840;border:1px solid #2a425b;border-radius:12px;padding:15px}.item strong{color:var(--gold)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.notice{color:#f1d29a;font-size:13px;min-height:23px}.kpi{color:#b8d4e9;font-size:13px}.small{font-size:13px}.item button{margin:3px}.item textarea{min-height:105px}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #eac483;outline-offset:2px}footer{border-top:1px solid var(--line);margin-top:34px;padding-top:18px;color:var(--muted);font-size:13px}@media(max-width:680px){.grid,.library{grid-template-columns:1fr}.panel{padding:16px}.wrap{padding-inline:14px}}
+@media(max-width:680px){body{font-size:17px}.hero{padding:20px 0}.panel{padding:15px}.tabs{display:grid;grid-template-columns:1fr 1fr}.tabs button{padding:12px 7px}.actions button{flex:1 1 45%;min-height:48px}.output{font-size:15px;overflow-wrap:anywhere;white-space:pre-wrap}.grid{gap:6px}button{min-height:44px}input,select,textarea{font-size:16px}}
+</style></head><body><div class="wrap"><header><div class="logo">RAED AI LAB <span style="font-size:12px;color:#fff">PUBLIC BETA · FREE</span></div><div class="tag">تعلّم · جرّب · اصنع محتواك</div></header><section class="hero"><div class="pill">نسخة تجريبية مجانية للجمهور — تعمل في المتصفح دون مفتاح API</div><h1>فكرتك تستحق أن تُرى.</h1><p>جرّب توليد أفكار للمحتوى، مخطط RAED7 من سبعة مشاهد، مكتبة الأوامر وفحص الجودة مجانًا. الأدوات تعمل في متصفحك، ولا ترسل الأفكار إلى Gemini. راجع المصادر والحقوق قبل النشر.</p><p>تنبيه: مولّد السيناريو يعتمد قوالب محلية ولا يتحقق من صحة الوقائع أو النطق أو حقوق الصور. لا تضع معلومات شخصية أو سرية.</p></section><nav aria-label="خدمات المختبر" class="tabs"><button class="active" data-tab="ideas">💡 مولّد الأفكار</button><button data-tab="raed">🎬 استوديو RAED7</button><button data-tab="prompts">📚 مكتبة الأوامر</button></nav>
+<section class="panel" id="ideas"><h2>مولّد أفكار المحتوى</h2><p>أدخل موضوعًا لتحصل على أفكار منظمة تصلح كبداية لكتابة فيديو.</p><div class="grid"><div class="field"><label for="topic">الموضوع</label><input id="topic" maxlength="140" value="السياحة في ستوكهولم"/></div><div class="field"><label for="audience">الجمهور</label><select id="audience"><option>العرب في السويد</option><option>السياح العرب</option><option>صنّاع المحتوى</option><option>الأسر العربية</option></select></div></div><div class="field"><label for="style">نوع الأفكار</label><select id="style"><option value="mixed">متنوعة</option><option value="story">قصص وتجارب</option><option value="guide">إرشادات وجولات</option><option value="myth">تصحيح مفاهيم</option></select></div><button class="primary" onclick="ideas()">ولّد أفكارًا</button><div aria-live="polite" class="output" id="ideasOut">اضغط «ولّد أفكارًا».</div><button onclick="copy('ideasOut',this)">نسخ النتيجة</button></section>
+<section class="panel hide" id="raed"><h2>استوديو RAED7</h2><p>مخطط محلي من 7 مشاهد. لإضافة معلومات محددة اكتب في حقل التفاصيل كل معلومة في سطر مستقل يبدأ بـ «معلومة:» أو «مكان:». لا يتحقق البرنامج من صحة المعلومات.</p><div class="grid"><div class="field"><label for="story">فكرة الفيديو</label><input id="story" maxlength="180" value="جولة مميزة في Gamla stan"/></div><div class="field"><label for="tone">أسلوب التعليق</label><select id="tone"><option>فصحى واضحة</option><option>لهجة أردنية</option></select></div></div><div class="field"><label for="flowSubject">المكان أو الموضوع بالإنجليزية لبرومبت Flow</label><input id="flowSubject" maxlength="180" placeholder="مثل Gamla stan أو Motala؛ مطلوب إذا كانت الفكرة بالعربية فقط"/></div><div class="field"><label for="notes">تفاصيل أو أماكن مهمة (اختياري)</label><textarea id="notes" placeholder="مثال: مكان: Göta kanal\nمعلومة: معلومة راجعت مصدرها الرسمي"></textarea></div><button class="primary" onclick="raed()">جهّز مخطط الفيديو</button><div aria-live="polite" class="output" id="raedOut">سيظهر هنا مخطط تصوير قابل للتعديل. النسخة الحالية قوالب وليست توليدًا ذكيًا.</div><button onclick="reviewRAED7('raedOut','raedAudit')">🔎 فحص جودة المخطط مجانًا</button><div aria-live="polite" class="output hide" id="raedAudit"></div><button onclick="copy('raedOut',this)">نسخ المخطط</button><button onclick="downloadText('raedOut','RAED7_plan.txt')">تنزيل المخطط TXT</button><button onclick="downloadFlow()">تنزيل برومبتات Flow فقط</button><div aria-live="polite" class="note" id="raedQuality"></div></section>
+<section class="panel hide" id="prompts"><h2>مكتبة الأوامر</h2><p>ابحث في أوامرك واستورد إضافاتك. تُحفظ المكتبة تلقائيًا في هذا المتصفح على عنوان الموقع نفسه.</p><div class="actions"><button class="primary" onclick="exportLibrary()">تصدير الأوامر JSON</button><label style="cursor:pointer;border:1px solid #56708c;border-radius:10px;padding:8px 14px">استيراد JSON <input accept=".json,application/json" hidden="" id="importFile" onchange="importLibrary(event)" type="file"/></label><button onclick="resetLibrary()">إعادة التعيين إلى الأوامر الأساسية</button></div><div class="notice" id="libraryStatus" role="status"></div><div class="field"><label for="category">تصنيف الأوامر</label><select id="category" onchange="renderLibrary()"><option value="all">جميع التصنيفات</option><option value="video">الفيديو وRAED7</option><option value="visual">الصور والهوية</option><option value="publishing">التسويق والنشر</option><option value="travel">السياحة والتحقق</option><option value="writing">الكتابة والتخطيط</option></select></div><div class="field"><label for="searchPrompts">البحث في الأوامر</label><input id="searchPrompts" oninput="renderLibrary()" placeholder="مثل /HOOK أو /PROFILE"/></div><div class="library" id="library"></div><p class="note">المكتبة التجريبية منفصلة عن موقعك الأصلي. الاستيراد يقبل قائمة JSON من عناصر تحتوي name وprompt، ولا يرفع الملف إلى الإنترنت. تُحفظ التعديلات تلقائيًا في هذا المتصفح. احتفظ بنسخة JSON للنسخ الاحتياطي أو نقل المكتبة؛ مسح بيانات المتصفح يحذف الحفظ المحلي. عند تكرار اسم أمر أثناء الاستيراد، تُفضّل النسخة المستوردة، لذا صدّر نسخة احتياطية أولًا.</p></section>
+<footer><strong>RAED SHIHAB</strong> · V8.6 TEST · نموذج محلي مستقل، غير منشور · استخدام Gemini يتطلب تشغيل الخادم وموافقتك على كل طلب · لا تُرسل بيانات شخصية أو مفاتيح API داخل أي موقع عام.</footer></div><script>
+const $=id=>document.getElementById(id);document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));['ideas','raed','prompts'].forEach(id=>$(id).classList.toggle('hide',id!==b.dataset.tab))}));
+let runNumber=0;
+function ideas(){const t=$('topic').value.trim()||'موضوع جديد',a=$('audience').value,style=$('style').value;runNumber++;
+const variants={mixed:[`أول مرة تزور ${t}؟ ابدأ من هنا`,`تفصيل صغير يغيّر تجربتك مع ${t}`,`جولة مصوّرة: ${t} في دقيقة`,`سؤال شائع عن ${t} وإجابته`,`قبل أن تجرّب ${t}: ثلاث نقاط`],story:[`موقف تعلمت منه شيئًا عن ${t}`,`الجزء الذي لم أصوّره في ${t}`,`رحلتي الأولى مع ${t}`,`مفاجأة وجدتها أثناء ${t}`,`ماذا تغيّر في نظرتي إلى ${t}؟`],guide:[`كيف تستعد لتجربة ${t}؟`,`مسار بسيط لاكتشاف ${t}`,`ما الذي تتحقق منه قبل زيارة ${t}؟`,`ثلاث لقطات تحكي قصة ${t}`,`خطة زيارة قصيرة لموضوع ${t}`],myth:[`هل هذه الفكرة الشائعة عن ${t} صحيحة؟`,`سؤال وجواب: ${t}`,`ثلاثة أمور تحتاج مصدرًا قبل الحديث عن ${t}`,`ما الفرق بين الرأي والمعلومة في ${t}؟`,`كيف تتحقق من ادعاء عن ${t}؟`]};
+const a1=variants[style],shift=runNumber%a1.length;const hooks=['ابدأ بلقطة تكشف المكان ثم اسأل سؤالًا محددًا','ابدأ بتفصيل بصري غير متوقع دون ادعاءات','ابدأ بمشهد قبل/بعد موثق','ابدأ بموقف شخصي حقيقي','ابدأ بصورة واضحة ثم أعط سبب المتابعة'];
+$('ideasOut').textContent=a1.map((_,i)=>{const j=(i+shift)%a1.length;return `${i+1}. ${a1[j]}\n   الجمهور: ${a}\n   البداية: ${hooks[j]}\n   النهاية: ما السؤال الذي تريدون إجابته في الحلقة القادمة؟`}).join('\n\n')+'\n\nهذه اقتراحات تحريرية محلية، وليست معلومات مُتحقَّقًا منها أو نتائج Gemini.'}
+function raed(){
+ const topic=$('story').value.trim()||'موضوع الفيديو';
+ const tone=$('tone').value, subject=$('flowSubject').value.trim(), rawNotes=$('notes').value.trim();
+ if(!subject||/[\u0600-\u06ff\u0750-\u077f\u08a0-\u08ff]/.test(subject)){
+  window.lastFlowPrompts='';$('raedOut').textContent='أدخل اسم الموقع بالأحرف اللاتينية في حقل Flow.';
+  $('raedQuality').textContent='لم تُنشأ برومبتات.';return;
+ }
+ // FACT/معلومة: proposed narrative information; PLACE/LOCATION/مكان: concrete location, not a factual assertion.
+ const facts=[], locations=[];
+ for(const row of rawNotes.split(/\r?\n/).map(x=>x.trim()).filter(Boolean)){
+  const match=row.match(/^(معلومة|حقيقة|fact|مكان|place|location)\s*[:：-]\s*(.+)$/i);
+  if(!match)continue;
+  const item=match[2].trim().slice(0,260);
+  if(!item)continue;
+  if(/^(مكان|place|location)$/i.test(match[1]))locations.push(item);
+  else facts.push(item);
+ }
+ // Main destination must never rotate through country tokens such as "Sweden".
+ const pieces=subject.split(/\s+[—–-]\s+|\s*[,;،]\s*/).map(x=>x.trim()).filter(Boolean);
+ const countryNames=new Set(['sweden','sverige','السويد']);
+ const mainLocation=pieces.find(x=>!countryNames.has(x.toLowerCase()))||subject;
+ const siteNames=[mainLocation,...locations,...pieces.slice(1).filter(x=>!countryNames.has(x.toLowerCase()))]
+  .filter((x,i,a)=>a.findIndex(y=>y.toLowerCase()===x.toLowerCase())===i);
+ const siteFor=i=>siteNames.length>1?siteNames[[0,1,1,0,2,1,0][i]%siteNames.length]:mainLocation;
+ const formal=tone==='فصحى واضحة';
+ // Deterministic local rendering: Arabic facts remain Arabic; only a small, explicit phrase dictionary is supported for English.
+ // Unknown English facts are withheld from the Arabic voiceover, rather than falsely presented as translated.
+ const arabicFact=(value)=>{
+  if(!value)return null;
+  const t=value.replace(/[.!؟]+$/,'').trim();
+  if(/[\u0600-\u06ff]/.test(t))return t;
+  const patterns=[
+   [/^Motala is a town in Östergötland, Sweden$/i,'تقع Motala في مقاطعة Östergötland السويدية'],
+   [/^Motala is located beside Lake Vättern$/i,'تقع Motala على ضفاف بحيرة Vättern'],
+   [/^Göta kanal passes through Motala$/i,'تمرّ قناة Göta kanal بمدينة Motala']
+  ];
+  return patterns.find(([re])=>re.test(t))?.[1]||null;
+ };
+ const safeFact=i=>arabicFact(facts[i]);
+ const untranslated=facts.filter(x=>!arabicFact(x)).length;
+ const flowGoals=['An intriguing establishing shot','Introduce the real canal or walking route','Show a precise visual detail related to the first fact','Introduce the on-screen presenter','Show the lakeside or harbor visitor experience','A striking view of the canal or waterfront','Close with a calm sense of place'];
+ const desiredSite=(i)=>{
+  if(i===2)return mainLocation;
+  if(i===4)return locations.find(x=>/vättern|hamn|harbor|lake/i.test(x))||siteFor(i);
+  if(i===5)return locations.find(x=>/kanal|canal/i.test(x))||siteFor(i);
+  return siteFor(i);
+ };
+ const narrations=formal?[
+  `ما قصة ${mainLocation}، ولماذا تستحق أن نتوقف عندها؟`,
+  `نبدأ جولتنا من ${siteFor(1)}، ونتأمل تفاصيل هذا المكان.`,
+  safeFact(0)?`${safeFact(0)}.`:`لنقترب من معالم ${mainLocation} دون اختراع تفاصيل تاريخية.`,
+  `هنا نرى المكان كما هو، ونترك الصورة تُكمل الحكاية.`,
+  safeFact(1)?`${safeFact(1)}.`:`نواصل الجولة ونلاحظ التفاصيل التي تمنح المكان طابعه الخاص.`,
+  safeFact(2)?`${safeFact(2)}.`:`قبل الختام، تأملوا هذا المشهد من ${mainLocation}.`,
+  `أي مدينة سويدية تودون زيارتها معنا في الجولة المقبلة؟`
+ ]:[
+  `شو قصة ${mainLocation}، وليش بتستاهل نزورها؟`,
+  `نبدأ جولتنا من ${siteFor(1)}، ونشوف تفاصيل المكان عن قرب.`,
+  safeFact(0)?`${safeFact(0)}.`:`خلّينا نشوف معالم ${mainLocation} بدون ما نخترع معلومات.`,
+  `هون بنشوف المكان مثل ما هو، وبنخلي الصورة تحكي كمان.`,
+  safeFact(1)?`${safeFact(1)}.`:`نكمل جولتنا ونتأمل التفاصيل اللي بتميّز هالمكان.`,
+  safeFact(2)?`${safeFact(2)}.`:`قبل ما نختم، شوفوا هالمنظر من ${mainLocation}.`,
+  `أي مدينة سويدية بتحبوا نزورها بالحلقة الجاية؟`
+ ];
+ const plans=[
+  ['افتتاح فضولي','لقطة تأسيسية واسعة','slow forward dolly','Soft natural morning light','natural outdoor ambience','قطع إلى الموقع التالي'],
+  ['تعريف المكان','المكان الثاني من الجولة','single forward tracking move','Balanced natural daylight','authentic on-site ambience','قطع مباشر'],
+  ['المعلومة الأولى','تفصيل حقيقي قابل للتصوير','one lateral slide','Soft side lighting','authentic environmental sound','مطابقة تفاصيل'],
+  ['حضور مقدم الجولة','لقطة متوسطة للراوي','locked-off camera','Soft open shade','ambient sound lowered for narration','قطع إلى الموقع'],
+  ['معلومة أو تجربة ثانية','لقطة مقربة لمعلم معروف','locked-off camera','Balanced natural daylight','subtle location sound','قطع مباشر'],
+  ['الذروة البصرية','لقطة واسعة للماء أو المشهد الواقعي','one slow horizontal pan','Warm natural light if available','authentic landscape ambience','قطع ناعم'],
+  ['الخاتمة','لقطة ختامية ثابتة','locked-off camera','Soft balanced light','gentle natural sound fade','نهاية نظيفة']
+ ];
+ const timings=[[0,8],[8,17],[17,26],[26,35],[35,44],[44,52],[52,60]];
+ const flowPrompts=[], warnings=[];
+ const content=plans.map((p,i)=>{
+  const [a,b]=timings[i],scenePlace=desiredSite(i),vo=narrations[i];
+  const presenter=i===3?'If an authorized reference photograph is supplied, preserve the adult presenter\'s actual face, age, complexion, hairstyle and body proportions; do not beautify or substitute identity. Presenter remains silent; inspect identity after generation.':'No presenter on screen.';
+  const prompt=`Vertical 9:16 photorealistic travel documentary footage, ${b-a} seconds. Specific location: ${scenePlace}, near ${mainLocation}, Sweden. Visual purpose: ${flowGoals[i]}. Camera: ${p[2]} only, no other movement. Lighting: ${p[3]}. ${presenter} Match supplied authentic reference photos and the specific real site; avoid fictional landmarks, unverifiable signage, or reconstructions. No Arabic text, captions, watermarks or branding. The original Swedish place name can be added at the top during final editing, away from the face. Natural synchronized environmental sound; record Arabic voiceover separately.`;
+  flowPrompts.push(`Scene ${i+1} (${a}–${b}s)\n${prompt}`);
+  const count=vo.trim().split(/\s+/).length;
+  if(count>19)warnings.push(`المشهد ${i+1}: ${count} كلمة؛ اختبر زمن النطق.`);
+  return `المشهد ${i+1} | ${a}–${b} ثانية\nالهدف: ${p[0]}\nالمكان: ${scenePlace}\nالتصوير: ${p[1]} — حركة واحدة: ${p[2]}\nالإضاءة: ${p[3]}\nالتعليق الصوتي [${tone}]: ${vo}\nالمؤثرات: ${p[4]}\nالانتقال: ${p[5]}\nالراوي: ${i===3?'اختياري مع الصورة المرجعية':'لا'}\nFLOW PROMPT (ENGLISH ONLY):\n${prompt}`;
+ }).join('\n\n');
+ window.lastFlowPrompts=flowPrompts.join('\n\n');
+ const note=`مدخلات لم يتم التحقق منها: ${facts.length} معلومات و${locations.length} مواقع. لا تُنشر الحقائق قبل مطابقتها مع مصادر موثوقة.`;
+ $('raedOut').textContent=`RAED7 | V8.6 TEST — مخطط محلي دون Gemini\nالموضوع: ${topic}\nالمدة: 60 ثانية | 9:16 | 7 مشاهد | الصوت: ${tone}\n${note}\n\n${content}\n\nقبل النشر: تدقيق الحقائق والمواقع والنطق السويدي. أضف RAED SHIHAB والتنويه بالذكاء الاصطناعي في المونتاج النهائي، وليس في Flow. لا تنشر دون صوت ومراجعة الحقوق. الترويج الخفيف لا يتجاوز 10–15%.\nعنوان مقترح: جولة في ${mainLocation}\nهاشتاغات: #Sweden #Travel #سياحة #StockholmGuide`;
+ $('raedQuality').textContent=`تم إعداد 7 مشاهد و7 برومبتات Flow محليًا، دون API. ${note} ${untranslated?`هناك ${untranslated} حقائق إنجليزية غير معروفة للقاموس المحلي؛ أدخل ترجمتها بالعربية في FACT لتظهر في التعليق.`:''} ${warnings.join(' ')}`;
+}
+function downloadFlow(){if(!window.lastFlowPrompts){$('raedQuality').textContent='أنشئ المخطط أولًا';return;}const blob=new Blob([window.lastFlowPrompts],{type:'text/plain;charset=utf-8'});const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='RAED7_Flow_Prompts_EN.txt';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000)}
+async function safeCopy(txt,button){let ok=false;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(txt);ok=true}}catch(e){}if(!ok){const t=document.createElement('textarea');t.value=txt;t.setAttribute('readonly','');t.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px;opacity:0';document.body.appendChild(t);t.focus();t.select();try{ok=document.execCommand('copy')}catch(e){}t.remove()}if(button){const old=button.textContent;button.textContent=ok?'✓ تم النسخ':'حدد النص وانسخه';setTimeout(()=>button.textContent=old,2100)}if(!ok){const dialog=document.createElement('dialog');dialog.style.cssText='max-width:min(640px,94vw);background:#102034;color:white;border:1px solid #55708b;border-radius:12px;padding:18px';const label=document.createElement('p');label.textContent='النسخ المباشر محظور هنا. حدّد النص التالي واضغط ⌘C على الماك:';const area=document.createElement('textarea');area.value=txt;area.style.cssText='width:100%;min-height:180px;direction:rtl';const close=document.createElement('button');close.textContent='إغلاق';close.onclick=()=>dialog.close();dialog.append(label,area,close);document.body.appendChild(dialog);dialog.addEventListener('close',()=>dialog.remove());dialog.showModal();area.focus();area.select()}return ok}
+function copy(id,btn){safeCopy($(id).textContent,btn)}
+const samples=[["/HOOK","اكتب خمس بدايات مشوّقة خلال 3 ثوانٍ لموضوع: [الموضوع]، دون مبالغة أو معلومات غير موثقة."],["/STOCKHOLM GUIDE","صمّم مخطط جولة مشي في [المنطقة] مع محطات تصوير، وتحقق من المواقع والمواصلات قبل النشر."],["/PROFILE","استخدم صورتي المرجعية مع الحفاظ على ملامح الوجه والعمر والنسب ولون البشرة دون تجميل مبالغ فيه."],["/FORMAT","حوّل النص إلى سكربت ريلز عمودي 9:16 بستة إلى سبعة مشاهد، ومشهد 8–10 ثوانٍ."],["/VERIFY","استخرج الادعاءات التي تحتاج تحققًا واطلب مصادر رسمية وتواريخ سريان قبل نشرها."],["/PUBLISH","جهّز عنوانًا ووصفًا وكابشنًا وأربعة هاشتاغات، مع مراجعة الحقوق والصوت والخصوصية قبل النشر."],["/RAED7","حوّل الفكرة إلى سبعة مشاهد مدتها 8–10 ثوانٍ، مع نص التعليق الصوتي وحركة كاميرا واحدة وإضاءة وانتقال ومؤثرات ومتى يظهر صاحب الفيديو."],["/FLOW","اكتب أمر توليد فيديو 9:16 لكل مشهد، من دون نص عربي على الشاشة، وبحركة كاميرا واحدة؛ لا تضع اسم صاحب المحتوى داخل أمر Flow."],["/VOICE","حضّر تعليقًا صوتيًا عربيًا واضحًا مع تشكيل مواضع الالتباس ونطق أسماء الأماكن بلغتها الأصلية."],["/CAPTION","جهّز عنوانًا قويًا ووصفًا قصيرًا و4 هاشتاغات دون ادعاءات غير موثقة."],["/FACE LOCK","استخدم الصورة المرجعية للحفاظ على ملامح الوجه والعمر والبشرة والشعر والنسب؛ راجع الثبات بصريًا بعد التوليد."],["/STORYBOARD","اصنع مخطط تصوير بمدة لكل مشهد وزاوية وإضاءة وانتقال ومؤثرات صوتية متزامنة."]];
+const LIBRARY_KEY='raed-ai-lab-library-v1';
+function validLibrary(data){return Array.isArray(data)&&data.length<=1000&&data.every(x=>x&&typeof x.name==='string'&&typeof x.prompt==='string'&&x.name.length<=150&&x.prompt.length<=10000)}
+let storageNotice='';
+let libraryData=samples.map(([name,prompt])=>({name,prompt}));
+try{const saved=localStorage.getItem(LIBRARY_KEY);if(saved!==null){const data=JSON.parse(saved);if(!validLibrary(data))throw Error('format');libraryData=data.map(({name,prompt})=>({name,prompt}));}}catch(e){storageNotice='تعذّر قراءة الحفظ المحلي. احتفظ بملف JSON واستورده لاستعادة أوامرك.'}
+function saveLibrary(){try{localStorage.setItem(LIBRARY_KEY,JSON.stringify(libraryData));storageNotice='';return true}catch(e){storageNotice='تعذّر الحفظ التلقائي. صدّر المكتبة الآن لحفظ نسخة JSON قبل إغلاق الصفحة.';return false}}
+
+function promptCategory(name){if(['/PROFILE','/FACE LOCK','/HD REAL','/OUTFIT','/FASHION','/PRODUCT','/POSTER','/INFOGRAPHIC','/DIAGRAM','/MINDMAP'].includes(name))return 'visual';if(['/PUBLISH','/CAPTION','/HOOK','/AD','/THUMBNAIL'].includes(name))return 'publishing';if(['/VERIFY','/STOCKHOLM GUIDE','/TRAVEL','/RESEARCH'].includes(name))return 'travel';if(['/FLASHCARDS','/IDEAS','/REWRITE','/SUMMARIZE','/ANALYZE','/BRAINSTORM','/PLAN','/STRATEGY','/EXPERT','/OPTIMIZE'].includes(name))return 'writing';return 'video'}
+function renderLibrary(){const q=$('searchPrompts').value.toLowerCase(),cat=$('category').value;$('library').replaceChildren(...libraryData.filter(x=>(cat==='all'||promptCategory(x.name)===cat)&&(x.name+' '+x.prompt).toLowerCase().includes(q)).map(x=>{const d=document.createElement('div');d.className='item';const heading=document.createElement('strong');heading.textContent=x.name;const para=document.createElement('p');para.textContent=x.prompt;const btn=document.createElement('button');btn.textContent='نسخ الأمر';btn.onclick=()=>safeCopy(x.prompt,btn);d.append(heading,para,btn);return d}));$('libraryStatus').textContent=`${libraryData.length} أمر في المكتبة المحلية${storageNotice ? " — "+storageNotice : " — الحفظ التلقائي مفعّل"}`}
+function exportLibrary(){const blob=new Blob([JSON.stringify(libraryData,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='raed-ai-lab-prompts.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+async function importLibrary(event){const f=event.target.files?.[0];if(!f)return;if(f.size>1000000){$('libraryStatus').textContent='الملف كبير جدًا (الحد 1 MB)';return}try{const data=JSON.parse(await f.text());if(!validLibrary(data))throw Error('format');const map=new Map(libraryData.map(x=>[x.name,x]));for(const x of data)map.set(x.name,{name:x.name,prompt:x.prompt});if(map.size>1000)throw Error('limit');libraryData=[...map.values()];const saved=saveLibrary();renderLibrary();$('libraryStatus').textContent=`تم استيراد ${data.length} أمرًا. المجموع: ${libraryData.length}. ${saved?'تم الحفظ تلقائيًا.':storageNotice}`}catch(e){$('libraryStatus').textContent='تعذّر الاستيراد. الصيغة المطلوبة: [{"name":"/HOOK","prompt":"النص"}]'}event.target.value=''}
+function resetLibrary(){if(!confirm('هل تريد إعادة التعيين إلى أوامر ملف V5 الاثني عشر؟ سيُحذف الحفظ المحلي للإضافات. تأكد من تصدير المكتبة أولًا.'))return;libraryData=samples.map(([name,prompt])=>({name,prompt}));saveLibrary();renderLibrary()}
+renderLibrary();
+function downloadText(id,filename){const content=$(id).textContent.trim();if(!content){$('aiStatus').textContent='لا توجد نتيجة للتنزيل';return}const b=new Blob([content],{type:'text/plain;charset=utf-8'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+// RAED7 V8.5: deterministic editorial lint only. Never asserts external verification.
+function reviewRAED7(sourceId,targetId){
+ const output=$(sourceId),target=$(targetId),raw=output.textContent.trim();
+ target.classList.remove('hide');
+ if(!raw||/^(سيظهر هنا|اضغط)/.test(raw)){target.textContent='لا توجد نتيجة لفحصها. أنشئ مخططًا أو استعمل نتيجة Gemini أولًا.';return;}
+ const findings=[];
+ const sceneHeaders=[...raw.matchAll(/(?:المشهد\s*(?:الأول|الثاني|الثالث|الرابع|الخامس|السادس|السابع|[1-7])|Scene\s*[1-7])/gi)];
+ if(sceneHeaders.length<7)findings.push('⚠️ لم أتعرف على سبعة عناوين مشاهد بشكل واضح؛ تحقق من العدد والتوقيت.');
+ const sceneText=raw.split(/(?=المشهد\s*(?:الأول|الثاني|الثالث|الرابع|الخامس|السادس|السابع|[1-7])\s*[:|]|Scene\s*[1-7]\s*\()/i).slice(1);
+ let oversized=0,englishVO=0,mixedFlow=0;
+ for(let i=0;i<sceneText.length;i++){
+   const section=sceneText[i];
+   const voice=(section.match(/(?:التعليق الصوتي(?:\s*\[[^\]]+\])?)\s*:\s*([^\n]+)/i)||[])[1]||'';
+   if(voice){const words=voice.trim().split(/\s+/).filter(Boolean).length;
+     if(words>21){oversized++;findings.push(`⚠️ مشهد ${i+1}: ${words} كلمة تعليق؛ اختبر مدة النطق أو اختصر النص.`)}
+     if(!/[\u0600-\u06FF]/.test(voice)){englishVO++;findings.push(`⚠️ مشهد ${i+1}: التعليق الصوتي ليس بالعربية.`)}
+   }
+   const flow=(section.match(/(?:برومبت Flow|FLOW PROMPT[^\n]*)\s*:\s*([^\n]+)/i)||[])[1]||'';
+   if(flow&&/[\u0600-\u06FF]/.test(flow)){mixedFlow++;findings.push(`⚠️ مشهد ${i+1}: يوجد نص عربي داخل برومبت Flow.`)}
+ }
+ // Additional editorial checks: heuristic warnings, not fact verification.
+ const genericVoice=[/نترك الصورة تُكمل الحكاية/,/تأملوا هذا المشهد/,/نتأمل تفاصيل هذا المكان/,/نواصل الجولة ونلاحظ التفاصيل/,/لنقترب من معالم/];
+ for(let i=0;i<sceneText.length;i++){
+   const section=sceneText[i];
+   const voice=(section.match(/التعليق الصوتي(?:\s*\[[^\]]+\])?\s*:\s*([^\n]+)/i)||[])[1]||'';
+   const site=(section.match(/(?:المكان|مكان التصوير)\s*:\s*([^\n]+)/i)||[])[1]||'';
+   if(genericVoice.some(re=>re.test(voice)))findings.push(`⚠️ مشهد ${i+1}: تعليق عام؛ استبدله بمعلومة أو تجربة محددة تخدم الصورة.`);
+   if(/hamn|harbor|ميناء/i.test(site)&&/Göta kanal|قناة جوتا/i.test(voice)&&!/hamn|ميناء|مرفأ/i.test(voice))findings.push(`⚠️ مشهد ${i+1}: التصوير في الميناء بينما التعليق يركّز على القناة؛ راجع الترابط المكاني.`);
+   const timing=(section.match(/(?:\b(\d{1,2})[–-](\d{1,2})\s*ثانية)|(?:من\s*00:(\d{2})\s*إلى\s*00:(\d{2}))/)||[]);
+   if(timing.length){const a=Number(timing[1]||timing[3]),b=Number(timing[2]||timing[4]);const n=voice.trim().split(/\s+/).filter(Boolean).length; if(b>a&&n>(b-a)*2.2) findings.push(`⚠️ مشهد ${i+1}: ${n} كلمة خلال ${b-a} ثوانٍ؛ راجع سرعة التعليق.`);}
+ }
+ if(!/https?:\/\/|المصدر:|المصادر:|Source:/i.test(raw))findings.push('⚠️ لا توجد روابط مصادر داخل المخطط؛ الحقائق لا تزال بحاجة إلى تحقق خارجي.');
+ const suspect=[/\b(?:الأكبر|الأقدم|الأجمل|الأفضل|الأول|الوحيد)\b/g,/\b(?:مئات|آلاف)\b/g,/\b\d{3,4}\b/g];
+ let unverified=0;for(const re of suspect){if(re.test(raw))unverified++}
+ if(unverified)findings.push('⚠️ توجد صيغ تفضيل أو أعداد أو تواريخ. يلزم توثيقها من مصادر خارجية قبل النشر.');
+ if(/(?:صاحب المحتوى يظهر|الراوي: اختياري|ظهور مقدم الجولة)/i.test(raw)&&!/preserve.*(?:face|facial)|face.*(?:preserve|identity)/is.test(raw))findings.push('⚠️ ظهور مقدم الجولة: راجع إضافة تعليمات الحفاظ على ملامح الوجه في البرومبت الخاص به.');
+ if(!/\b9:16\b/.test(raw))findings.push('⚠️ تحقق من تضمين صيغة 9:16.');
+ if(!/Flow|FLOW/.test(raw))findings.push('⚠️ لم يُعثر على برومبتات Flow.');
+ if(!/مؤثر|sound|SFX/i.test(raw))findings.push('⚠️ لم يُذكر الصوت البيئي أو المؤثرات.');
+ target.textContent='تقرير RAED7 V8.6 — فحص تحريري محلي (0 طلب API)\n'+
+   `المشاهد المتعرّف عليها: ${sceneHeaders.length} (قد تتكرر الإشارة داخل النص)\n`+
+   (findings.length?findings.join('\n'):'✅ لم تظهر مخالفات وفق قواعد الفحص الآلي المحدودة.')+
+   '\n\nتنبيه: لا يتحقق الفحص من صحة المعلومات التاريخية أو الموقع أو النطق السويدي أو حقوق الصور، ولا يضمن ثبات الوجه. راجعها يدويًا قبل النشر.';
+}
+</script></body></html>
