@@ -1,57 +1,85 @@
-# RAED AI LAB | مختبر رائد
+# RAED AI LAB | Practical AI Tools & Content Workflows
 
-مكتبة رائد شهاب لحفظ وتنظيم برومبتات الذكاء الاصطناعي وسكربتات الفيديو وأدلة صناعة المحتوى.
+**Turn an idea into a script, a visual plan, and a prototype you can review.**
 
-## مراحل RAED7
-1. الفكرة
-2. السكربت
-3. مخطط المشاهد
-4. الصور المرجعية
-5. الصوت
-6. المونتاج
-7. النشر
+RAED AI LAB is my hub for practical experiments in AI-assisted content creation and web tools. It brings together reusable prompts, structured production workflows, and community projects focused on life in Sweden.
 
-## ابدأ هنا
-- [بوابة التطبيقات (الصفحة الرئيسية للموقع)](site/index.html) — تُنشر على https://arabsweden.github.io/raed-ai-lab/ ومكتبة البرومبتات على /prompts/
-- [قواعد الإنتاج والهوية والصوت](production/production-rules.md)
-- [متابعة حالة الفيديوهات](tracking/production-status.md)
-- [الأدوات والتكلفة](tools/workflow-and-costs.md)
-- [تشغيل المختبر مع Claude Code والإضافات](docs/claude-code-setup.md)
-- [أفكار إبداعية للمختبر والمواقع](docs/creative-ideas.md)
+Created by **RAED SHIHAB**, an Arabic content creator and Stockholm Guide based in Stockholm.
 
-## القوالب
-- [قالب الطلب الأساسي](prompts/raed7-video-template.md)
-- [ريلز قصير](templates/short-reel.md)
-- [جولات Stockholm Guide](templates/stockholm-guide.md)
-- [مدن السويد](templates/swedish-cities.md)
+**[Explore RAED AI LAB](https://raed-creative-hub.a-abushihab.chatgpt.site)**
 
-## النموذج الأول: Skärholmen
-1. [الفكرة والمسار والمصادر](projects/stockholm-guide/skarholmen/01-brief-and-sources.md)
-2. [النص وستة مشاهد وأماكن ظهور المقدم](projects/stockholm-guide/skarholmen/02-script-and-storyboard.md)
-3. [برومبتات Flow الجاهزة للنسخ](projects/stockholm-guide/skarholmen/03-flow-prompts.md)
-4. [المونتاج والنشر وتصميم الغلاف والفحص](projects/stockholm-guide/skarholmen/04-edit-and-publish.md)
+## What the lab brings together
 
-## أقسام المكتبة
-- برومبتات Google Flow
-- سلسلة مدن السويد
-- جولات Stockholm Guide
-- تثبيت الوجه والهوية
-- حركات الكاميرا والإضاءة والمؤثرات
-- نصوص المنشورات والعناوين والصور المصغرة
+- **Content planning:** develop an idea into a script, scene plan, and production prompts.
+- **Media workflows:** prepare reference images, Arabic narration, video direction, and editing instructions.
+- **Web prototypes:** explore interfaces and AI-assisted tools built around a specific audience need.
 
-## قواعد الإنتاج الأساسية
-- الحفاظ على ملامح الشخص وعمره وبشرته وشعره ونسبه، ومراجعة الناتج قبل الاعتماد.
-- فيديوهات عمودية 9:16 ومشاهد 8–10 ثوانٍ إلا عند طلب غير ذلك.
-- تحديد مدة كل مشهد والصور المرجعية المطلوبة.
-- ضبط النص العربي وتشكيل الكلمات اللازمة للنطق.
-- كتابة أسماء الأشخاص والأماكن بلغتها الأصلية، ونطقها بتلك اللغة.
-- الالتزام بالنص حرفيًا دون تكرار حروف أو كلمات أو إضافة كلام غير مكتوب.
-- لا نص عربي داخل الفيديو إلا بطلب صريح، ولا اسم صاحب القناة داخل برومبت Flow.
-- حركة كاميرا رئيسية واحدة لكل لقطة، وهوك واضح ودعوة تفاعل.
-- عرض التكلفة قبل التوليد المدفوع؛ اختبار مشهد واحد أولًا.
+The aim is to make each step clear enough to test, review, and improve.
 
-## حالة التنفيذ
-تم إعداد الملفات النصية والقوالب وحزمة Skärholmen بتاريخ 2026-10-07.
-لم تُنتج صور أو فيديو أو تسجيل صوتي ولم يُنشر محتوى للجمهور.
-صور المراجع والفيديوهات الكبيرة لم تُرفع إلى هذا المستودع؛ ضع روابط الأصول المتاحة في ملف المشروع.
-لا تضع كلمات مرور أو مفاتيح API أو بيانات حساب في ملفات المستودع.
+## Selected projects
+
+### Dalilak fi Sweden | دليلك في السويد
+
+An Arabic-first guide to life in Sweden, covering housing, work, public services, immigration basics, and tourism.
+
+**Audience need:** understand unfamiliar information and identify practical next steps.  
+**Approach:** organize topics, simplify explanations, and direct readers to relevant official sources.  
+**What it demonstrates:** turning a broad information need into a focused content and interface structure.
+
+[View the project repository](https://github.com/arabsweden/dalilak-fi-sweden)
+
+### Familjebron Sverige | جسر الأسرة في السويد
+
+A project focused on family-school dialogue, parenting, and understanding Swedish family support services.
+
+**Audience need:** access clear, culturally aware explanations of sensitive family topics.  
+**Approach:** use educational content, discussion prompts, and references to official information.  
+**What it demonstrates:** adapting language, tone, and content structure to a community's questions.
+
+[Visit Familjebron Sverige](https://familjebronsverige.se)
+
+## My content workflow
+
+I use a seven-stage process called **RAED7**:
+
+1. **Idea:** define the audience and the purpose.
+2. **Script:** write the story and opening hook.
+3. **Storyboard:** plan the scenes and camera direction.
+4. **Reference images:** establish visual identity and continuity.
+5. **Voice:** prepare narration and pronunciation.
+6. **Edit:** assemble visuals, sound, and transitions.
+7. **Publish:** prepare the title, cover, description, and call to action.
+
+Tools used across these experiments include Google AI Studio, the Gemini API, Google Flow, and web technologies. The combination depends on the project.
+
+## For clients | Discuss a project
+
+I can help shape an Arabic content concept, prepare an AI video production package, or scope a web prototype.
+
+Send a short brief with your audience, desired deliverable, deadline, budget range, and available materials. We can then agree on scope, cost, and timing.
+
+[Discuss a project by email](mailto:raedinsweden@gmail.com?subject=Client%20project%20enquiry%20-%20RAED%20AI%20LAB)
+
+## For employers | Review my work
+
+My work combines Arabic content creation, knowledge of life in Sweden, and hands-on experimentation with AI tools.
+
+I welcome role enquiries in content production, Arabic localization, community-focused digital projects, and practical AI workflows.
+
+- [View my portfolio](https://arabsweden.github.io/stockholm-guide/portfolio/)
+- [View my CV](https://arabsweden.github.io/stockholm-guide/portfolio/resume.html)
+- **LinkedIn:** ⟦LINK REQUIRED — LINKEDIN_PROFILE_URL: exact public LinkedIn profile for RAED SHIHAB; ownership not yet verified⟧
+
+For a role enquiry, include the responsibilities, required skills, work location, working language, and employment type.
+
+[Contact me about a role](mailto:raedinsweden@gmail.com?subject=Employment%20enquiry%20-%20RAED%20SHIHAB)
+
+## About this repository
+
+This README introduces RAED AI LAB and its related projects. Each linked project defines its own available features, access, and source-code availability.
+
+**[Explore RAED AI LAB](https://raed-creative-hub.a-abushihab.chatgpt.site)**
+
+---
+
+**RAED SHIHAB · Stockholm, Sweden**
