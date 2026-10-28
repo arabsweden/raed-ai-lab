@@ -16,6 +16,22 @@ Created by **RAED SHIHAB**, an Arabic content creator and Stockholm Guide based 
 
 The aim is to make each step clear enough to test, review, and improve.
 
+## Choose the right RAED7 template
+
+**[Choose a template by goal](https://raed-creative-hub.a-abushihab.chatgpt.site/models/)**
+
+| Your goal | Use |
+| --- | --- |
+| Swedish city documentary or city trailer | RAED7 Master Prompt V003, 27 October 2026 |
+| A city Reel in 60 seconds | V003 + Addon 01, 28 October 2026 |
+| Familjebron family/school content | Comprehensive Content Guide 3.0 |
+| Everyday life and services in Sweden | Comprehensive Content Guide 3.0, Dalilak track |
+| A first draft for any video idea | Browser-local studio; review and develop its draft |
+
+RAED7 names seven production stages, not seven video scenes. Application releases such as V8.6 Beta are separate from prompt-guide versions. Original inputs are preserved independently; the city-minute source saved on 28 October needs review and does not supersede V003.
+
+[Full classification, versions and project directory](docs/model-selection.md) · [Guide source files](site/models/files/)
+
 ## Selected projects
 
 ### Dalilak fi Sweden | دليلك في السويد
@@ -68,7 +84,6 @@ I welcome role enquiries in content production, Arabic localization, community-f
 
 - [View my portfolio](https://arabsweden.github.io/stockholm-guide/portfolio/)
 - [View my CV](https://arabsweden.github.io/stockholm-guide/portfolio/resume.html)
-- **LinkedIn:** ⟦LINK REQUIRED — LINKEDIN_PROFILE_URL: exact public LinkedIn profile for RAED SHIHAB; ownership not yet verified⟧
 
 For a role enquiry, include the responsibilities, required skills, work location, working language, and employment type.
 

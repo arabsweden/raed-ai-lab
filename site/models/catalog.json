@@ -1,0 +1,471 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-28",
+  "latest_city_version": "V003",
+  "content_guide_version": "3.0",
+  "models": [
+    {
+      "id": "cities",
+      "title": "فيلم عن مدينة سويدية",
+      "category": "مدن وسفر",
+      "version": "V003",
+      "status": "مرجع معتمد للإعداد",
+      "audience": "لصانع محتوى يريد قصة مدينة موثقة",
+      "output": "بحث ومصادر، سكربت، مشاهد، مراجع، صوت، مونتاج وحزمة نشر.",
+      "when": "لتقرير 180 ثانية أو مدة مخصصة؛ الحزمة الافتراضية مع التريلر والمصادر 200 ثانية.",
+      "file": "RAED7_Master_Prompt_V003_2026-10-27.md",
+      "request": "طبّق RAED7 V003 على [اسم المدينة بلغتها الأصلية]. جهّز تقريرًا مستقلًا 180 ثانية، وتريلرًا منفصلًا 10 ثوانٍ، وبطاقة مصادر منفصلة 10 ثوانٍ. أريد الحزمة المكتوبة مع المصادر، دون توليد مدفوع."
+    },
+    {
+      "id": "cities60",
+      "title": "مدينة في دقيقة",
+      "category": "مدن وسفر",
+      "version": "V003 + إضافة 01",
+      "status": "تكييف للإعداد",
+      "audience": "لمن يريد ريلزًا واضحًا مدته 60 ثانية",
+      "output": "ست وحدات تحريرية، ثلاث حقائق محورية، برومبتات وحزمة نشر.",
+      "when": "استخدمه بدل ضغط كل محاور التقرير الطويل داخل دقيقة.",
+      "file": "RAED7_Addon_01_Cities_60s_2026-10-28.md",
+      "request": "استخدم RAED7 V003 مع إضافة 01: مدن السويد في 60 ثانية، على [المدينة]. ست وحدات × 10 ثوانٍ، زاوية واحدة وثلاث حقائق موثقة، خطاف داخل الأولى وCTA داخل الأخيرة. تحقّق من المعالم الفعلية وميّز مدة التوليد عن زمن المونتاج. أريد الحزمة المكتوبة فقط."
+    },
+    {
+      "id": "promo",
+      "title": "برومو أو تريلر",
+      "category": "فيديو وترويج",
+      "version": "V003",
+      "status": "مرجع معتمد للإعداد",
+      "audience": "لمن يريد تقديم مدينة أو التشويق لتقرير عنها",
+      "output": "خطاف ووعد، لقطات مختارة، خطة صوت ومونتاج ودعوة واحدة.",
+      "when": "تريلر قصير منفصل؛ يمكن استخدام المواد المقبولة من التقرير.",
+      "file": "RAED7_Master_Prompt_V003_2026-10-27.md",
+      "request": "استخدم قسم التريلر في RAED7 V003 لبرومو 10 ثوانٍ عن [المدينة أو التقرير]. اعتمد المواد الواقعية المتاحة أولًا، وأعطني لقطات مستقلة وحسابًا واضحًا للزمن. لا توليد مدفوع ولا نشر."
+    },
+    {
+      "id": "family",
+      "title": "جسر الأسرة في السويد",
+      "category": "أسرة وحياة في السويد",
+      "version": "الدليل 3.0",
+      "status": "دليل متخصص للإعداد",
+      "audience": "لمحتوى التربية والحوار مع المدرسة والدعم الأسري",
+      "output": "سؤال جمهور، سجل أدلة، شرح عربي، ريلز أو منشور وخطوة عملية.",
+      "when": "للأسرة والمدرسة؛ اختر مشروعًا واحدًا ولا تعمم حالة فردية.",
+      "file": "RAED7_Comprehensive_Content_Guide.md",
+      "request": "طبّق الدليل الشامل RAED7 إصدار 3.0 على مشروع جسر الأسرة في السويد، موضوع [السؤال]. تحقّق من المصادر الرسمية والتواريخ والشروط، ثم جهّز [ريلز 60 ثانية أو منشور] بخطوة عملية واحدة. ميّز المعلومة المؤكدة عن غير المتحقق، ولا تستخدم حالات شخصية حقيقية."
+    },
+    {
+      "id": "life",
+      "title": "دليلك في السويد",
+      "category": "أسرة وحياة في السويد",
+      "version": "الدليل 3.0",
+      "status": "دليل متخصص للإعداد",
+      "audience": "لشرح خدمة أو خطاب أو إجراء في الحياة اليومية",
+      "output": "تبسيط موثق، شروط ونطاق واضحان، مقال أو منشور أو ريلز.",
+      "when": "للعمل والسكن والخدمات والإجراءات؛ خصّص البلدية أو الوضع عند تأثيره.",
+      "file": "RAED7_Comprehensive_Content_Guide.md",
+      "request": "طبّق الدليل الشامل RAED7 إصدار 3.0 على مشروع دليلك في السويد، سؤال [السؤال]. جهّز شرحًا عربيًا عمليًا من صفحات رسمية مباشرة، مع تاريخ المعلومات والشروط والنطاق. أريد [المخرج] وCTA واحدًا؛ لا تستنتج أهلية حالة فردية من معلومات ناقصة."
+    },
+    {
+      "id": "studio",
+      "title": "مسودة فيديو لأي فكرة",
+      "category": "فيديو وترويج",
+      "version": "استوديو الموقع",
+      "status": "أداة قوالب محلية",
+      "audience": "للمبتدئ الذي يريد ترتيب فكرته وتعديل المشاهد",
+      "output": "نص ومشاهد وبرومبتات قابلة للتحرير والحفظ في المتصفح.",
+      "when": "ابدأ هنا لفكرة عامة؛ نتائج الأداة تحتاج تطوير النص والتحقق.",
+      "href": "https://raed-creative-hub.a-abushihab.chatgpt.site/lab/",
+      "request": null
+    },
+    {
+      "id": "visual",
+      "title": "صور وهوية وأزياء ومنتجات",
+      "category": "صور وتصميم",
+      "version": "المكتبة الأصلية",
+      "status": "مكتبة أوامر",
+      "audience": "لمن يحتاج صورة أو مرجعًا بصريًا أو أمرًا متخصصًا",
+      "output": "أوامر جاهزة للاستكشاف والنسخ إلى الأداة المناسبة.",
+      "when": "للعمل البصري الجزئي ضمن المشروع.",
+      "href": "https://raed-ai-lab.a-abushihab.chatgpt.site",
+      "request": null
+    },
+    {
+      "id": "original60",
+      "title": "قالب الدقيقة الأصلي — محفوظ للرجوع",
+      "category": "مراجع وأرشيف",
+      "version": "نص 28 أكتوبر",
+      "status": "يحتاج مراجعة قبل الإنتاج",
+      "audience": "للمقارنة والعودة إلى النص الأصلي",
+      "output": "النص الأصلي كما ورد؛ توجد افتراضات عامة تحتاج تصحيحًا لكل مدينة.",
+      "when": "للمراجعة؛ مسار «مدينة في دقيقة» أعلاه هو طلب الإعداد المقترح.",
+      "file": "raed7_city_1min_original_2026-10-28.md",
+      "request": null
+    }
+  ],
+  "sites": [
+    {
+      "title": "RAED AI LAB | تعلّم، جرّب، واصنع محتواك",
+      "url": "https://raed-creative-hub.a-abushihab.chatgpt.site",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "ابدأ هنا لاختيار المسار",
+      "version": 11
+    },
+    {
+      "title": "Connecting Stockholm | Städplan",
+      "url": "https://connecting-stockholm-stadplan.a-abushihab.chatgpt.site",
+      "category": "رائد وخدماته وتجاربه",
+      "role": "موقع مستقل",
+      "version": 4
+    },
+    {
+      "title": "Familjebron Podcast | بودكاست جسر الأسرة",
+      "url": "https://familjebron-podcast-raed.a-abushihab.chatgpt.site",
+      "category": "أسرة ومجتمع",
+      "role": "موقع مستقل",
+      "version": 8
+    },
+    {
+      "title": "جسر الأسرة في السويد | Familjebron Sverige",
+      "url": "https://familjebron-family-interactive.a-abushihab.chatgpt.site",
+      "category": "أسرة ومجتمع",
+      "role": "موقع مستقل",
+      "version": 4
+    },
+    {
+      "title": "دليلي لرحلاتي حول العالم",
+      "url": "https://raed-world-travel-planner.a-abushihab.chatgpt.site",
+      "category": "مدن وسفر",
+      "role": "موقع مستقل",
+      "version": 1
+    },
+    {
+      "title": "Sweden Travel Guide — Stockholm Guide",
+      "url": "https://sweden-travel-stockholm-guide.a-abushihab.chatgpt.site",
+      "category": "مدن وسفر",
+      "role": "موقع مستقل",
+      "version": 6
+    },
+    {
+      "title": "ميزان المائدة الذكي",
+      "url": "https://mizan-almaida.a-abushihab.chatgpt.site",
+      "category": "رائد وخدماته وتجاربه",
+      "role": "موقع مستقل",
+      "version": 2
+    },
+    {
+      "title": "ألحان الغربة",
+      "url": "https://alhan-alghurba.a-abushihab.chatgpt.site",
+      "category": "رائد وخدماته وتجاربه",
+      "role": "موقع مستقل",
+      "version": 3
+    },
+    {
+      "title": "رحلتي إلى الأردن | رائد شهاب",
+      "url": "https://raed-jordan-trip.a-abushihab.chatgpt.site",
+      "category": "مدن وسفر",
+      "role": "موقع مستقل",
+      "version": 1
+    },
+    {
+      "title": "نلتقي | ستوكهولم",
+      "url": "https://naltqi-stockholm.a-abushihab.chatgpt.site",
+      "category": "أسرة ومجتمع",
+      "role": "موقع مستقل",
+      "version": 8
+    },
+    {
+      "title": "رائد شهاب | صناعة المحتوى بالذكاء الاصطناعي",
+      "url": "https://raed-ai-first-video-course.a-abushihab.chatgpt.site",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "موقع مستقل",
+      "version": 12
+    },
+    {
+      "title": "سويدنا الآن",
+      "url": "https://sweden-updates-arabic.a-abushihab.chatgpt.site",
+      "category": "الحياة والعمل في السويد",
+      "role": "موقع مستقل",
+      "version": 13
+    },
+    {
+      "title": "RAED TikTok Audit | فحص حساب تيك توك",
+      "url": "https://dalelak-tiktok-guide.a-abushihab.chatgpt.site",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "موقع مستقل",
+      "version": 6
+    },
+    {
+      "title": "مهندس برومبت السوشيال ميديا",
+      "url": "https://social-media-prompt-engineer.a-abushihab.chatgpt.site",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "موقع مستقل",
+      "version": 1
+    },
+    {
+      "title": "مدرب الإنجليزية للسفر | رائد شهاب",
+      "url": "https://raed-travel-english-trainer.a-abushihab.chatgpt.site",
+      "category": "مدن وسفر",
+      "role": "موقع مستقل",
+      "version": 1
+    },
+    {
+      "title": "ترجمان | ترجمة احترافية",
+      "url": "https://turjuman-sweden.a-abushihab.chatgpt.site",
+      "category": "الحياة والعمل في السويد",
+      "role": "موقع مستقل",
+      "version": 2
+    },
+    {
+      "title": "ورشة رائد للذكاء الاصطناعي وصناعة المحتوى",
+      "url": "https://raed-ai-workshop-landing.a-abushihab.chatgpt.site",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "موقع مستقل",
+      "version": 5
+    },
+    {
+      "title": "Familjebron Sverige",
+      "url": "https://familjebron-english.a-abushihab.chatgpt.site",
+      "category": "أسرة ومجتمع",
+      "role": "موقع مستقل",
+      "version": 1
+    },
+    {
+      "title": "مختبر رائد شهاب للبرومبتات",
+      "url": "https://raed-ai-lab.a-abushihab.chatgpt.site",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "المكتبة الأصلية",
+      "version": 36
+    },
+    {
+      "title": "افهمها – مساعد الخطابات السويدية",
+      "url": "https://ifhamha-sweden.a-abushihab.chatgpt.site",
+      "category": "الحياة والعمل في السويد",
+      "role": "موقع مستقل",
+      "version": 7
+    },
+    {
+      "title": "Handle — صناعة المحتوى",
+      "url": "https://handle-content.a-abushihab.chatgpt.site",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "موقع مستقل",
+      "version": 4
+    },
+    {
+      "title": "RAED SHIHAB | Portfolio",
+      "url": "https://raed-shihab-portfolio.a-abushihab.chatgpt.site",
+      "category": "رائد وخدماته وتجاربه",
+      "role": "موقع مستقل",
+      "version": 2
+    },
+    {
+      "title": "رائد شهاب | السفر غيّر حياتي",
+      "url": "https://raed-travel-story.a-abushihab.chatgpt.site",
+      "category": "رائد وخدماته وتجاربه",
+      "role": "موقع مستقل",
+      "version": 9
+    },
+    {
+      "title": "رائد شهاب | حلول رقمية وصناعة محتوى",
+      "url": "https://raed-shihab-digital.a-abushihab.chatgpt.site",
+      "category": "رائد وخدماته وتجاربه",
+      "role": "موقع مستقل",
+      "version": 3
+    },
+    {
+      "title": "رائد شهاب | دليلك وخدماتك في السويد",
+      "url": "https://raed-sweden-guide.a-abushihab.chatgpt.site",
+      "category": "الحياة والعمل في السويد",
+      "role": "موقع مستقل",
+      "version": 3
+    },
+    {
+      "title": "الدستور السويدي 2026",
+      "url": "https://swedish-constitution-2026.a-abushihab.chatgpt.site",
+      "category": "الحياة والعمل في السويد",
+      "role": "موقع مستقل",
+      "version": 1
+    },
+    {
+      "title": "دليل العمل في السويد",
+      "url": "https://sweden-work-guide.a-abushihab.chatgpt.site",
+      "category": "الحياة والعمل في السويد",
+      "role": "موقع مستقل",
+      "version": 4
+    },
+    {
+      "title": "Raed Web Studio",
+      "url": "https://raed-web-studio.a-abushihab.chatgpt.site",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "موقع مستقل",
+      "version": 2
+    },
+    {
+      "title": "Raed Content Studio",
+      "url": "https://raed-content-studio.a-abushihab.chatgpt.site",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "موقع مستقل",
+      "version": 2
+    },
+    {
+      "title": "دليل الأحزاب السويدية",
+      "url": "https://swedish-parties-guide.a-abushihab.chatgpt.site",
+      "category": "الحياة والعمل في السويد",
+      "role": "موقع مستقل",
+      "version": 3
+    },
+    {
+      "title": "Familjebron Sverige",
+      "url": "https://familjebronsverige.se",
+      "category": "أسرة ومجتمع",
+      "role": "موقع المشروع الرئيسي",
+      "version": 43
+    },
+    {
+      "title": "أكاديمية صناعة المحتوى",
+      "url": "https://content-creator-academy.a-abushihab.chatgpt.site",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "موقع مستقل",
+      "version": 2
+    },
+    {
+      "title": "مرشد ستوكهولم السياحي",
+      "url": "https://stockholm-tour-guide.a-abushihab.chatgpt.site",
+      "category": "مدن وسفر",
+      "role": "موقع مستقل",
+      "version": 11
+    }
+  ],
+  "repositories": [
+    {
+      "title": "arabsweden",
+      "url": "https://github.com/arabsweden/arabsweden",
+      "category": "رائد وخدماته وتجاربه",
+      "role": "الملف التعريفي"
+    },
+    {
+      "title": "raed-ai-lab",
+      "url": "https://github.com/arabsweden/raed-ai-lab",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "sverige-nu",
+      "url": "https://github.com/arabsweden/sverige-nu",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "swedish-career-assistant",
+      "url": "https://github.com/arabsweden/swedish-career-assistant",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "dalilak-fi-sweden",
+      "url": "https://github.com/arabsweden/dalilak-fi-sweden",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "familjebronsverige",
+      "url": "https://github.com/arabsweden/familjebronsverige",
+      "category": "أسرة ومجتمع",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "dalil-socialtjansten",
+      "url": "https://github.com/arabsweden/dalil-socialtjansten",
+      "category": "أسرة ومجتمع",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "sverigeguide-civic-orientation",
+      "url": "https://github.com/arabsweden/sverigeguide-civic-orientation",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "dalil-samhallsorientering",
+      "url": "https://github.com/arabsweden/dalil-samhallsorientering",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "jobb-i-sverige-guide",
+      "url": "https://github.com/arabsweden/jobb-i-sverige-guide",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "content-creator-academy",
+      "url": "https://github.com/arabsweden/content-creator-academy",
+      "category": "صناعة المحتوى والذكاء الاصطناعي",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "sweden-travel-ai",
+      "url": "https://github.com/arabsweden/sweden-travel-ai",
+      "category": "مدن وسفر",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "sweden-life-guide",
+      "url": "https://github.com/arabsweden/sweden-life-guide",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "stockholm-guide-academy",
+      "url": "https://github.com/arabsweden/stockholm-guide-academy",
+      "category": "مدن وسفر",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "jisr-alusra-sweden",
+      "url": "https://github.com/arabsweden/jisr-alusra-sweden",
+      "category": "أسرة ومجتمع",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "migration-journey-podcast",
+      "url": "https://github.com/arabsweden/migration-journey-podcast",
+      "category": "أسرة ومجتمع",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "sweden-immigration-advisor",
+      "url": "https://github.com/arabsweden/sweden-immigration-advisor",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "sweden-migration-guide",
+      "url": "https://github.com/arabsweden/sweden-migration-guide",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "gemini-ai-student-counselor",
+      "url": "https://github.com/arabsweden/gemini-ai-student-counselor",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "stockholm-guide",
+      "url": "https://github.com/arabsweden/stockholm-guide",
+      "category": "مدن وسفر",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "sweden-travel-stockholm-guide",
+      "url": "https://github.com/arabsweden/sweden-travel-stockholm-guide",
+      "category": "مدن وسفر",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    },
+    {
+      "title": "dalil-almughtarib-sweden",
+      "url": "https://github.com/arabsweden/dalil-almughtarib-sweden",
+      "category": "الحياة والعمل في السويد",
+      "role": "مستودع كود — ليس رابط تشغيل"
+    }
+  ]
+}
