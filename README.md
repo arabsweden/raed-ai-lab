@@ -1,12 +1,14 @@
 # RAED AI LAB | Practical AI Tools & Content Workflows
 
-**Turn an idea into a script, a visual plan, and a prototype you can review.**
+**Turn an idea into a clear script, visual plan, or web prototype you can review.**
 
 RAED AI LAB is my hub for practical experiments in AI-assisted content creation and web tools. It brings together reusable prompts, structured production workflows, and community projects focused on life in Sweden.
 
 Created by **RAED SHIHAB**, an Arabic content creator and Stockholm Guide based in Stockholm.
 
 **[Explore RAED AI LAB](https://raed-creative-hub.a-abushihab.chatgpt.site)**
+
+**For clients:** [Discuss a project](#for-clients) · **For employers:** [Review my work](#for-employers)
 
 ## What the lab brings together
 
@@ -68,7 +70,7 @@ I use a seven-stage process called **RAED7**:
 
 Tools used across these experiments include Google AI Studio, the Gemini API, Google Flow, and web technologies. The combination depends on the project.
 
-## For clients | Discuss a project
+## For clients
 
 I can help shape an Arabic content concept, prepare an AI video production package, or scope a web prototype.
 
@@ -76,7 +78,7 @@ Send a short brief with your audience, desired deliverable, deadline, budget ran
 
 [Discuss a project by email](mailto:raedinsweden@gmail.com?subject=Client%20project%20enquiry%20-%20RAED%20AI%20LAB)
 
-## For employers | Review my work
+## For employers
 
 My work combines Arabic content creation, knowledge of life in Sweden, and hands-on experimentation with AI tools.
 
@@ -84,6 +86,7 @@ I welcome role enquiries in content production, Arabic localization, community-f
 
 - [View my portfolio](https://arabsweden.github.io/stockholm-guide/portfolio/)
 - [View my CV](https://arabsweden.github.io/stockholm-guide/portfolio/resume.html)
+- **LinkedIn:** LINK REQUIRED — profile ownership not yet verified.
 
 For a role enquiry, include the responsibilities, required skills, work location, working language, and employment type.
 
@@ -94,6 +97,8 @@ For a role enquiry, include the responsibilities, required skills, work location
 This README introduces RAED AI LAB and its related projects. Each linked project defines its own available features, access, and source-code availability.
 
 **[Explore RAED AI LAB](https://raed-creative-hub.a-abushihab.chatgpt.site)**
+
+**For clients:** [Discuss a project](#for-clients) · **For employers:** [Review my work](#for-employers)
 
 ---
 
