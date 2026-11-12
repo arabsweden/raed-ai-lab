@@ -31,9 +31,11 @@
 | `remotion/src/Scene1.tsx` | مشهد Vasa (الماء والعداد 333) + مكونات مشتركة: الخطوط، Grade، Grain، Center، Flash |
 | `remotion/src/Film.tsx` | فيلم ستوكهولم: Shell بالانتقالات (whip, slide, zoomblur, zoomthrough, leak)، Label، Counter، Stagger، Cascade، Wave، MapPanel، BoxDraw، LightLeak |
 | `remotion/src/GFilm.tsx` | فيلم غوتنبرغ — أبسط مثال تنسخ منه لمدينة جديدة |
+| `remotion/src/MFilm.tsx` | فيلم مالمو (لقطات Google Vids بدقة 1080×1920، بدون minterpolate للقطات بسرعة 1×) |
 | `remotion/src/Cover.tsx` | غلاف ستوكهولم وغوتنبرغ |
 | `scripts/voice_by_words.py` | تقسيم الصوت حسب الكلمات + تقصير الوقفات + التسريع + توقيت الكلمات الجديد |
 | `scripts/prep.sh` | إبطاء/تسريع اللقطات بإطارات وسيطة (minterpolate) وتكبيرها لـ 1080×1920 |
+| `scripts/sfx4.py` | نسخة مالمو من المؤثرات |
 | `scripts/sfx3.py` | موسيقى (D–A–Bm–G) ومؤثرات مصنوعة بالكود + أصوات اللقطات + تجميع الصوت (مثال غوتنبرغ) |
 | `scripts/sfx.py`, `sfx2.py`, `voice.py`, `voice_scenes.py` | نسخ ستوكهولم (مرجع) |
 

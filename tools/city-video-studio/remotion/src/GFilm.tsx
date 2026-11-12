@@ -97,7 +97,7 @@ const Stagger: React.FC<{ words: string[]; at: number; until: number; size?: num
 const Cascade: React.FC<{ text: string; at: number; until: number; size?: number; color?: string; y?: number }> = ({ text, at, until, size = 118, color = GOLD, y }) => {
   const t = useT(); const o = win(t, at, until, 0.01);
   if (o <= 0) return null;
-  return <Center y={y} style={{ opacity: o }}><div style={{ fontFamily: "Unbounded", fontWeight: 800, fontSize: size, color, whiteSpace: "nowrap" }}>{text.split("").map((c, i) => { const p = interpolate(t, [at + i * 0.07, at + i * 0.07 + 0.5], [0, 1], { ...clamp, easing: Easing.out(Easing.back(1.6)) }); return <span key={i} style={{ display: "inline-block", opacity: Math.min(1, p * 1.5), transform: `translateY(${(1 - p) * -60}px) rotate(${(1 - p) * -14}deg)` }}>{c}</span>; })}</div></Center>;
+  return <Center y={y} style={{ opacity: o }}><div style={{ fontFamily: "Unbounded", fontWeight: 800, fontSize: size, color, whiteSpace: "nowrap" }}>{text.split("").map((c, i) => { const p = interpolate(t, [at + i * 0.07, at + i * 0.07 + 0.5], [0, 1], { ...clamp, easing: Easing.out(Easing.back(1.6)) }); return <span key={i} style={{ display: "inline-block", whiteSpace: "pre", opacity: Math.min(1, p * 1.5), transform: `translateY(${(1 - p) * -60}px) rotate(${(1 - p) * -14}deg)` }}>{c}</span>; })}</div></Center>;
 };
 // M-052 Wave Text (Caveat)
 const Wave: React.FC<{ text: string; at: number; until: number; y?: number; color?: string; size?: number }> = ({ text, at, until, y, color = "white", size = 128 }) => {
