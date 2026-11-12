@@ -1,7 +1,10 @@
 # Language pack: English (`en`)
 
 ## Script
-- **words_per_scene:** 22–26 spoken words (≈ 150–160 wpm). Total 140–155 words → 55–60 s.
+- **words_per_scene:** 18–22 spoken words. Total 115–125 words → 55–60 s after the edit.
+  Lesson from the Stockholm build (Nov 2026): Gemini TTS read at ~110–120 wpm even when asked for 155,
+  so 26 words took 13 s. The edit then cuts pauses (≤ 0.18 s inside a sentence, 0.30 s between)
+  and speeds the voice up 1.18–1.2× without changing the pitch.
 - Count spoken words: «1628» read as «sixteen twenty-eight» = 3 words.
 - Spelling: British (harbour, metres, colour, centre), the standard taught in Sweden.
 - Style: short punchy sentences, present tense, second person («you») in tips.
