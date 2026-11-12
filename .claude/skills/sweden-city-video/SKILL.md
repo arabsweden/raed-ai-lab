@@ -12,6 +12,12 @@ The pipeline is the same in every language. What changes per language lives in a
 Reply to RAED in Arabic. Everything inside the deliverable is in the target language,
 except the Flow prompts (always English) and the Swedish place labels (always Swedish).
 
+## Series workflow
+For the series «Discover Sweden by Raed» (trigger: «Discover Sweden: <city>»), follow
+`projects/discover-sweden/WORKFLOW.md` end to end: research → script → Flow prompts + voice text →
+generation (with RAED's approval) → edit with `tools/city-video-studio/` → RAED review →
+post pack → Metricool post for review → tracking. Never publish or spend credits without RAED's OK.
+
 ## 0. Inputs
 - City name (Swedish spelling, e.g. Göteborg, not Gothenburg, for labels).
 - Language pack: `en` (default for this skill) or `sv`.

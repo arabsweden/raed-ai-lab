@@ -27,7 +27,8 @@
 
 ## تنظيم الملفات
 - كل حلقة في `projects/<المشروع>/<الحلقة>/` بالملفات الأربعة: 01-brief-and-sources، 02-script-and-storyboard، 03-flow-prompts، 04-edit-and-publish.
-- لا تخلط مشاريع: عرب السويد، Stockholm Guide، Familjebron (جسر الأسرة)، RAED AI LAB.
+- لا تخلط مشاريع: عرب السويد، Stockholm Guide، Familjebron (جسر الأسرة)، RAED AI LAB، Discover Sweden by Raed.
+- «Discover Sweden: <مدينة>» يعني تشغيل `projects/discover-sweden/WORKFLOW.md` بالمهارة `sweden-city-video` وأدوات `tools/city-video-studio/`.
 - استعمل القوالب في `templates/` و`prompts/` بدل البدء من الصفر.
 
 ## بوابة التطبيقات `site/`
