@@ -1,7 +1,7 @@
 # Stockholm (EN): Flow prompts and voice-over
 
 ## 6. Google Flow prompts
-**Settings for the first test:** flow.google.com → Video → Ingredients → 9:16 → Omni 1.1 Flash, 360p, 10 s, ×1.
+**Settings for the first test:** https://labs.google/fx/tools/flow → New project → Video → Ingredients → 9:16 → Omni 1.1 Flash, 360p, 10 s, ×1.
 Credit prices change, so check the balance and the price on screen and get RAED's OK before generating. Test scene 1 first.
 Every prompt below already ends with the no-text clause. Re-generate any clip that shows letters, signs or fake logos.
 

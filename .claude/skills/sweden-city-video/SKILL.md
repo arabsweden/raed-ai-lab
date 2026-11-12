@@ -79,7 +79,7 @@ RAED is B-roll: not speaking, not looking into the lens, mouth closed, framed in
 so the kinetic text stays above him. Always give a back-view fallback prompt.
 
 ## 6. Flow settings (cheapest test first)
-flow.google.com → Video → Ingredients → 9:16 → Omni 1.1 Flash, 360p, 10 s, ×1.
+https://labs.google/fx/tools/flow → New project → Video → Ingredients → 9:16 → Omni 1.1 Flash, 360p, 10 s, ×1.
 Credit costs change; check the balance and the price on screen and get RAED's OK before generating.
 Every prompt ends with: «No on-screen text, no captions, no letters, no signs, no logos.
 Natural ambient sound only, no dialogue, no music.»
