@@ -26,6 +26,7 @@ The aim is to make each step clear enough to test, review, and improve.
 | --- | --- |
 | Swedish city documentary or city trailer | RAED7 Master Prompt V003, 27 October 2026 |
 | A city Reel in 60 seconds | V003 + Addon 01, 28 October 2026 |
+| A city Reel in English (Swedish next) | [Sweden City Video skill](.claude/skills/sweden-city-video/SKILL.md) · example: [Stockholm (EN)](projects/stockholm-guide/stockholm-city-video-en/01-brief-and-sources.md) |
 | Familjebron family/school content | Comprehensive Content Guide 3.0 |
 | Everyday life and services in Sweden | Comprehensive Content Guide 3.0, Dalilak track |
 | A first draft for any video idea | Browser-local studio; review and develop its draft |
