@@ -198,3 +198,34 @@ A locked-off 9:16 shot of the open book on the wooden desk. The right-hand page 
 ```
 
 **إذا أخطأ الصوت في نطق كلمة سويدية:** سجّل الكلمات الست بصوتك أو بصوت سويدي (مثلًا من نطق Google Translate بالسويدية)، وضعها مكان الكلمة الخاطئة في المونتاج. راجع الجملة بعد الدمج.
+
+---
+
+## د) خطة بلا رصيد (2026-11-13)
+نفد رصيد Flow. نكمل بـ **صور ثابتة فقط** لثلاث صفحات: Tålamod وKämpa وHemma، والحركة تُضاف في المونتاج (تقريب بطيء وتقليب صفحات).
+مرجع الشخصية الآن **الرسمة نفسها** لا الصورة الحقيقية، حتى تطابق الصفحات المقبولة (Mod وTro وLär dig). ارفع `character-face-Tro.png` و`character-full-Mod.png` مع كل برومبت.
+مكان مجاني محتمل: تطبيق Gemini (Nano Banana). حد التوليد المجاني غير متحقق لحسابك.
+
+### Tålamod — صورة ثابتة
+```text
+Vertical 9:16 image in exactly the same style as the uploaded reference drawings: an old open book on a warm wooden desk seen from slightly above, a green potted plant in the top-left corner, soft window sunlight with leaf shadows, a thin blue-and-yellow ribbon bookmark hanging from the book.
+At the top of the page: a pale yellow watercolor brush wash with the single word "Tålamod" in the same bold black brush script as the references, spelled exactly T-å-l-a-m-o-d, with a thin blue pencil underline.
+Graphite pencil illustration on the page: the same man from the reference drawings, same face, same full beard, same tousled hair, same age, sits by a small apartment window on a dark winter afternoon, holding a steaming cup of tea, a blank envelope on the table, a candle bridge glowing on the windowsill, snow falling outside. Eyes closed, calm patient smile. Grey hoodie, his padded winter jacket hanging on the chair. Medium close-up, face in the center of the page, nothing important in the bottom 20% of the frame.
+Do not change the character: not older, no white hair, no different face. No other text anywhere, no Arabic text, no logos, no watermark.
+```
+
+### Kämpa — صورة ثابتة
+```text
+Vertical 9:16 image in exactly the same style as the uploaded reference drawings: an old open book on a warm wooden desk seen from slightly above, a green potted plant in the top-left corner, soft window sunlight with leaf shadows, a thin blue-and-yellow ribbon bookmark hanging from the book.
+At the top of the page: a pale yellow watercolor brush wash with the single word "Kämpa" in the same bold black brush script as the references, spelled exactly K-ä-m-p-a with two dots above the a, with a thin blue pencil underline.
+Graphite pencil illustration on the page: the same man from the reference drawings, same face, same full beard, same tousled hair, same age, rides a bicycle along a snowy city street before dawn, scarf blowing behind him, street lamps glowing, snow spraying from the tires. Determined expression, eyes forward. Same padded winter jacket, scarf and backpack as the references. Side view, face clearly visible in the center of the page, nothing important in the bottom 20% of the frame.
+Do not change the character. No other text anywhere, no shop signs, no Arabic text, no logos, no watermark.
+```
+
+### Hemma — صورة ثابتة
+```text
+Vertical 9:16 image in exactly the same style as the uploaded reference drawings: an old open book on a warm wooden desk seen from slightly above, a green potted plant in the top-left corner, warm golden window sunlight with leaf shadows, a thin blue-and-yellow ribbon bookmark hanging from the book.
+At the top of the page: a pale yellow watercolor brush wash with the single word "Hemma" in the same bold black brush script as the references, spelled exactly H-e-m-m-a, with a thin blue pencil underline.
+Graphite pencil illustration on the page, with light watercolor washes added only here: falu red on the cottage walls and soft green on the birch leaves and grass. The same man from the reference drawings, same face, same full beard, same tousled hair, same age, sits on the wooden steps of a small red Swedish summer cottage with white window frames, holding a coffee cup, birch trees and a calm lake behind him. He looks at the viewer with a warm welcoming smile. Grey hoodie with sleeves pushed up, no jacket. Medium shot, face in the center of the page, nothing important in the bottom 20% of the frame.
+Do not change the character. No other text anywhere, no Arabic text, no logos, no watermark.
+```
