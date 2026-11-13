@@ -21,9 +21,9 @@ At the top of the page: a pale yellow watercolor brush wash with the single word
 
 The page illustration, in detailed graphite pencil with cross-hatching, soft shading and sepia-cream paper texture, storybook style with realistic proportions: the man from the reference photo stands on a snowy path, holding the handle of a travel suitcase, a backpack on his shoulders. He looks ahead with calm determination toward a small distant Swedish town with wooden houses and a church spire. Light snow is falling. His breath is visible in the cold air. Medium shot, his face clearly visible in the center of the page, nothing important in the bottom 20% of the frame.
 
-Identity: use the uploaded photo as the only identity reference. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
+Identity: use the uploaded photo as the only identity reference. He is a mature Middle Eastern man with olive skin, short thick wavy salt-and-pepper hair brushed back, thick dark eyebrows, warm dark brown eyes, a straight prominent nose, a full dark moustache joined to a short beard with grey strands, a rounded jaw and a calm closed-mouth smile. Keep his real mature age; do not draw him as a young man. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
 
-Outfit: dark padded winter jacket open over a grey hoodie, knitted scarf, canvas backpack, wristwatch.
+Outfit: dark padded winter jacket open over a grey knitted crew-neck sweater, knitted scarf, canvas backpack, wristwatch.
 
 No other text anywhere. No Arabic text, no logos, no watermark, no signature. No extra fingers, no distorted face.
 ```
@@ -36,9 +36,9 @@ At the top of the page: a pale yellow watercolor brush wash with the single word
 
 The page illustration, in detailed graphite pencil with cross-hatching, soft shading and sepia-cream paper texture, storybook style with realistic proportions: the man from the reference photo sits by a small apartment window on a dark winter afternoon. A cup of tea is steaming in his hands, a closed envelope lies on the table, a Scandinavian candle bridge glows on the windowsill and snow falls outside. His eyes are closed and he smiles calmly, patient. Medium close-up, his face clearly visible in the center of the page, nothing important in the bottom 20% of the frame.
 
-Identity: use the uploaded photo as the only identity reference. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
+Identity: use the uploaded photo as the only identity reference. He is a mature Middle Eastern man with olive skin, short thick wavy salt-and-pepper hair brushed back, thick dark eyebrows, warm dark brown eyes, a straight prominent nose, a full dark moustache joined to a short beard with grey strands, a rounded jaw and a calm closed-mouth smile. Keep his real mature age; do not draw him as a young man. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
 
-Outfit: grey hoodie, knitted scarf loosely around the neck, wristwatch. The dark winter jacket hangs on the chair.
+Outfit: grey knitted crew-neck sweater, knitted scarf loosely around the neck, wristwatch. The dark winter jacket hangs on the chair.
 
 No other text anywhere, the envelope is blank. No Arabic text, no logos, no watermark, no signature. No extra fingers, no distorted face.
 ```
@@ -51,9 +51,9 @@ At the top of the page: a pale yellow watercolor brush wash with the words "Lär
 
 The page illustration, in detailed graphite pencil with cross-hatching, soft shading and sepia-cream paper texture, storybook style with realistic proportions: the man from the reference photo sits at a desk at night, writing in a notebook with focus, a stack of books beside him, an angled desk lamp lighting the page, a coffee mug, and a few blank sticky notes on the wall. Medium shot from a slightly high angle, his face clearly visible in the center of the page, nothing important in the bottom 20% of the frame.
 
-Identity: use the uploaded photo as the only identity reference. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
+Identity: use the uploaded photo as the only identity reference. He is a mature Middle Eastern man with olive skin, short thick wavy salt-and-pepper hair brushed back, thick dark eyebrows, warm dark brown eyes, a straight prominent nose, a full dark moustache joined to a short beard with grey strands, a rounded jaw and a calm closed-mouth smile. Keep his real mature age; do not draw him as a young man. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
 
-Outfit: grey hoodie, wristwatch.
+Outfit: grey knitted crew-neck sweater, wristwatch.
 
 No other text anywhere: book spines, notebook and sticky notes are blank. No Arabic text, no logos, no watermark, no signature. No extra fingers, no distorted face.
 ```
@@ -66,9 +66,9 @@ At the top of the page: a pale yellow watercolor brush wash with the single word
 
 The page illustration, in detailed graphite pencil with cross-hatching, soft shading and sepia-cream paper texture, storybook style with realistic proportions: the man from the reference photo rides a bicycle along a snowy city street before dawn, scarf blowing in the wind, street lamps glowing, snow on the ground. Determined expression, eyes forward. Wide side-angle shot, his face clearly visible in the center of the page, nothing important in the bottom 20% of the frame.
 
-Identity: use the uploaded photo as the only identity reference. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
+Identity: use the uploaded photo as the only identity reference. He is a mature Middle Eastern man with olive skin, short thick wavy salt-and-pepper hair brushed back, thick dark eyebrows, warm dark brown eyes, a straight prominent nose, a full dark moustache joined to a short beard with grey strands, a rounded jaw and a calm closed-mouth smile. Keep his real mature age; do not draw him as a young man. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
 
-Outfit: dark padded winter jacket over a grey hoodie, knitted scarf, canvas backpack, wristwatch.
+Outfit: dark padded winter jacket over a grey knitted crew-neck sweater, knitted scarf, canvas backpack, wristwatch.
 
 No other text anywhere, no shop signs. No Arabic text, no logos, no watermark, no signature. No extra fingers, no distorted face.
 ```
@@ -81,9 +81,9 @@ At the top of the page: a pale yellow watercolor brush wash with the single word
 
 The page illustration, in detailed graphite pencil with cross-hatching, soft shading and sepia-cream paper texture, storybook style with realistic proportions: the man from the reference photo stands on smooth rocks by calm water, eyes closed, face lifted toward a sun rising behind a generic Scandinavian city skyline with old towers and rooftops across the water, drawn pencil sun rays. Peaceful, confident smile, hands holding his backpack straps. Medium shot from a low angle, his face clearly visible in the center of the page, nothing important in the bottom 20% of the frame.
 
-Identity: use the uploaded photo as the only identity reference. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
+Identity: use the uploaded photo as the only identity reference. He is a mature Middle Eastern man with olive skin, short thick wavy salt-and-pepper hair brushed back, thick dark eyebrows, warm dark brown eyes, a straight prominent nose, a full dark moustache joined to a short beard with grey strands, a rounded jaw and a calm closed-mouth smile. Keep his real mature age; do not draw him as a young man. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
 
-Outfit: dark padded winter jacket open over a grey hoodie, canvas backpack, wristwatch.
+Outfit: dark padded winter jacket open over a grey knitted crew-neck sweater, canvas backpack, wristwatch.
 
 No other text anywhere. No Arabic text, no logos, no watermark, no signature. No extra fingers, no distorted face.
 ```
@@ -96,9 +96,9 @@ At the top of the page: a pale yellow watercolor brush wash with the single word
 
 The page illustration, in detailed graphite pencil with soft shading on sepia-cream paper, storybook style with realistic proportions, with light watercolor washes added only here: falu red on the wooden cottage walls, soft green on the birch leaves and grass. The man from the reference photo sits on the wooden steps of a small red Swedish summer cottage with white window frames, holding a coffee cup, birch trees and a calm lake behind him. He looks at the viewer with a warm, welcoming smile. Medium shot, his face clearly visible in the center of the page, nothing important in the bottom 20% of the frame.
 
-Identity: use the uploaded photo as the only identity reference. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
+Identity: use the uploaded photo as the only identity reference. He is a mature Middle Eastern man with olive skin, short thick wavy salt-and-pepper hair brushed back, thick dark eyebrows, warm dark brown eyes, a straight prominent nose, a full dark moustache joined to a short beard with grey strands, a rounded jaw and a calm closed-mouth smile. Keep his real mature age; do not draw him as a young man. Keep his exact facial features, apparent age, face shape, eyes, eyebrows, nose, mouth, jawline, beard, hairline, hair texture and body proportions. Render him in graphite pencil but keep him clearly recognizable. No beautification, no younger look, no slimming, no hairstyle change. Change only clothing, pose, lighting and background as described.
 
-Outfit: grey hoodie with sleeves pushed up, wristwatch. No jacket.
+Outfit: grey knitted crew-neck sweater with sleeves pushed up, wristwatch. No jacket.
 
 No other text anywhere. No Arabic text, no logos, no watermark, no signature. No extra fingers, no distorted face.
 ```
