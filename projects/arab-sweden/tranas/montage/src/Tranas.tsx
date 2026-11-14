@@ -35,7 +35,7 @@ const SCENES: SceneDef[] = [
 	{n: 2, move: "left", enter: "burn", grade: "sepia(0.55) saturate(0.85) contrast(1.06) brightness(0.96)", grain: 0.3},
 	{n: 3, move: "in", enter: "leak", dimAt: T.south - 0.1},
 	{n: 4, move: "right", enter: "whip"},
-	{n: 5, move: "in", enter: "circle", grade: "sepia(0.28) contrast(1.04)", grain: 0.22},
+	{n: 5, move: "in", enter: "circle", grade: "sepia(0.1) brightness(1.06)", grain: 0.18},
 	{n: 6, move: "in", enter: "leak", shiftY: 95},
 ];
 
@@ -174,8 +174,8 @@ export const Tranas: React.FC = () => (
 		{/* 01 hook: crane line drawing, island counter, map with pin */}
 		<Crane from={0.15} to={4.6} />
 		<Counter from={T.n260 - 0.5} to={T.ahlan - 0.35} countAt={T.n260 - 0.1} start={0} end={260} label="öar i Sommen" />
-		<Wash from={T.ahlan - 0.3} to={CUTS[1] + 0.4} />
-		<MapCutaway from={T.ahlan - 0.2} to={CUTS[1] + 0.4} pinAt={T.tranas} />
+		<Wash from={T.ahlan - 0.3} to={CUTS[1]} />
+		<MapCutaway from={T.ahlan - 0.2} to={CUTS[1]} pinAt={T.tranas} />
 		<AiNotice from={0.5} to={5} />
 
 		{/* 02 history: year counter + timeline */}
@@ -194,8 +194,8 @@ export const Tranas: React.FC = () => (
 
 		{/* 03 church: callout from the badge, year, then Säby route */}
 		<Callout from={T.tk} to={T.south - 0.2} x={640} y={770} />
-		<Wash from={T.south - 0.1} to={CUTS[3] + 0.4} />
-		<SabyRoute from={T.south} to={CUTS[3] + 0.4} pinAt={T.sabyk} lakeAt={T.sjon - 0.6} />
+		<Wash from={T.south - 0.1} to={CUTS[3]} out />
+		<SabyRoute from={T.south} to={CUTS[3]} pinAt={T.sabyk} lakeAt={T.sjon - 0.6} />
 
 		{/* 04 Storgatan */}
 		<WalkPath from={T.walk} to={CUTS[4] - 0.1} />

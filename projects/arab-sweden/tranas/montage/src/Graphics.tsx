@@ -147,8 +147,8 @@ export const Counter: React.FC<{
 /** Lake-blue wash over the (blurred) footage for full-screen graphic moments. */
 export const Wash: React.FC<{from: number; to: number; out?: boolean}> = ({from, to, out = false}) => {
 	const frame = useCurrentFrame();
-	const o = out ? window01(frame, from, to, 0.4, 0.3) : prog(frame, from, from + 0.4);
-	if (frame < f(from) || frame > f(to)) return null;
+	const o = out ? window01(frame, from, to, 0.4, 0.2) : prog(frame, from, from + 0.4);
+	if (frame < f(from) || frame >= f(to)) return null;
 	return (
 		<div
 			style={{
@@ -182,7 +182,7 @@ const Pin: React.FC<{x: number; y: number; at: number; scale?: number}> = ({x, y
 /** Sweden outline (Natural Earth data) drawing itself, pin drop on Tranås, title outline -> fill (M-053). */
 export const MapCutaway: React.FC<{from: number; to: number; pinAt: number}> = ({from, to, pinAt}) => {
 	const frame = useCurrentFrame();
-	if (frame < f(from) || frame > f(to)) return null;
+	if (frame < f(from) || frame >= f(to)) return null;
 	const draw = prog(frame, from + 0.1, from + 1.3, easeInOutCubic);
 	const fill = prog(frame, from + 0.9, from + 1.6);
 	const S = 0.9;
@@ -374,8 +374,8 @@ export const Callout: React.FC<{from: number; to: number; x: number; y: number}>
 /** Schematic route Tranås -> Säby kyrka, 6 km south, by Säbysjön. Not a real map. */
 export const SabyRoute: React.FC<{from: number; to: number; pinAt: number; lakeAt: number}> = ({from, to, pinAt, lakeAt}) => {
 	const frame = useCurrentFrame();
-	if (frame < f(from) || frame > f(to)) return null;
-	const vis = prog(frame, from, from + 0.3);
+	if (frame < f(from) || frame >= f(to)) return null;
+	const vis = Math.min(prog(frame, from, from + 0.3), 1 - prog(frame, to - 0.2, to));
 	const route = prog(frame, from + 0.5, pinAt, easeInOutCubic);
 	const km = prog(frame, from + 1.1, from + 1.5);
 	const name = prog(frame, pinAt + 0.4, pinAt + 0.8);
@@ -459,7 +459,7 @@ export const WalkPath: React.FC<{from: number; to: number}> = ({from, to}) => {
 /** M-039 Lower Third: bar from the right edge (0.4s), then the name (0.3s). */
 export const LowerThird: React.FC<{from: number; to: number; name: string; sub: string}> = ({from, to, name, sub}) => {
 	const frame = useCurrentFrame();
-	if (frame < f(from) || frame > f(to)) return null;
+	if (frame < f(from) || frame >= f(to)) return null;
 	const bar = Math.min(prog(frame, from, from + 0.4, easeOutExpo), 1 - prog(frame, to - 0.35, to, Easing.in(Easing.cubic)));
 	const txt = Math.min(prog(frame, from + 0.35, from + 0.65), 1 - prog(frame, to - 0.6, to - 0.35));
 	return (
