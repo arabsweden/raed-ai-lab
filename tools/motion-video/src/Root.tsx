@@ -2,8 +2,8 @@ import { Composition } from "remotion";
 import { Video, VideoProps } from "./Video";
 import { DURATION, FPS, H, W } from "./theme";
 
-// لإضافة الفويس أوفر: ضع الملف في public/voiceover.wav وغيّر voiceover إلى "voiceover.wav"
-const defaults: VideoProps = { voiceover: null, sfx: true };
+// الفويس أوفر في public/voiceover.wav (اجعله null لنسخة بدون صوت)
+const defaults: VideoProps = { voiceover: "voiceover.wav", sfx: true };
 
 export const RemotionRoot: React.FC = () => {
   return (

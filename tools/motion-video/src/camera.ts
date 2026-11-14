@@ -1,5 +1,6 @@
 import { Easing } from "remotion";
 import { FX, FY } from "./theme";
+import { T } from "./timing";
 
 export type Cam = { x: number; y: number; rot: number; s: number; fy: number };
 
@@ -48,20 +49,25 @@ const whip = Easing.bezier(0.7, 0, 0.2, 1);
 const smooth = Easing.bezier(0.65, 0, 0.35, 1);
 const dive = Easing.bezier(0.55, 0, 0.25, 1);
 
+// دفعة كاميرا بطيئة أثناء الوقوف على المحطة (تكبير خفيف ما يكشف الحواف)
+const push = (c: Cam, k: number): Cam => ({ ...c, s: c.s * k });
+const hold = Easing.inOut(Easing.sin);
+
 export const KEYS: Key[] = [
   { f: 0, cam: S1 },
-  { f: 70, cam: S1 },
-  { f: 86, cam: S2, ease: whip }, // سحبة كاميرا سريعة
-  { f: 190, cam: S2 },
-  { f: 218, cam: S3, ease: smooth }, // لفّة 90 درجة
-  { f: 322, cam: S3 },
-  { f: 350, cam: S4, ease: dive }, // غوص جوّا مربع صغير
-  { f: 432, cam: S4 },
-  { f: 462, cam: S5, ease: smooth },
-  { f: 542, cam: S5 },
-  { f: 566, cam: S6, ease: smooth, tilt: -14 }, // ميلان الكاميرا
-  { f: 642, cam: S6 },
-  { f: 690, cam: OVERVIEW, ease: smooth }, // الكاميرا ترجع ورا
+  { f: T.whip[0], cam: push(S1, 1.03), ease: hold },
+  { f: T.whip[1], cam: S2, ease: whip }, // سحبة كاميرا سريعة
+  { f: T.roll[0], cam: push(S2, 1.035), ease: hold },
+  { f: T.roll[1], cam: S3, ease: smooth }, // لفّة 90 درجة
+  { f: T.dive[0], cam: push(S3, 1.03), ease: hold },
+  { f: T.dive[1], cam: S4, ease: dive }, // غوص جوّا مربع صغير
+  { f: T.out[0], cam: push(S4, 1.03), ease: hold },
+  { f: T.out[1], cam: S5, ease: smooth },
+  { f: T.tilt[0], cam: push(S5, 1.03), ease: hold },
+  { f: T.tilt[1], cam: S6, ease: smooth, tilt: -14 }, // ميلان الكاميرا
+  { f: T.pull[0], cam: push(S6, 1.03), ease: hold },
+  { f: T.pull[1], cam: OVERVIEW, ease: smooth }, // الكاميرا ترجع ورا
+  { f: T.end, cam: push(OVERVIEW, 0.96), ease: hold },
 ];
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;

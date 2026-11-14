@@ -113,13 +113,14 @@ const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
   );
 }
 
-// 4) العدّاد: تكّة لكل رقم (1→7) في نفس فريمات تغيّر الرقم
+// 4) العدّاد: تكّة لكل رقم (1→7) في نفس فريمات تغيّر الرقم (T.counter في src/timing.ts)
+const COUNTER_FRAMES = 28;
 {
   const ticks = [];
   for (let k = 2; k <= 7; k++) {
     const e = (k - 0.5 - 1) / 6;
     const t = 1 - Math.sqrt(1 - e); // معكوس easeOutQuad
-    ticks.push({ at: (42 * t) / 30, k });
+    ticks.push({ at: (COUNTER_FRAMES * t) / 30, k });
   }
   write(
     "ratchet.wav",
@@ -218,6 +219,39 @@ const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
       const env = Math.sin(Math.PI * Math.pow(p, 0.6)) ** 2;
       const flutter = 0.75 + 0.25 * Math.sin(TAU * 13 * x);
       return (lp(noise(), 1300, 0.7).low * 0.8 + bp(noise(), 2600, 1.2).band * 0.25) * env * flutter;
+    }),
+    0.5,
+  );
+}
+
+// 10) الخط البياني ينرسم: قلم يصعد مع الخط (22 فريم)
+{
+  const bp = svf();
+  let ph = 0;
+  write(
+    "draw.wav",
+    render(0.8, (x) => {
+      const p = Math.min(1, x / 0.73);
+      ph += (TAU * (300 + 500 * p)) / SR;
+      const env = Math.min(1, x / 0.03) * (x < 0.73 ? 0.6 + 0.4 * p : Math.exp(-(x - 0.73) * 40));
+      const scratch = bp(noise(), 1800 + 2600 * p, 2.0).band * (0.6 + 0.4 * Math.sin(TAU * 30 * x));
+      return (scratch * 0.8 + Math.sin(ph) * 0.12) * env;
+    }),
+    0.45,
+  );
+}
+
+// 11) دخول كلمة جانبيًا: «زووم» قصير ينتهي بنقرة هبوط
+{
+  const bp = svf();
+  write(
+    "land.wav",
+    render(0.5, (x) => {
+      const p = Math.min(1, x / 0.42);
+      const air = bp(noise(), 600 + 2200 * p, 1.3).band * Math.pow(p, 1.5) * (x < 0.42 ? 1 : 0);
+      const t = x - 0.42;
+      const knock = t > 0 ? Math.sin(TAU * 180 * t) * Math.exp(-t * 45) * 1.2 : 0;
+      return air * 0.7 + knock;
     }),
     0.5,
   );
