@@ -17,6 +17,7 @@ import {
 } from "./camera";
 import { Burst, clamp, Kashida, Ltr, SelectBox, squash, txt, WordSwap } from "./kit";
 import { CORAL, CREAM, FPS, FX, FY, H, NAVY, W, YELLOW } from "./theme";
+import { Soundtrack } from "./sound";
 
 const sp = (frame: number, start: number, damping = 12, stiffness = 160) =>
   spring({ frame: frame - start, fps: FPS, config: { damping, stiffness } });
@@ -153,8 +154,8 @@ const Station1: React.FC<{ f: number }> = ({ f }) => {
 
 // ───── 2) ضايع بين… (تبديل كلمة + شطب) ─────
 const Station2: React.FC<{ f: number }> = ({ f }) => {
-  const strike = interpolate(f, [160, 172], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
-  const easier = squash(f, 172);
+  const strike = interpolate(f, [174, 184], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
+  const easier = squash(f, 186);
   return (
     <>
       <Row y={400}>
@@ -197,11 +198,11 @@ const Station2: React.FC<{ f: number }> = ({ f }) => {
           height={270}
         />
       </div>
-      {f >= 172 ? (
-        <Row y={1030}>
+      {f >= 186 ? (
+        <Row y={1060}>
           <div
             style={{
-              transform: `translateY(${easier.y}px) scale(${easier.sx}, ${easier.sy})`,
+              transform: `translateY(${-easier.y}px) scale(${easier.sx}, ${easier.sy})`,
               transformOrigin: "50% 100%",
             }}
           >
@@ -578,11 +579,14 @@ const BoardDecor: React.FC<{ f: number }> = ({ f }) => {
   );
 };
 
-export const Video: React.FC = () => {
+export type VideoProps = { voiceover: string | null; sfx: boolean };
+
+export const Video: React.FC<VideoProps> = ({ voiceover, sfx }) => {
   const f = useCurrentFrame();
   const c = camAt(f);
   return (
     <AbsoluteFill style={{ background: NAVY, overflow: "hidden" }}>
+      <Soundtrack voiceover={voiceover} sfx={sfx} />
       <div
         style={{
           position: "absolute",

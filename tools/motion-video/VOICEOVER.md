@@ -1,0 +1,87 @@
+# فويس أوفر فيديو RAED7 — Google AI Studio (Gemini TTS)
+
+المدة: 24 ثانية · 9:16 · 30fps · نحو 38 كلمة، والإيقاع مريح وغير مستعجل.
+
+## 1) النص — الصقه كما هو في خانة النص
+
+```
+عِنْدَك فِكْرَة؟
+
+بَسّ ضايِع… بين السّكربت، الصُّوَر، الصّوت، والمونتاج؟
+
+في طَريقَة أسْهَل.
+
+الحَلّ؟ رائِد سِڤِن… سَبِع خُطُوات.
+
+مِن الفِكْرَة… لَحَدّ ما تْشوف مُشاهَداتَك تِطْلَع.
+
+ذَكاء اصْطِناعي… مَع قِصّتَك… مُحْتَوى بيشْبَهَك.
+
+جاهِز؟ فيديوك الجاي… بِيْبَلِّش مِن هون.
+
+تابِع رائِد إيه آي لاب.
+```
+
+## 2) تعليمات الأداء — الصقها في خانة Style instructions
+
+```
+Read this in Levantine Arabic with a Jordanian (Amman) accent.
+Voice: an adult male content creator, warm, confident and upbeat — like a friend sharing a smart trick, not a radio ad.
+Delivery: short punchy phrases, natural conversational rhythm, never rushed.
+- Line 1: a curious, playful question with a clear rise at the end.
+- Line 2: a bit faster and lighter, as if listing things that overwhelm you; small beat after "ضايع".
+- Line 3: calm and reassuring, slower.
+- Line 4: confident; stress "رائد سڤن" and "سبع خطوات", short pause between them.
+- Line 5: building energy toward "تطلع".
+- Line 6: three beats with short pauses; land warmly on "بيشبهك".
+- Line 7: inviting question, then a confident answer.
+- Line 8: friendly smile in the voice, clear and slow on the name.
+Pronounce "سِڤِن" and "لاب" as the English words "seven" and "lab", and "إيه آي" as the letters "A I".
+Treat "…" as a short pause. Do not add, skip or repeat any words.
+```
+
+## 3) الإعدادات المقترحة
+
+| الإعداد | الاختيار |
+|---|---|
+| الوضع | Single-speaker (متحدث واحد) |
+| الصوت | **Charon** (صوت رجالي). للمقارنة جرّب صوتين رجاليين آخرين من القائمة |
+| الحرارة/التنويع | منخفضة إلى متوسطة، حتى لا تتغير اللهجة بين الجمل |
+| عدد التوليدات | 3 نسخ، واختر الأقرب للهجة الأردنية |
+| التنزيل | WAV |
+
+## 4) احتياط بالفصحى (إذا خرجت اللهجة غير أردنية)
+
+```
+أَلَدَيْكَ فِكْرَة؟
+لَكِنَّكَ تائِهٌ… بَيْنَ السِّكْرِبْت، وَالصُّوَر، وَالصَّوْت، وَالمُونْتاج؟
+هُناكَ طَريقَةٌ أَسْهَل.
+الحَلّ؟ رائِد سِڤِن… سَبْعُ خُطُوات.
+مِنَ الفِكْرَة… حَتّى تَرى مُشاهَداتِكَ تَرْتَفِع.
+ذَكاءٌ اصْطِناعِيّ… مَعَ قِصَّتِك… مُحْتَوًى يُشْبِهُك.
+جاهِز؟ فيديوكَ القادِمُ… يَبْدَأُ مِنْ هُنا.
+تابِعْ رائِد إيه آي لاب.
+```
+
+في نسخة الفصحى غيّر أول سطر في التعليمات إلى:
+`Read this in clear Modern Standard Arabic with a neutral Levantine flavor.`
+
+## 5) التوقيت المستهدف مقابل الحركة
+
+| الثانية | الجملة | ما يظهر على الشاشة |
+|---|---|---|
+| 0.0 | عندك فكرة؟ | «فكرة» تتمدد بالكشيدة |
+| 2.7 | بس ضايع… بين السكربت، الصور، الصوت، والمونتاج؟ | تبديل الكلمات، ثم شطب «ضايع» |
+| 6.2 | في طريقة أسهل. | الجملة تنط من تحت |
+| 7.3 | الحل؟ رائد سڤن… سبع خطوات. | إطار التحديد والعدّاد |
+| 11.5 | من الفكرة… لحد ما تشوف مشاهداتك تطلع. | الغوص في الشاشة والأعمدة |
+| 15.4 | ذكاء اصطناعي… مع قصتك… محتوى بيشبهك. | التصادم، ثم تعبئة الحبر |
+| 18.8 | جاهز؟ فيديوك الجاي… بيبلّش من هون. | الحبل والستارة |
+| 21.0 | تابع رائد إيه آي لاب. | التظليل، ثم كشف اللوحة كلها |
+
+لا يلزم أن يطابق الصوت هذه الأرقام بالضبط. ضع الملف في `public/voiceover.wav`، وأنا أقيس توقيت كل جملة وأحرّك المحطات لتطابق الصوت.
+
+## 6) المؤثرات الصوتية
+
+22 مؤثرًا في `public/sfx/`، مولّدة بالكود عبر `scripts/make-sfx.mjs` بلا حقوق. قائمة المؤثرات وتوقيتاتها في `src/sound.tsx`.
+مع الفويس أوفر تبقى المؤثرات منخفضة تحته تلقائيًا.

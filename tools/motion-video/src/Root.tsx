@@ -1,6 +1,9 @@
 import { Composition } from "remotion";
-import { Video } from "./Video";
+import { Video, VideoProps } from "./Video";
 import { DURATION, FPS, H, W } from "./theme";
+
+// لإضافة الفويس أوفر: ضع الملف في public/voiceover.wav وغيّر voiceover إلى "voiceover.wav"
+const defaults: VideoProps = { voiceover: null, sfx: true };
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -11,6 +14,7 @@ export const RemotionRoot: React.FC = () => {
       fps={FPS}
       width={W}
       height={H}
+      defaultProps={defaults}
     />
   );
 };
