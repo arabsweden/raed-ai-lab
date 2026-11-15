@@ -109,10 +109,7 @@ Audio: very quiet light wind, low volume, no music, no voice, no narration, no d
 
 # ثانيًا: البيرول (Google Flow)
 
-## بنك البيرول
-كل برومبت يُلصق معه سطر الصوت والمنع الثابت أعلاه.
-
-### B1 — نفق المنجم (للمشهد 2)
+## B1 — نفق المنجم (للمشهد 2)
 لا مرفقات.
 
 ```text
