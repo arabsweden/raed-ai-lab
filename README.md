@@ -92,6 +92,8 @@ For a role enquiry, include the responsibilities, required skills, work location
 
 [Contact me about a role](mailto:raedinsweden@gmail.com?subject=Employment%20enquiry%20-%20RAED%20SHIHAB)
 
+Episode packages in this repository (planning drafts, not published media): [Skärholmen](projects/stockholm-guide/skarholmen/01-brief-and-sources.md) · [Falun](projects/stockholm-guide/falun/01-brief-and-sources.md)
+
 ## About this repository
 
 This README introduces RAED AI LAB and its related projects. Each linked project defines its own available features, access, and source-code availability.
