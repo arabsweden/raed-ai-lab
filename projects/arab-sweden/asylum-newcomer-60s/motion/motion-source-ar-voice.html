@@ -88,7 +88,8 @@ function hud(t){
   ctx.restore();
   txt('SVERIGE · ASYL',m+24,m+64,26,{font:MONO,align:'left',ls:2});
   const s=Math.floor(t),f=Math.floor((t%1)*30);
-  txt(`00:${String(s).padStart(2,'0')}:${String(f).padStart(2,'0')}`,W-m-24,m+64,26,{font:MONO,align:'right',ls:2});
+  txt(`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}:${String(f).padStart(2,'0')}`,W-m-24,m+64,26,{font:MONO,align:'right',ls:2});
+  txt('RAED SHIHAB',W-80,H-172,26,{font:MONO,align:'right',ls:4});
   ctx.fillStyle='rgba(17,17,17,0.15)';ctx.fillRect(80,H-150,W-160,8);
   ctx.fillStyle=INK;ctx.fillRect(80,H-150,(W-160)*t/DUR,8);
 }
@@ -292,6 +293,7 @@ function sEnd(lt){
   drawRoute(1);stations(1,1);
   ctx.restore();
   revealTxt('طلب اللجوء في السويد',540,330,96,seg(lt,0,1.2),{font:ARH,dir:'rtl',col:INK});
+  txt('RAED SHIHAB',540,1165,46,{ls:8,alpha:seg(lt,1.5,2.3)});
   txt('informationsverige.se/ar',540,1230,46,{font:MONO,alpha:seg(lt,2.5,3.2)});
   txt('migrationsverket.se',540,1300,46,{font:MONO,alpha:seg(lt,3,3.7)});
   txt('Allmän information, inte juridisk rådgivning',540,1345,28,{font:MONO,alpha:seg(lt,3.5,4.2)});
