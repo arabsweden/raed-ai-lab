@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { buildRequest, extractWav, synthesize, ENDPOINT } from './gemini-tts.mjs';
+import { buildRequest, buildDialogueRequest, preflight, inspectWav, extractWav, synthesize, ENDPOINT } from './gemini-tts.mjs';
 
 function wavFixture() {
   const wav = Buffer.alloc(48);
@@ -103,4 +103,83 @@ test('CLI protects existing output and removes reserved file when no key is avai
   await rm(output);
   assert.match(run().stderr, /GEMINI_API_KEY/);
   await assert.rejects(access(output), { code: 'ENOENT' });
+});
+
+const dialogue = () => ({
+  speakers: [{ speaker: 'RAED', voice: 'Charon' }, { speaker: 'LAYAN', voice: 'Kore' }],
+  turns: [
+    { speaker: 'RAED', text: 'شو رأيك نِزور Västerås؟', style: 'Warm urban Jordanian Arabic.' },
+    { speaker: 'LAYAN', text: 'أكيد، خلّينا نكتشف قصّتها.', style: 'Conversational urban Jordanian Arabic.' },
+  ],
+});
+
+test('maps dialogue turns to distinct speaker metadata without adding spoken labels', () => {
+  const source = dialogue();
+  const request = buildDialogueRequest(source);
+  assert.deepEqual(request.generation_config.speech_config, { speakers: source.speakers });
+  assert.deepEqual(request.input[0].content.map(part => part.text), source.turns.map(turn => turn.text));
+  assert.deepEqual(request.input[0].content.map(part => part.annotations[0].speaker), ['RAED', 'LAYAN']);
+  assert.equal(preflight(request).speakers, 2);
+  assert.equal(preflight(request).turns, 2);
+});
+
+test('blocks unknown speakers, duplicate names, empty turns and preview dialogue models', () => {
+  for (const edit of [
+    d => { d.speakers[1].speaker = 'RAED'; },
+    d => { d.turns[1].speaker = 'OTHER'; },
+    d => { d.turns[1].text = ''; },
+    d => { d.turns = [d.turns[0]]; },
+    d => { d.model = 'gemini-2.5-pro-preview-tts'; },
+  ]) {
+    const d = dialogue(); edit(d);
+    assert.throws(() => buildDialogueRequest(d));
+  }
+});
+
+test('preflight ignores vocal tags when estimating timing and flags Lite Swedish limitation', () => {
+  const summary = preflight(buildRequest({ text: 'واحد <short pause> اثنان', model: 'gemini-3.8-flash-lite-tts' }));
+  assert.equal(summary.words, 2);
+  assert.ok(summary.notes.some(note => note.includes('Swedish')));
+  assert.ok(summary.estimatedSeconds.max >= summary.estimatedSeconds.min);
+});
+
+test('validates WAV sample format, frame alignment, data presence and duration', () => {
+  const wav = wavFixture();
+  assert.equal(inspectWav(wav).durationSeconds, 4 / 48000);
+  assert.equal(inspectWav(wav).needsListeningReview, true);
+  for (const mutate of [
+    b => b.writeUInt16LE(3, 20),
+    b => b.writeUInt16LE(2, 22),
+    b => b.writeUInt32LE(48000, 24),
+    b => b.writeUInt32LE(7, 40),
+    b => b.write('JUNK', 36),
+  ]) {
+    const bad = Buffer.from(wav); mutate(bad);
+    assert.throws(() => inspectWav(bad), /WAV/);
+  }
+});
+
+test('accepts padded metadata chunks without modifying the WAV', () => {
+  const original = wavFixture();
+  const metadata = Buffer.alloc(10);
+  metadata.write('JUNK'); metadata.writeUInt32LE(1, 4); metadata[8] = 42;
+  const wav = Buffer.concat([original.subarray(0, 36), metadata, original.subarray(36)]);
+  wav.writeUInt32LE(wav.length - 8, 4);
+  assert.deepEqual(extractWav(responseFor(wav)), wav);
+});
+
+test('CLI dialogue dry run succeeds and mixed single/dialogue options fail locally', async t => {
+  const dir = await mkdtemp(join(tmpdir(), 'raed7-dialogue-'));
+  t.after(() => rm(dir, { recursive: true, force: true }));
+  const input = join(dir, 'dialogue.json');
+  const cli = fileURLToPath(new URL('./gemini-tts.mjs', import.meta.url));
+  await writeFile(input, JSON.stringify(dialogue()));
+  const run = args => spawnSync(process.execPath, [cli, '--dialogue', input, ...args], {
+    encoding: 'utf8', env: { ...process.env, GEMINI_API_KEY: '' },
+  });
+  const good = run([]);
+  assert.equal(good.status, 0, good.stderr);
+  assert.equal(JSON.parse(good.stdout).preflight.speakers, 2);
+  assert.equal(run(['--voice', 'Charon']).status, 1);
+  assert.equal(run(['--text', 'unused.txt']).status, 1);
 });

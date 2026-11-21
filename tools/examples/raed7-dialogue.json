@@ -1,0 +1,19 @@
+{
+  "model": "gemini-3.8-flash-tts",
+  "speakers": [
+    { "speaker": "RAED", "voice": "Charon" },
+    { "speaker": "LAYAN", "voice": "Kore" }
+  ],
+  "turns": [
+    {
+      "speaker": "RAED",
+      "text": "شو رأيك نِزور Västerås؟",
+      "style": "Warm, mature urban Jordanian Arabic. Pronounce Västerås natively in Swedish."
+    },
+    {
+      "speaker": "LAYAN",
+      "text": "أكيد، خلّينا نكتشف قصّتها ونحكي عنها بطريقتنا.",
+      "style": "Calm, conversational urban Jordanian Arabic, clear and natural."
+    }
+  ]
+}

@@ -24,6 +24,82 @@ export function buildRequest({ text, style = '', voice = 'Charon', model = 'gemi
   };
 }
 
+export function buildDialogueRequest({ speakers, turns, model = 'gemini-3.8-flash-tts' }) {
+  if (!Array.isArray(speakers) || speakers.length !== 2 || !Array.isArray(turns) || !turns.length) {
+    throw new Error('Dialogue requires exactly two speakers and at least one turn.');
+  }
+  const names = new Set();
+  const configured = speakers.map(item => {
+    if (typeof item?.speaker !== 'string' || !item.speaker.trim() ||
+        typeof item.voice !== 'string' || !item.voice.trim() || names.has(item.speaker)) {
+      throw new Error('Each speaker requires a unique name and a voice.');
+    }
+    names.add(item.speaker);
+    return { speaker: item.speaker, voice: item.voice };
+  });
+  const content = turns.map(turn => {
+    if (!names.has(turn?.speaker)) throw new Error('Dialogue turn refers to an unknown speaker.');
+    const part = buildRequest({ text: turn.text, style: turn.style ?? '', model }).input[0].content[0];
+    part.annotations[0].speaker = turn.speaker;
+    return part;
+  });
+  if (new Set(turns.map(turn => turn.speaker)).size !== 2) {
+    throw new Error('Include at least one turn for each configured speaker.');
+  }
+  const request = buildRequest({ text: turns[0].text, model });
+  request.input[0].content = content;
+  request.generation_config.speech_config = { speakers: configured };
+  return request;
+}
+
+export function preflight(request) {
+  const parts = request.input[0].content;
+  const text = parts.map(part => part.text.replace(/<[^>]*>/g, '')).join(' ');
+  const words = text.trim().split(/\s+/u).filter(Boolean).length;
+  return {
+    speakers: Array.isArray(request.generation_config.speech_config) ? 1 : 2,
+    turns: parts.length,
+    words,
+    estimatedSeconds: { min: Math.ceil(words / 160 * 60), max: Math.ceil(words / 130 * 60) },
+    notes: [
+      'Timing is an estimate; measure the generated WAV and review it by listening.',
+      ...(request.model.endsWith('lite-tts') ? ['Flash-Lite does not list Swedish support; use Flash TTS for Swedish place names.'] : []),
+    ],
+  };
+}
+
+export function inspectWav(wav) {
+  const invalid = () => { throw new Error('Expected a complete WAV file. Raw PCM or malformed audio was not saved.'); };
+  if (!Buffer.isBuffer(wav) || wav.length < 44 || wav.toString('ascii', 0, 4) !== 'RIFF' ||
+      wav.toString('ascii', 8, 12) !== 'WAVE' || wav.readUInt32LE(4) + 8 !== wav.length) invalid();
+  let offset = 12;
+  let format;
+  let dataBytes = 0;
+  while (offset < wav.length) {
+    if (offset + 8 > wav.length) invalid();
+    const id = wav.toString('ascii', offset, offset + 4);
+    const size = wav.readUInt32LE(offset + 4);
+    const start = offset + 8;
+    const next = start + size + size % 2;
+    if (next > wav.length) invalid();
+    if (id === 'fmt ') {
+      if (format || size < 16) invalid();
+      format = {
+        encoding: wav.readUInt16LE(start), channels: wav.readUInt16LE(start + 2),
+        sampleRate: wav.readUInt32LE(start + 4), byteRate: wav.readUInt32LE(start + 8),
+        blockAlign: wav.readUInt16LE(start + 12), bitsPerSample: wav.readUInt16LE(start + 14),
+      };
+    }
+    if (id === 'data') dataBytes += size;
+    offset = next;
+  }
+  if (!format || format.encoding !== 1 || format.channels !== 1 || format.bitsPerSample !== 16 ||
+      format.sampleRate !== 24000 || format.blockAlign !== 2 || format.byteRate !== 48000 ||
+      !dataBytes || dataBytes % format.blockAlign) invalid();
+  return { sampleRate: format.sampleRate, channels: format.channels, bitsPerSample: format.bitsPerSample,
+    durationSeconds: dataBytes / format.byteRate, needsListeningReview: true };
+}
+
 export function extractWav(response) {
   // REST returns steps[].content[]; output_audio is an SDK convenience property.
   const blocks = (response?.steps ?? [])
@@ -33,10 +109,7 @@ export function extractWav(response) {
   const data = blocks.at(-1)?.data;
   if (typeof data !== 'string' || !data.length) throw new Error('No audio returned.');
   const wav = Buffer.from(data, 'base64');
-  if (wav.length < 44 || wav.toString('ascii', 0, 4) !== 'RIFF' ||
-      wav.toString('ascii', 8, 12) !== 'WAVE' || wav.readUInt32LE(4) + 8 !== wav.length) {
-    throw new Error('Expected a complete WAV file. Raw PCM or malformed audio was not saved.');
-  }
+  inspectWav(wav);
   // Return the original WAV bytes. Never add a second WAV header.
   return wav;
 }
@@ -58,22 +131,26 @@ export async function synthesize(request, { apiKey, fetchImpl = fetch } = {}) {
 async function main(args) {
   const generate = args.includes('--generate');
   const values = {};
-  const allowed = new Set(['--text', '--style', '--voice', '--model', '--out']);
+  const allowed = new Set(['--text', '--dialogue', '--style', '--voice', '--model', '--out']);
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--generate') continue;
     if (!allowed.has(args[i]) || !args[i + 1] || args[i + 1].startsWith('--')) {
-      throw new Error('Usage: node tools/gemini-tts.mjs --text transcript.txt [--style style.txt] [--voice Charon] [--model gemini-3.8-flash-tts] [--out voice.wav] [--generate]');
+      throw new Error('Usage: node tools/gemini-tts.mjs (--text transcript.txt | --dialogue dialogue.json) [--style style.txt] [--voice Charon] [--model gemini-3.8-flash-tts] [--out voice.wav] [--generate]');
     }
     values[args[i].slice(2)] = args[++i];
   }
-  if (!values.text) throw new Error('--text transcript.txt is required.');
-  const request = buildRequest({
+  if (Boolean(values.text) === Boolean(values.dialogue)) throw new Error('Choose exactly one of --text or --dialogue.');
+  if (values.dialogue && (values.style || values.voice)) throw new Error('Configure dialogue styles and voices in the JSON file.');
+  const request = values.dialogue ? buildDialogueRequest({
+    ...JSON.parse(await readFile(values.dialogue, 'utf8')),
+    ...(values.model ? { model: values.model } : {}),
+  }) : buildRequest({
     text: await readFile(values.text, 'utf8'),
     style: values.style ? await readFile(values.style, 'utf8') : '',
     voice: values.voice, model: values.model,
   });
   if (!generate) {
-    console.log(JSON.stringify({ mode: 'dry-run', networkRequests: 0, request }, null, 2));
+    console.log(JSON.stringify({ mode: 'dry-run', networkRequests: 0, preflight: preflight(request), request }, null, 2));
     return;
   }
   if (!values.out?.toLowerCase().endsWith('.wav')) throw new Error('--out must be a .wav path.');
@@ -84,7 +161,7 @@ async function main(args) {
     const wav = await synthesize(request, { apiKey: process.env.GEMINI_API_KEY });
     await handle.writeFile(wav);
     complete = true;
-    console.log(`Saved WAV: ${values.out}`);
+    console.log(JSON.stringify({ file: values.out, ...inspectWav(wav) }, null, 2));
   } finally {
     await handle.close();
     if (!complete) await unlink(values.out);
