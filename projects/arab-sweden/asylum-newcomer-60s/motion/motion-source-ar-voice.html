@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <style>
 @font-face{font-family:'ArefR';src:url('fonts/ArefRuqaa-Bold.ttf') format('truetype');}
-@font-face{font-family:'ReemK';src:url('fonts/ReemKufi-VF.ttf') format('truetype');font-weight:400 800;}
+@font-face{font-family:'NotoSansAr';src:url('fonts/NotoSansArabic-Bold.ttf') format('truetype');font-weight:700;}
 html,body{margin:0;background:#111}
 canvas{display:block;width:1080px;height:1920px}
 </style>
@@ -18,7 +18,7 @@ function sceneEnd(k){return k<STARTS.length-1?STARTS[k+1]:DUR;}
 const CREAM='#F3EFE6',ORANGE='#EE6A45',INK='#111111',PURPLE='#7B5CFF',GOLD='#E2B04A',PAPER='#FFFDF8';
 const SANS='"Arial Black","Helvetica Neue",Arial,sans-serif';
 const MONO='"Courier New",ui-monospace,monospace';
-const AR='ReemK, Arial, sans-serif', ARH='ArefR, ReemK, serif';
+const AR='NotoSansAr, Arial, sans-serif', ARH='ArefR, NotoSansAr, serif';
 
 const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
 const seg=(t,a,b)=>clamp((t-a)/(b-a));
@@ -315,15 +315,16 @@ function caption(t){
   ctx.save();ctx.globalAlpha=a*0.95;ctx.fillStyle=PAPER;ctx.shadowColor='rgba(17,17,17,0.2)';ctx.shadowBlur=30;ctx.shadowOffsetY=12;
   ctx.beginPath();ctx.roundRect(x,y,w,h,28);ctx.fill();ctx.restore();
   const words=BEATS[b].split(' ');const wt=TIMING[b].words;
-  let fs=56;const maxW=w-110;
-  const layout=(size)=>{ctx.save();ctx.font=`600 ${size}px ${AR}`;ctx.direction='rtl';
+  let fs=54;const maxW=w-110;
+  const layout=(size)=>{ctx.save();ctx.font=`700 ${size}px ${AR}`;ctx.direction='rtl';
     const sp=ctx.measureText(' ').width;const ws=words.map(q=>ctx.measureText(q).width);ctx.restore();
     const lines=[];let cur=[],cw=0;
     ws.forEach((ww,i)=>{const add=cur.length?sp+ww:ww;if(cw+add>maxW&&cur.length){lines.push({idx:cur,w:cw});cur=[i];cw=ww;}else{cur.push(i);cw+=add;}});
     if(cur.length)lines.push({idx:cur,w:cw});return {lines,ws,sp};};
   let L=layout(fs);if(L.lines.length>3){fs=46;L=layout(fs);}
-  const lh=fs*1.55;const top=y+h/2-((L.lines.length-1)*lh)/2+fs*0.32;
-  ctx.save();ctx.font=`600 ${fs}px ${AR}`;ctx.direction='rtl';ctx.textAlign='right';ctx.textBaseline='alphabetic';
+  const lhK=1.6;
+  const lh=fs*lhK;const top=y+h/2-((L.lines.length-1)*lh)/2+fs*0.32;
+  ctx.save();ctx.font=`700 ${fs}px ${AR}`;ctx.direction='rtl';ctx.textAlign='right';ctx.textBaseline='alphabetic';
   L.lines.forEach((ln,li)=>{
     let xr=x+w/2+ln.w/2;const yy=top+li*lh;
     ln.idx.forEach(i=>{
@@ -380,6 +381,6 @@ function render(t){
   if(t>DUR-0.4){ctx.save();ctx.globalAlpha=(t-(DUR-0.4))/0.4;ctx.fillStyle=CREAM;ctx.fillRect(0,0,W,H);ctx.restore();}
 }
 window.render=render;
-Promise.all([document.fonts.load('56px ReemK'),document.fonts.load('96px ArefR')]).catch(()=>{}).then(()=>{window.ready=true;render(0);});
+Promise.all([document.fonts.load('700 56px NotoSansAr'),document.fonts.load('96px ArefR')]).catch(()=>{}).then(()=>{window.ready=true;render(0);});
 </script>
 </body></html>
