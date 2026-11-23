@@ -86,7 +86,7 @@ I welcome role enquiries in content production, Arabic localization, community-f
 
 - [View my portfolio](https://arabsweden.github.io/stockholm-guide/portfolio/)
 - [View my CV](https://arabsweden.github.io/stockholm-guide/portfolio/resume.html)
-- **LinkedIn:** LINK REQUIRED — profile ownership not yet verified.
+- [Public contact channels and project links](https://linktr.ee/raedshihab)
 
 For a role enquiry, include the responsibilities, required skills, work location, working language, and employment type.
 
