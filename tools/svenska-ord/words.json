@@ -1,0 +1,43 @@
+{
+  "defaults": {
+    "category": "SVENSKA ORD",
+    "durationInSeconds": 12,
+    "wordFontSize": 380,
+    "blendMode": "lighten",
+    "mediaFocus": "50% 50%",
+    "mediaScale": 1,
+    "mediaOffset": "0px 0px",
+    "voiceStartSec": 0.6,
+    "captionsSource": null,
+    "whoosh": true,
+    "ambient": true,
+    "ambientVolume": 0.18,
+    "showArabicText": true
+  },
+  "episodes": [
+    {
+      "id": "lagom",
+      "episode": 1,
+      "swedishWord": "LAGOM",
+      "phonetic": "/ˈlɑːɡɔm/",
+      "arabicTitle": "لا كثير ولا قليل",
+      "arabicExplanation": "لاغوم كلمة سويدية تعني القدر المناسب. لا إفراط ولا تقصير. توازن في العمل والأكل والحياة اليومية.",
+      "mediaSource": "media/lagom-portrait.jpg",
+      "audioSource": null,
+      "mediaFocus": "38% 50%"
+    },
+    {
+      "id": "fika",
+      "episode": 2,
+      "swedishWord": "FIKA",
+      "phonetic": "/ˈfiːka/",
+      "arabicTitle": "استراحة القهوة السويدية",
+      "arabicExplanation": "فيكا ليست مجرد قهوة. هي استراحة مع حلوى ورفقة طيبة. في العمل والبيت، يتوقف الجميع للفيكا.",
+      "mediaSource": "media/fika-coffee.jpg",
+      "audioSource": null,
+      "wordFontSize": 460,
+      "mediaScale": 0.82,
+      "mediaOffset": "-60px -300px"
+    }
+  ]
+}
