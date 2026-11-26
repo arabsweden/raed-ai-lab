@@ -70,6 +70,25 @@ I use a seven-stage process called **RAED7**:
 
 Tools used across these experiments include Google AI Studio, the Gemini API, Google Flow, and web technologies. The combination depends on the project.
 
+## Open-source Claude Code plugins
+
+This repository is a Claude Code plugin marketplace, released under the [MIT License](LICENSE).
+
+| Plugin | What it does | Author |
+| --- | --- | --- |
+| `raed-tools` | RAED7 templates as local slash commands, plus a usage watcher | RAED SHIHAB |
+| `majed-video` | Arabic video editing: talking-head reels, review reels, 3D motion explainers, podcasts, montage, covers | [Majed Alzaabi](https://github.com/majedphotos/video-ad-editor) (MIT) |
+
+Install in Claude Code:
+
+```
+/plugin marketplace add arabsweden/raed-ai-lab
+/plugin install majed-video@raed-ai-lab
+/plugin install raed-tools@raed-ai-lab
+```
+
+`majed-video` is installed directly from its original repository, so you always get the author's latest version. All credit for it goes to Majed Alzaabi.
+
 ## For clients
 
 I can help shape an Arabic content concept, prepare an AI video production package, or scope a web prototype.
@@ -94,7 +113,7 @@ For a role enquiry, include the responsibilities, required skills, work location
 
 ## About this repository
 
-This README introduces RAED AI LAB and its related projects. Each linked project defines its own available features, access, and source-code availability.
+This README introduces RAED AI LAB and its related projects. The contents of this repository are open source under the [MIT License](LICENSE). Each linked project defines its own features, access, and license.
 
 **[Explore RAED AI LAB](https://raed-creative-hub.a-abushihab.chatgpt.site)**
 

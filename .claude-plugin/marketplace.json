@@ -1,7 +1,21 @@
 {
   "name": "raed-ai-lab",
-  "owner": { "name": "RAED SHIHAB" },
+  "owner": { "name": "RAED SHIHAB", "url": "https://github.com/arabsweden" },
+  "description": "Open-source Claude Code plugins for Arabic content creation (MIT)",
   "plugins": [
-    { "name": "raed-tools", "source": "./tools/raed-tools", "description": "RAED7 templates as local slash commands (no tokens) plus a usage watcher" }
+    {
+      "name": "raed-tools",
+      "source": "./tools/raed-tools",
+      "description": "RAED7 templates as local slash commands (no tokens) plus a usage watcher",
+      "license": "MIT"
+    },
+    {
+      "name": "majed-video",
+      "source": { "source": "github", "repo": "majedphotos/video-ad-editor" },
+      "description": "Arabic video editing by Majed Alzaabi: talking-head reels, review reels, 3D motion explainers, podcasts, beat-synced montage, covers & thumbnails",
+      "author": { "name": "Majed Alzaabi", "url": "https://github.com/majedphotos" },
+      "homepage": "https://github.com/majedphotos/video-ad-editor",
+      "license": "MIT"
+    }
   ]
 }
