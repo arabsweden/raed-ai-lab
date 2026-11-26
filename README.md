@@ -111,6 +111,13 @@ For a role enquiry, include the responsibilities, required skills, work location
 
 [Contact me about a role](mailto:raedinsweden@gmail.com?subject=Employment%20enquiry%20-%20RAED%20SHIHAB)
 
+## Episode packages
+
+Planning packages only; media is not produced unless [production status](tracking/production-status.md) says so.
+
+- [Skärholmen — Stockholm Guide](projects/stockholm-guide/skarholmen/01-brief-and-sources.md)
+- [Vinter i Sverige — Arab Sweden](projects/arab-sweden/vinter-i-sverige/01-brief-and-sources.md) (draft)
+
 ## About this repository
 
 This README introduces RAED AI LAB and its related projects. The contents of this repository are open source under the [MIT License](LICENSE). Each linked project defines its own features, access, and license.
